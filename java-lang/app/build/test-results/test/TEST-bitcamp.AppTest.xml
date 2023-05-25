@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="bitcamp.AppTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-05-24T05:33:20" hostname="DESKTOP-2OTR3I5" time="0.012">
+  <properties/>
+  <testcase name="appHasAGreeting()" classname="bitcamp.AppTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
