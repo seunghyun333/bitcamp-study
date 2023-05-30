@@ -70,4 +70,12 @@ git 사용법
     -변수 선언, 변수에 값 할당
     -Primitive Data Type 소개: byte, short, long, char, float, double, boolean
 프로젝트 실습
-  -변수를 사용하여 데이터를 저장하기 
+  -3. 변수를 사용하여 데이터를 저장하기
+
+# 6일(5/30, 화)
+자바프로그래밍
+  - 표준 입출력 API(도구) 사용법(com.eomcs.lang.ex99)
+  - 변수 사용법(com.eomcs.lang.ex04)
+프로젝트 실습 
+  -4. 키보드로 값을 입력받기
+  -5. 배열을 이용하여 여러개의 데이터를 입력받기
