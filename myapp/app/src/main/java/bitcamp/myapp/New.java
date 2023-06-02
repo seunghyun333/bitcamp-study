@@ -2,7 +2,7 @@ package bitcamp.myapp;
 
 import java.util.Scanner;
 
-public class App {
+public class New {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
 
@@ -29,16 +29,16 @@ public class App {
     printMembers(length, no, name, email, gender);
 
     scanner.close();
-
   }
 
   static void printTitle() {
     System.out.println("나의 목록 관리 시스템");
-    System.out.println("-----------------------------");
+    System.out.println("-----------------------");
   }
 
   static void inputMember(Scanner scanner, int i,
-      String[] name, String[] email, String[] password, char[] gender, int[] no, int userId) {
+      String[] name, String[] email, String[] password, char[] gender, int[] no,
+      int userId) {
     System.out.print("이름? ");
     name[i] = scanner.next();
 
@@ -50,21 +50,11 @@ public class App {
 
     loop: while (true) {
       System.out.println("성별: ");
-      System.out.println(" 1. 남자 ");
-      System.out.println(" 2. 여자 ");
+      System.out.println("1. 남자 ");
+      System.out.println("2. 여자 ");
       System.out.print(" >");
       String menuNo = scanner.next();
-      scanner.nextLine(); // *입력값을 (token) 읽고 난 후에 남아있는 줄바꿈 코드를 제거한다.
-
-      // if (menuNo.equals("1")) {
-      // gender[i] = 'M';
-      // break;
-      // } else if (menuNo.equals("2")) {
-      // gender[i] = 'W';
-      // break;
-      // } else {
-      // System.out.println("무효한 번호입니다.");
-      // }
+      scanner.nextLine();
 
       switch (menuNo) {
         case "1":
@@ -74,8 +64,7 @@ public class App {
           gender[i] = 'W';
           break loop;
         default:
-          System.out.println("무효한 번호 입니다");
-
+          System.out.println("무효한 번호입니다.");
       }
     }
     no[i] = userId++;
@@ -91,9 +80,9 @@ public class App {
   }
 
   static void printMembers(int length, int[] no, String[] name, String[] email, char[] gender) {
-    System.out.println("============================");
-    System.out.printf("번호, 이름, 이메일 , 성별 \n");
-    System.out.println("============================");
+    System.out.println("=======================");
+    System.out.printf("번호, 이름, 이메일, 성별 \n");
+    System.out.println("=======================");
 
     for (int i = 0; i < length; i++) {
       System.out.printf("%d, %s, %s, %c\n", no[i], name[i], email[i], gender[i]);
