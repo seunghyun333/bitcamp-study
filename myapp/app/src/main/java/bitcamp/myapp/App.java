@@ -11,9 +11,11 @@ public class App {
   static String[] email = new String[MAX_SIZE];
   static String[] password = new String[MAX_SIZE];
   static char[] gender = new char[MAX_SIZE];
-
   static int userId = 1;
   static int length = 0;
+
+  static final char MALE = 'M';
+  static final char FEMALE = 'W';
 
   public static void main(String[] args) {
 
@@ -38,29 +40,22 @@ public class App {
   }
 
   static void inputMember() {
-    System.out.print("이름? ");
-    name[length] = scanner.next();
-
-    System.out.print("이메일? ");
-    email[length] = scanner.next();
-
-    System.out.print("암호? ");
-    password[length] = scanner.next();
+    name[length] = prompt("이름? ");
+    email[length] = prompt("이메일? ");
+    password[length] = prompt("암호? ");
 
     loop: while (true) {
-      System.out.println("성별: ");
-      System.out.println(" 1. 남자 ");
-      System.out.println(" 2. 여자 ");
-      System.out.print(" >");
-      String menuNo = scanner.next();
-      scanner.nextLine(); // *입력값을 (token) 읽고 난 후에 남아있는 줄바꿈 코드를 제거한다.
+      String menuNo = prompt("성별:\n " +
+          " 1. 남자\n " +
+          " 2. 여자\n " +
+          " >");
 
       switch (menuNo) {
         case "1":
-          gender[length] = 'M';
+          gender[length] = MALE;
           break loop;
         case "2":
-          gender[length] = 'W';
+          gender[length] = FEMALE;
           break loop;
         default:
           System.out.println("무효한 번호 입니다");
@@ -73,8 +68,7 @@ public class App {
   }
 
   static boolean promptContinue() {
-    System.out.print("계속 하시겠습니까?(Y/n) ");
-    String response = scanner.nextLine();
+    String response = prompt("계속 하시겠습니까?(Y/n) ");
     if (!response.equals("") && !response.equalsIgnoreCase("Y")) {
       return false;
     }
@@ -90,4 +84,10 @@ public class App {
       System.out.printf("%d, %s, %s, %c\n", no[i], name[i], email[i], gender[i]);
     }
   }
+
+  static String prompt(String title) {
+    System.out.print(title);
+    return scanner.nextLine();
+  }
+
 }
