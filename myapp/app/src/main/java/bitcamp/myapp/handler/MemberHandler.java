@@ -1,4 +1,6 @@
-package bitcamp.myapp;
+package bitcamp.myapp.handler;
+
+import bitcamp.util.Prompt;
 
 public class MemberHandler {
 
@@ -14,7 +16,7 @@ public class MemberHandler {
   static final char MALE = 'M';
   static final char FEMALE = 'W';
 
-  static void inputMember() {
+  public static void inputMember() {
     name[length] = Prompt.inputString("이름? ");
     email[length] = Prompt.inputString("이메일? ");
     password[length] = Prompt.inputString("암호? ");
@@ -34,7 +36,6 @@ public class MemberHandler {
           break loop;
         default:
           System.out.println("무효한 번호 입니다");
-
       }
     }
 
@@ -42,7 +43,7 @@ public class MemberHandler {
     length++;
   }
 
-  static void printMembers() {
+  public static void printMembers() {
     System.out.println("============================");
     System.out.printf("번호, 이름, 이메일 , 성별 \n");
     System.out.println("============================");
@@ -52,4 +53,7 @@ public class MemberHandler {
     }
   }
 
+  public static boolean available() {
+    return length < MAX_SIZE;
+  }
 }
