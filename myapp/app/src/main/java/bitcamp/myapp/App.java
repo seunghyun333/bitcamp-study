@@ -8,18 +8,40 @@ public class App {
   public static void main(String[] args) {
 
     printTitle();
+    printMenu();
 
-    while (MemberHandler.available()) {
-      MemberHandler.inputMember();
-      if (!promptContinue()) {
+    while (true) {
+      String menuNo = Prompt.inputString("메인> ");
+      if (menuNo.equals("6")) {
         break;
+      } else if (menuNo.equals("menu")) {
+        printMenu();
+      } else if (menuNo.equals("1")) {
+        MemberHandler.inputMember();
+      } else if (menuNo.equals("2")) {
+        MemberHandler.printMembers();
+      } else if (menuNo.equals("3")) {
+        MemberHandler.viewMemeber();
+      } else if (menuNo.equals("4")) {
+        MemberHandler.updateMember();
+      } else if (menuNo.equals("5")) {
+        MemberHandler.deletMember();
+      } else {
+        System.out.println(menuNo);
       }
     }
 
-    MemberHandler.printMembers();
+    Prompt.close();
 
-    Prompt.close(); // 닫을 일 있으면 닫아
+  }
 
+  static void printMenu() {
+    System.out.println("1. 회원 등록 ");
+    System.out.println("2. 회원 목록 ");
+    System.out.println("3. 회원 조회 ");
+    System.out.println("4. 회원 변경 ");
+    System.out.println("5. 회원 삭제 ");
+    System.out.println("6. 종료 ");
   }
 
   static void printTitle() {
