@@ -133,4 +133,6 @@ git 사용법
       - 이름, url
     - to: jinyoung.eom@gmail.com
 
+ # 12일(6/8, 목)    
+
 
