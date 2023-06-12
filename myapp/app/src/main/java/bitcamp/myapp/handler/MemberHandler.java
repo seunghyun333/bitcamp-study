@@ -7,11 +7,8 @@ public class MemberHandler {
 
   static final int MAX_SIZE = 100;
   static Member[] members = new Member[MAX_SIZE];
-  static int userId = 1;
   static int length = 0;
 
-  static final char MALE = 'M';
-  static final char FEMALE = 'W';
 
   public static void inputMember() {
     if (!available()) {
@@ -24,7 +21,6 @@ public class MemberHandler {
     m.setEmail(Prompt.inputString("이메일? "));
     m.setPassword(Prompt.inputString("암호? "));
     m.setGender(inputGender((char) 0));
-    m.setNo(userId++);
 
     // 위에서 만든 Member 인스턴스의 주소를 잃어버리지 않게 레퍼런스 배열에 담는다.
     members[length++] = m; // 0번째에 담는다.
@@ -49,7 +45,7 @@ public class MemberHandler {
     String memberNo = Prompt.inputString("회원번호? ");
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      if (m.no == Integer.parseInt(memberNo)) {
+      if (m.getNo() == Integer.parseInt(memberNo)) {
         System.out.printf("이름 : %s \n", m.getName());
         System.out.printf("이메일 : %s \n", m.getEmail());
         System.out.printf("성별 : %s \n", toGenderString(m.getGender()));
@@ -63,14 +59,14 @@ public class MemberHandler {
     String memberNo = Prompt.inputString("수정할 번호? ");
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      if (m.no == Integer.parseInt(memberNo)) {
+      if (m.getNo() == Integer.parseInt(memberNo)) {
         System.out.printf("이름(%s)? >", m.getName());
         m.setName(Prompt.inputString(""));
         System.out.printf("이메일(%s)? >", m.getEmail());
         m.setEmail(Prompt.inputString(""));
         System.out.printf("비밀번호(%s)? >", m.getPassword());
         m.setPassword(Prompt.inputString(""));
-        m.setGender(inputGender(m.gender));
+        m.setGender(inputGender(m.getGender()));
         return;
       }
     }
@@ -94,9 +90,9 @@ public class MemberHandler {
 
       switch (menuNo) {
         case "1":
-          return MALE;
+          return Member.MALE;
         case "2":
-          return FEMALE;
+          return Member.FEMALE;
         default:
           System.out.println("무효한 번호입니다.");
       }
@@ -122,7 +118,7 @@ public class MemberHandler {
   private static int indexOf(int memberNo) {
     for (int i = 0; i < length; i++) {
       Member m = members[i];
-      if (m.no == memberNo) {
+      if (m.getNo() == memberNo) {
         return i;
       }
     }
