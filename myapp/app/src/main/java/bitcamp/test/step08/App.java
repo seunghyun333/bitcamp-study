@@ -22,7 +22,7 @@ public class App {
       this.sum = this.kor + this.eng + this.math;
       this.aver = this.sum / 3f;
     }
-  }
+  } 
   
   public static void main(String[] args) {
 

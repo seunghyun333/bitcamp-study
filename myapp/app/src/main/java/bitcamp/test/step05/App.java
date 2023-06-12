@@ -18,8 +18,6 @@ public class App {
   
   public static void main(String[] args) {
 
-    
-
     final int MAX_SIZE = 10;
     Score[] scores = new Score[MAX_SIZE]; //레퍼런스 10개 준비
     int length = 0;
