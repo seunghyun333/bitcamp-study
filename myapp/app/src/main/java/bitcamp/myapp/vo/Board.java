@@ -9,11 +9,11 @@ public class Board {
 	private String writer;
 	private String password;
 	private int viewCount;
-	private long createDate;
+	private long createdDate;
 	
 	public Board() {
 		this.no = boardNo++;
-		this.createDate = System.currentTimeMillis();
+		this.createdDate = System.currentTimeMillis();
 	}
 	
 	public int getNo() {
@@ -46,11 +46,11 @@ public class Board {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
-	public long getCreateDate() {
-		return createDate;
+	public long getCreatedDate() {
+		return createdDate;
 	}
-	public void setCreateDate(long createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(long createdDate) {
+		this.createdDate = createdDate;
 	}
 	public String getPassword() {
 		return password;

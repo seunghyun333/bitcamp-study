@@ -1,21 +1,32 @@
 package bitcamp.util;
 
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class Prompt {
 
-  static Scanner scanner = new Scanner(System.in);
-
-  public static String inputString(String title) {
-    System.out.print(title);
-    return scanner.nextLine();
+  private Scanner scanner;
+  
+  //default constructor 정의 
+  public Prompt() {
+	  this.scanner = new Scanner(System.in);
+  }
+  
+  //다른 입력 도구와 연결한다면 
+  public Prompt(InputStream in) {
+	 this.scanner = new Scanner(in);
   }
 
-  public static int inputInt(String title) {
-    return Integer.parseInt(inputString(title));
+  public String inputString(String title, Object... args) {
+    System.out.printf(title, args);
+    return this.scanner.nextLine();
   }
 
-  public static void close() {
+  public int inputInt(String title, Object... args) {
+    return Integer.parseInt(this.inputString(title, args));
+  }
+
+  public void close() {
     scanner.close();
   }
 }
