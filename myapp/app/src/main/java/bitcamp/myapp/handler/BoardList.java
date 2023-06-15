@@ -27,8 +27,8 @@ public class BoardList {
   }
       // boards 레퍼런스가 새 배열을 가리키도록 한다. 
       boards = arr; 
-  	//System.out.println("배열확장:  " + boards.length);
       
+      //System.out.println("배열확장:  " + boards.length);
   }
   
   public Board[] list() {
