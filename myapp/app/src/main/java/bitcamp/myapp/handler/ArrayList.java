@@ -1,39 +1,36 @@
 package bitcamp.myapp.handler;
 
-import bitcamp.myapp.vo.Member;
-
-public class MemberList {
+public class ArrayList {
   private static final int DEFAULT_SIZE = 3; 
   
-  private Member[] members = new Member[DEFAULT_SIZE]; 
+  private Object[] list = new Object[DEFAULT_SIZE]; 
   private int length;
   
   
-  public void add(Member m) {
-	if(this.length == members.length) {
+  public void add(Object obj) {
+	if(this.length == list.length) {
 		increase();
 	} 
-	this.members[this.length++] = m;
-	
+	this.list[this.length++] = obj;
   }
   
   private void increase() {
-	  Member[] arr = new Member[members.length + (members.length >> 1)];
-	  for(int i =0; i < members.length; i++) {
-		  arr[i] = members[i];
+	  Object[] arr = new Object[list.length + (list.length >> 1)];
+	  for(int i =0; i < list.length; i++) {
+		  arr[i] = list[i];
 	  }
-	  members = arr;
-	  	System.out.println("배열확장:  " + members.length);
+	  list = arr;
+	  	//System.out.println("배열확장:  " + list.length);
   }
   
   //복제해서 담아서 리턴
-  public Member[] list() {
+  public Object[] list() {
 	  //리턴할 값을 담을 배열 생성
-	  Member[] arr = new Member[this.length];
+	  Object[] arr = new Object[this.length];
 	  
 	  //원본 배열에서 입력된 인스턴스 주소를 꺼내 새 배열에 담는다.
 	  for (int i = 0; i < this.length; i++) {
-	      arr[i] = this.members[i];
+	      arr[i] = this.list[i];
 	    }
 	  
 	  //새 배열을 리턴한다.
@@ -42,33 +39,33 @@ public class MemberList {
 
   }
   
-  public Member get(int no) {
+  public Object get(Object obj) {
 	  for (int i = 0; i < this.length; i++) {
-	      Member m = this.members[i];
-	      if (m.getNo() == no) {     
-	        return m;
+	      Object item = this.list[i];
+	      if (item.equals(obj)) {     
+	        return item;
 	      }
 	    }
 	  return null;
   }
   
-  public boolean delete(int no) {
-    int delectedIndex = indexOf(no);
+  public boolean delete(Object obj) {
+    int delectedIndex = indexOf(obj);
 	 if (delectedIndex == -1) {
 	    return false;
 	    }
 	 
    for (int i = delectedIndex; i < this.length - 1; i++) {
-	 this.members[i] = this.members[i + 1];
+	 this.list[i] = this.list[i + 1];
 	}
-   this.members[--this.length] = null;	  
+   this.list[--this.length] = null;	  
    return true;
   }
   
-  private int indexOf(int memberNo) {
+  private int indexOf(Object obj) {
 	    for (int i = 0; i < this.length; i++) {
-	      Member m = members[i];
-	      if (m.getNo() == memberNo) {
+	      Object item = this.list[i];
+	      if (item.equals(obj)) {
 	        return i;
 	      }
 	    }

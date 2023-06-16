@@ -5,7 +5,7 @@ import bitcamp.util.Prompt;
 
 public class MemberHandler implements Handler {
 
-  private MemberList list = new MemberList();
+  private ArrayList list = new ArrayList();
   private Prompt prompt;
   private String title;
   
@@ -49,7 +49,7 @@ public class MemberHandler implements Handler {
 	    System.out.println("3. 조회 ");
 	    System.out.println("4. 변경 ");
 	    System.out.println("5. 삭제 ");
-	    System.out.println("6. 메인 ");
+	    System.out.println("0. 메인 ");
 	  }
   
   
@@ -69,8 +69,9 @@ public class MemberHandler implements Handler {
     System.out.printf("번호, 이름, 이메일 , 성별 \n");
     System.out.println("============================");
 
-    Member[] arr = list.list();
-    for (Member m : arr) {
+    Object[] arr = this.list.list();
+    for (Object obj : arr) {
+    	Member m = (Member) obj;
       System.out.printf("%d, %s, %s, %s\n", m.getNo(), m.getName(), m.getEmail(),
           toGenderString(m.getGender())); // i번째
 
@@ -79,7 +80,8 @@ public class MemberHandler implements Handler {
 
   private void viewMemeber() {
     int memberNo = this.prompt.inputInt("회원번호? ");
-      Member m = list.get(memberNo);
+    
+    Member m = (Member) this.list.get(new Member(memberNo));
       if(m == null) {
     	System.out.println("해당 번호의 회원이 없습니다.");
         return;
@@ -93,7 +95,7 @@ public class MemberHandler implements Handler {
   private void updateMember() {
     int memberNo = this.prompt.inputInt("수정할 번호? ");
     
-    Member m = list.get(memberNo);
+    Member m = (Member) this.list.get(new Member(memberNo));
     if(m == null) {
   	System.out.println("해당 번호의 회원이 없습니다.");
       return;
@@ -131,10 +133,8 @@ public class MemberHandler implements Handler {
   }
 
   private void deleteMember() {
-    int memberNo = this.prompt.inputInt("삭제할 번호? ");
-
-    if (!this.list.delete(memberNo)) {
-      System.out.println("해당 번호의 무효한 번호입니다.");
+	  if(!this.list.delete(new Member(this.prompt.inputInt("번호? ")))) {
+      System.out.println("무효한 번호입니다.");
      }
     }
   }

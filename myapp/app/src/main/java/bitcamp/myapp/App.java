@@ -19,7 +19,7 @@ public class App {
     Handler boardHandler = new BoardHandler(prompt, "게시글");
     Handler readingHandler = new BoardHandler(prompt, "독서록");
     
-    
+     
 	  
 	printTitle();
 	
@@ -29,7 +29,7 @@ public class App {
 
     while (true) {
       String menuNo = prompt.inputString("메인> ");
-      if (menuNo.equals("6")) {
+      if (menuNo.equals("0")) {
         break;
       } else if (menuNo.equals("menu")) {
         printMenu();

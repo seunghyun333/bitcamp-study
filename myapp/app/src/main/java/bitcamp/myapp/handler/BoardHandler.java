@@ -6,7 +6,7 @@ import bitcamp.util.Prompt;
 public class BoardHandler implements Handler {
 
 
-   private BoardList list = new BoardList();
+   private ArrayList list = new ArrayList();
    private Prompt prompt;
    private String title;
    
@@ -20,7 +20,7 @@ public class BoardHandler implements Handler {
 	   
 	    while (true) {
 	      String menuNo = prompt.inputString("%s> ", this.title);
-	      if (menuNo.equals("6")) {
+	      if (menuNo.equals("0")) {
 	        return; 
 	      } else if (menuNo.equals("menu")) {
 	        printMenu();
@@ -46,7 +46,7 @@ public class BoardHandler implements Handler {
 	    System.out.println("3. 조회 ");
 	    System.out.println("4. 변경 ");
 	    System.out.println("5. 삭제 ");
-	    System.out.println("6. 메인 ");
+	    System.out.println("0. 메인 ");
 	  }
  
 
@@ -66,8 +66,9 @@ public class BoardHandler implements Handler {
     System.out.printf("번호, 제목, 작성자 , 조회수, 등록일 \n");
     System.out.println("============================");
     
-     Board[] arr = list.list(); 
-     for (Board board : arr) {
+     Object[] arr = this.list.list(); 
+     for (Object obj : arr) {
+    	 Board board = (Board) obj;
       System.out.printf("%d, %s, %s, %d, %tY-%5$tm-%5$td\n", 
     		  board.getNo(), board.getTitle(), board.getWriter(), board.getViewCount(), board.getCreatedDate());
     }
@@ -75,9 +76,10 @@ public class BoardHandler implements Handler {
 
   private void viewBoard() {
     int boardNo = this.prompt.inputInt("게시글 번호? ");
-    Board board = list.get(boardNo);
+    
+    Board board = (Board) this.list.get(new Board(boardNo));
     if(board == null) {
-    	System.out.println("해당 번호의 회원이 없습니다.");
+    	System.out.println("해당 번호의 게시글이 없습니다.");
     	return;
     }
 
@@ -92,7 +94,7 @@ public class BoardHandler implements Handler {
   private void updateBoard() {
     int boardNo = this.prompt.inputInt("수정할 번호? ");
 
-      Board board = list.get(boardNo);
+      Board board = (Board) this.list.get(new Board(boardNo));
       if (board == null) {
     	  System.out.println("해당 번호의 게시글이 없습니다.");
     	  return;
@@ -105,10 +107,8 @@ public class BoardHandler implements Handler {
   
 
   private void deleteBoard() {
-    int boardNo = this.prompt.inputInt("삭제할 번호? ");
-    
-    if (!this.list.delete(boardNo)) {
-    	System.out.println("해당 번호의 무효한 번호입니다.");
+	  if(!this.list.delete(new Board(this.prompt.inputInt("번호? ")))) {
+      System.out.println("무효한 번호입니다.");
     }
     }
   }
