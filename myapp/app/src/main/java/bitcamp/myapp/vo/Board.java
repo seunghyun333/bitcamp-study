@@ -30,7 +30,7 @@ public class Board {
 	
 	
 	Board board = (Board) obj;
-	
+	 
 	if(this.getNo() != board.getNo()) {
 		return false;
 	}
