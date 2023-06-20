@@ -110,12 +110,15 @@
   - UI가 CLI에서 윈도우 또는 웹으로 바뀌더라도 인스턴스 목록 다루는 기능은 재사용 가능
 - 배열 크기 자동 증가 기능 추가
 
-## 19. 다형성을 이용하여 MemberList를 범용으로 만들기
+## 19. 다형성을 이용하여 범용으로 사용할 수 있는 목록 클래스 만들기
 
 - 목록 관리 범용 클래스 ArrayList 정의
   - 다형성의 polymorphic variable 문법 활용
 - equals() 메서드와 오버라이딩 활용
   - Object 클래스와 상속
+  - Member와 Board 클래스에 적용
+- 오버로딩을 활용하여 생성자를 추가
+  - Member와 Board 클래스 적용
 - MemberHandler와 BoardHandler에 적용
 
 ## 20. LinkedList 자료구조 구현하기
@@ -133,13 +136,20 @@
 - MemberHandler와 BoardHandler에 적용
   - List 구현체를 생성자를 통해 주입: DI(Dependency Injection) 적용
 
-
 ## 22. Stack, Queue 자료구조 구현하기
 
 - Stack과 Queue의 구동원리 이해 및 구현
-- Prompt 클래스에 적용
+- Stack 적용
+  - Prompt 클래스의 서브 클래스 MenuPrompt 정의
+  - MenuPrompt에서 Stack을 이용하여 프롬프트 제목에 breadcrumb 기능을 적용
+- Queue 적용
+  - MenuPrompt 클래스에 메뉴 출력 기능을 추가
+    - App, BoardHandler, MemberHandler 변경
+  - MenuPrompt 클래스에 입력한 명령어의 history 기능을 추가
 
-## 23. Iterator 디자인 패턴을 활용하여 목록 조회 기능을 캡슐화하기
+## 23. 
+
+## 24. Iterator 디자인 패턴을 활용하여 목록 조회 기능을 캡슐화하기
 
 - GoF의 디자인 패턴 중 Iterator 패턴의 동작원리 이해 및 구현
 - ArrayList, LinkedList, Stack, Queue에 적용

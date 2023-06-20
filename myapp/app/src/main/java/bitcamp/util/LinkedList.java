@@ -34,7 +34,7 @@ public class LinkedList implements List {
 		print(list);
 		//System.out.println(list.retrieve(200));
 		
-
+ 
 	}
 	
 	static void print(LinkedList list) {
