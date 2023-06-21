@@ -6,15 +6,15 @@ import java.util.Scanner;
 public class Prompt {
 
   private Scanner scanner;
-  
-  //default constructor 정의 
+
+  // default constructor 정의
   public Prompt() {
-	  this.scanner = new Scanner(System.in);
+    this.scanner = new Scanner(System.in);
   }
-  
-  //다른 입력 도구와 연결한다면 
+
+  // 다른 입력 도구와 연결한다면
   public Prompt(InputStream in) {
-	 this.scanner = new Scanner(in);
+    this.scanner = new Scanner(in);
   }
 
   public String inputString(String title, Object... args) {
