@@ -2,7 +2,7 @@
 package com.eomcs.oop.ex06.a;
 
 public class Exam0520 {
-
+ 
   // Sedan과 Truck, Bike의 모든 정보를 자세히 출력하라!
   // 단, 한 개의 메서드로 처리하라!
 

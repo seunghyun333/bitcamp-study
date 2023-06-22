@@ -1,6 +1,6 @@
 // 다형성 - 다형적 변수의 활용
 package com.eomcs.oop.ex06.a;
-
+ 
 public class Exam0521 {
 
   public static void main(String[] args) {

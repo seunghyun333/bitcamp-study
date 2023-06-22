@@ -34,7 +34,7 @@ public class Exam0140 {
       System.out.printf("  => this.working(%s)\n", this.working);
       System.out.printf("  => super.working(%b)\n", super.working);
     }
-  }
+  } 
 
 
   public static void main(String[] args) {
