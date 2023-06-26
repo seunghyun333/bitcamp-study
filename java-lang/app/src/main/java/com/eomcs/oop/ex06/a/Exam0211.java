@@ -36,7 +36,7 @@ public class Exam0211 {
     // => 그냥 레퍼런스를 형변환 해서 사용하라!
     Sedan s = (Sedan)v1;
     s.cc = 1980;
-    s.valve = 16;
+    s.valve = 17;
     s.sunroof = true;
     s.auto = true;
 

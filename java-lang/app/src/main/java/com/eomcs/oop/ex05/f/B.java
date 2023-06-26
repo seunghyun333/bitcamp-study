@@ -19,7 +19,7 @@ public class B extends A {
     System.out.println("B클래스의 static{} 실행!");
   }
 }
-
+  
 
 
 

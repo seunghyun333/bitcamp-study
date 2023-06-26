@@ -27,6 +27,7 @@ public class Prompt {
   }
 
   public void close() {
-    scanner.close();
+    this.scanner.close();
   }
+
 }
