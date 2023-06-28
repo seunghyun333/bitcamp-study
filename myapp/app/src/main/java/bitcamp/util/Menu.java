@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Menu {
 
   private String title;
-  private ArrayList<ActionListener> listeners = new ArrayList();
+  private ArrayList<ActionListener> listeners = new ArrayList<>();
 
   public Menu(String title) {
     this.title = title;

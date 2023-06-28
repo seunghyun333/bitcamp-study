@@ -2,7 +2,6 @@ package bitcamp.myapp.handler;
 
 import java.util.Iterator;
 import java.util.List;
-
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.BreadcrumbPrompt;
 
