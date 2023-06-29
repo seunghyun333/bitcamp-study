@@ -1,11 +1,15 @@
 package bitcamp.myapp;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import bitcamp.io.BufferedDataInputStream;
-import bitcamp.io.BufferedDataOutputStream;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -104,7 +108,9 @@ public class App {
 
   private void loadMember() {
     try {
-      BufferedDataInputStream in = new BufferedDataInputStream("member.data");
+      FileInputStream in0 = new FileInputStream("member.data");
+      BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator 역할을 수행!
+      DataInputStream in = new DataInputStream(in1);  //<데코레이터 역할 수행 
 
       int size = in.readShort();
 
@@ -130,7 +136,10 @@ public class App {
 
   private void loadBoard(String filename, List<Board> list) {
     try {
-    	BufferedDataInputStream in = new BufferedDataInputStream(filename);
+    	FileInputStream in0 = new FileInputStream(filename);
+    	BufferedInputStream in1 = new BufferedInputStream(in0); // <== Decorator 역할을 수행!
+        DataInputStream in = new DataInputStream(in1);  
+
 
       int size = in.readShort();
 
@@ -159,7 +168,10 @@ public class App {
 
   private void saveMember() {
     try {
-      BufferedDataOutputStream out = new BufferedDataOutputStream("member.data");
+     FileOutputStream out0 = new FileOutputStream("member.data");
+     BufferedOutputStream out1 = new BufferedOutputStream(out0); // <= Decorator 
+     DataOutputStream out = new DataOutputStream(out1);
+     
 
       out.writeShort(memberList.size());
 
@@ -179,7 +191,9 @@ public class App {
 
   private void saveBoard(String filename, List<Board> list) {
     try {
-    	BufferedDataOutputStream out = new BufferedDataOutputStream(filename);
+        FileOutputStream out0 = new FileOutputStream(filename);
+        BufferedOutputStream out1 = new BufferedOutputStream(out0); // <= Decorator 
+        DataOutputStream out = new DataOutputStream(out1); // <= Decorator 
 
       out.writeShort(list.size());
 
