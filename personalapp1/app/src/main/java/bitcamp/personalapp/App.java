@@ -2,6 +2,7 @@ package bitcamp.personalapp;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import bitcamp.io.DataInputStream;
 import bitcamp.io.DataOutputStream;
 import bitcamp.personalapp.handler.BoardAddListener;
@@ -37,7 +38,7 @@ public class App {
 	  }
 
 	  public static void main(String[] args) {
-		new App().execute;
+		new App().execute();
 	  }
 	  
 	  static void printTitle() {
@@ -109,7 +110,7 @@ public class App {
 
 			in.close();
 
-		} catcth (Exception e) {
+		} catch (Exception e) {
 			System.out.println("다이어리 정보를 읽는 중 오류 발생!");
 		}
 	  }
@@ -154,7 +155,7 @@ public class App {
 			out.writeUTF(diary.getTitle());
 			out.writeUTF(diary.getWeather());
 			out.writeUTF(diary.getContents());
-			out.wirteChar(diary.getCoffee());
+			out.writeChar(diary.getCoffee());
 			}
 			out.close();
 

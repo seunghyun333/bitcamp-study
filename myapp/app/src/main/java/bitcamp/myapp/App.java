@@ -1,12 +1,11 @@
 package bitcamp.myapp;
 
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import bitcamp.io.DataInputStream;
-import bitcamp.io.DataOutputStream;
+import bitcamp.io.BufferedDataInputStream;
+import bitcamp.io.BufferedDataOutputStream;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
 import bitcamp.myapp.handler.BoardDetailListener;
@@ -63,7 +62,6 @@ public class App {
     loadMember();
     loadBoard("board.data", boardList);
     loadBoard("reading.data", readingList);
-
   }
 
   private void saveData() {
@@ -106,22 +104,22 @@ public class App {
 
   private void loadMember() {
     try {
-      DataInputStream in = new DataInputStream("member.data");
-      
+      BufferedDataInputStream in = new BufferedDataInputStream("member.data");
+
       int size = in.readShort();
 
       for (int i = 0; i < size; i++) {
         Member member = new Member();
-        member.setNo(in.read());
+        member.setNo(in.readInt());
         member.setName(in.readUTF());
         member.setEmail(in.readUTF());
         member.setPassword(in.readUTF());
         member.setGender(in.readChar());
         memberList.add(member);
       }
-      
-      //데이터를 로딩한 이후에 추가할 회원의 번호를 설정한다. 
-      Member.userId = memberList.get(memberList.size()-1).getNo()+1;
+
+      // 데이터를 로딩한 이후에 추가할 회원의 번호를 설정한다.
+      Member.userId = memberList.get(memberList.size() - 1).getNo() + 1;
 
       in.close();
 
@@ -132,8 +130,8 @@ public class App {
 
   private void loadBoard(String filename, List<Board> list) {
     try {
-      DataInputStream in = new DataInputStream(filename);
-      
+    	BufferedDataInputStream in = new BufferedDataInputStream(filename);
+
       int size = in.readShort();
 
       for (int i = 0; i < size; i++) {
@@ -145,13 +143,12 @@ public class App {
         board.setPassword(in.readUTF());
         board.setViewCount(in.readInt());
         board.setCreatedDate(in.readLong());
-
         list.add(board);
       }
-      
-      Board.boardNo = Math.max (
-    		  Board.boardNo,
-    		  list.get(list.size()-1).getNo()+1);
+
+      Board.boardNo = Math.max(
+          Board.boardNo,
+          list.get(list.size() - 1).getNo() + 1);
 
       in.close();
 
@@ -159,13 +156,11 @@ public class App {
       System.out.println(filename + " 파일을 읽는 중 오류 발생!");
     }
   }
-  
 
   private void saveMember() {
     try {
-      DataOutputStream out = new DataOutputStream("member.data");
+      BufferedDataOutputStream out = new BufferedDataOutputStream("member.data");
 
-      // 저장할 데이터의 개수를 먼저 출력한다.
       out.writeShort(memberList.size());
 
       for (Member member : memberList) {
@@ -174,7 +169,6 @@ public class App {
         out.writeUTF(member.getEmail());
         out.writeUTF(member.getPassword());
         out.writeChar(member.getGender());
-
       }
       out.close();
 
@@ -185,27 +179,23 @@ public class App {
 
   private void saveBoard(String filename, List<Board> list) {
     try {
-      DataOutputStream out = new DataOutputStream(filename);
+    	BufferedDataOutputStream out = new BufferedDataOutputStream(filename);
 
-      // 저장할 데이터의 개수를 먼저 출력한다.
       out.writeShort(list.size());
-      
 
       for (Board board : list) {
-    	  out.writeInt(board.getNo());
-    	  out.writeUTF(board.getTitle());
-    	  out.writeUTF(board.getContent());
-    	  out.writeUTF(board.getWriter());
-    	  out.writeUTF(board.getPassword());
-    	  out.writeInt(board.getViewCount());
-    	  out.writeLong(board.getCreatedDate());
+        out.writeInt(board.getNo());
+        out.writeUTF(board.getTitle());
+        out.writeUTF(board.getContent());
+        out.writeUTF(board.getWriter());
+        out.writeUTF(board.getPassword());
+        out.writeInt(board.getViewCount());
+        out.writeLong(board.getCreatedDate());
       }
       out.close();
 
     } catch (Exception e) {
-      System.out.println(filename + "파일을 저장하는 중 오류 발생!");
+      System.out.println(filename + " 파일을 저장하는 중 오류 발생!");
     }
   }
-
-
 }

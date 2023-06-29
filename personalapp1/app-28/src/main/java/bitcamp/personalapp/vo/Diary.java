@@ -2,7 +2,7 @@ package bitcamp.personalapp.vo;
 
 public class Diary {
 
-  private static int turn = 1;
+  public static int turn = 1;
 
   public static final char DRINK = 'O';
   public static final char NONCOFFEE = 'X';

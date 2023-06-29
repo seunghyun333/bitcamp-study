@@ -10,7 +10,7 @@ public class DataOutputStream extends FileOutputStream{
         super(name);
     }
 
-    public void wirteShort(int v) throws IOException {
+    public void writeShort(int v) throws IOException {
         this.write(v >> 8);
         this.write(v);
     }

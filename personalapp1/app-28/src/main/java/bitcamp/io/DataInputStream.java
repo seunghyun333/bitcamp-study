@@ -30,14 +30,14 @@ public class DataInputStream extends FileInputStream{
     }
 
     public char readChar() throws IOException {
-        return (Char)(this.read()  << 8 | this.read());
+        return (char)(this.read() << 8 | this.read());
     }
 
     public String readUTF() throws IOException {
         int length = this.read() << 8 | this.read();
         byte[] buf = new byte[length];
         this.read(buf);
-        return new STring(buf, "UTF-8");
+        return new String(buf, "UTF-8");
     }
     
 }
