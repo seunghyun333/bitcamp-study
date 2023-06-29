@@ -3,12 +3,8 @@ package bitcamp.personalapp;
 import java.util.LinkedList;
 import java.util.List;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import bitcamp.io.DataInputStream;
+import bitcamp.io.DataOutputStream;
 import bitcamp.personalapp.handler.BoardAddListener;
 import bitcamp.personalapp.handler.BoardDeleteListener;
 import bitcamp.personalapp.handler.BoardDetailListener;
@@ -96,10 +92,7 @@ public class App {
 
 	  private void loadDiary() {
 		try {
-			FileInputStream in0 = new FileInputStream("diary.data");
-			BufferedInputStream in1 = new BufferedDataInputStream(in0);
-			DataInputStream in = new DataInputStream(in1);
-
+			BufferedDataInputStream in = new BufferedDataInputStream("diary.data");
 			int size = in.readShort();
 
 			for (int i = 0; i < size; i++) {
@@ -124,11 +117,8 @@ public class App {
 
 	  private void loadBoard(String filename, List<Board> list) {
     	try {
-      		FileInputStream in0 = new FileInputStream(filename);
-			BufferedInputStream in1 = new BufferedDataInputStream(in0);
-			DataInputStream in = new DataInputStream(in1);
-
-     		 int size = in.readShort();
+      BufferedDataInputStream in = new BufferedDataInputStream(filename);
+      int size = in.readShort();
 
       for (int i = 0; i < size; i++) {
         Board board = new Board();
@@ -155,9 +145,7 @@ public class App {
 
   private void saveDiary() {
 	try {
-		FileOutputStream out0 = new FileOutputStream("diary.data");
-		BufferedDataOutputStream out = new BufferedDataOutputStream(out0);
-		DataOutputStream out = new DataOutputStream(out1);
+		BufferedDataOutputStream out = new BufferedDataOutputStream("diary.data");
 
 		out.writeShort(diaryList.size());
 
@@ -178,9 +166,7 @@ public class App {
 	 
  private void saveBoard(String filename, List<Board> list) {
     try {
-	  FileOutputStream out0 = new FileOutputStream(filename);
-      BufferedDataOutputStream out = new BufferedDataOutputStream(out0);
-	  DataOutputStream out = new DataOutputStream(out1);
+      BufferedDataOutputStream out = new BufferedDataOutputStream(filename);
 
       out.writeShort(list.size());
 
