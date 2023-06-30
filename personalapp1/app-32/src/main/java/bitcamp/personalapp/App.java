@@ -1,11 +1,11 @@
 package bitcamp.personalapp;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.lang.reflect.Method;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +23,6 @@ import bitcamp.personalapp.handler.FooterListener;
 import bitcamp.personalapp.handler.HeaderListener;
 import bitcamp.personalapp.handler.HelloListener;
 import bitcamp.personalapp.vo.Board;
-import bitcamp.personalapp.vo.CsvObject;
 import bitcamp.personalapp.vo.Diary;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
@@ -40,7 +39,7 @@ public class App {
 
 	  public App() {
 		prepareMenu();
-	  } 
+	  }
 
 	  public static void main(String[] args) {
 		new App().execute();
@@ -62,13 +61,13 @@ public class App {
 	  }
 
 	  private void loadData() {
-		  loadCsv("diary.csv", diaryList, Diary.class);
-		  loadCsv("board.csv", boardList, Board.class);
+		loadDiary("diary.data2", diaryList);
+		loadBoard("board.data2", boardList);
 	  }
 
 	  private void saveData() {
-		  saveCsv("diary.csv", diaryList);
-		  saveCsv("board.csv", boardList);
+		saveDiary("diary.data2", diaryList);
+		saveBoard("board.data2", boardList);
 	  }
 
 	  private void prepareMenu() {
@@ -95,20 +94,21 @@ public class App {
 		mainMenu.add(helloMenu);
 	  }
 
-	  @SuppressWarnings("unchecked")
-	private <T extends CsvObject> void loadCsv(String filename, List<T> list, Class<T> clazz) {
+	  private void loadDiary(String filename, List<Diary> list) {
 		try {
-			Method factoryMethod = clazz.getDeclaredMethod("fromCsv", String.class);
-			
-			FileReader in0 = new FileReader(filename);
-			BufferedReader in = new BufferedReader(in0);
-			
-			String line = null;
+			FileInputStream in0 = new FileInputStream("diary.data");
+			BufferedInputStream in1 = new BufferedInputStream(in0);
+			ObjectInputStream in = new ObjectInputStream(in1);
 
-			while ((line = in.readLine()) != null) {
-				list.add((T)factoryMethod.invoke(null, line));
-				//list.add(Diary.fromCsv(line));
+			int size = in.readShort();
+
+			for (int i = 0; i < size; i++) {
+				list.add((Diary) in.readObject());
 			} 
+			
+			if (list.size() > 0) {
+			Diary.turn = diaryList.get(diaryList.size() -1).getNo() +1;
+			}
 			
 			in.close();
 
@@ -117,21 +117,65 @@ public class App {
 		}
 	  } 
 
+	  private void loadBoard(String filename, List<Board> list) {
+    	try {
+      		FileInputStream in0 = new FileInputStream(filename);
+			BufferedInputStream in1 = new BufferedInputStream(in0);
+			ObjectInputStream in = new ObjectInputStream(in1);
 
-  private void saveCsv(String filename, List<? extends CsvObject> list) {
+     	 int size = in.readShort();
+
+        for (int i = 0; i < size; i++) {
+        list.add((Board) in.readObject());
+        }
+      
+      if(list.size() > 0) {
+      Board.boardNo = Math.max(
+          Board.boardNo,
+          list.get(list.size() - 1).getNo() + 1);
+      }
+      
+      in.close();
+
+    } catch (Exception e) {
+      System.out.println(filename + " 파일을 읽는 중 오류 발생!");
+    }
+  }
+
+  private void saveDiary(String filename, List<Diary> list) {
 	try {
-		FileWriter out0 = new FileWriter(filename);
-		BufferedWriter out1 = new BufferedWriter(out0);
-		PrintWriter out = new PrintWriter(out1);
+		FileOutputStream out0 = new FileOutputStream(filename);
+		BufferedOutputStream out1 = new BufferedOutputStream(out0);
+		ObjectOutputStream out = new ObjectOutputStream(out1);
 
-		for (CsvObject obj : list){
-			out.println(obj.toCsvString());
+		out.writeShort(list.size());
+
+		for (Diary diary : list){
+			out.writeObject(diary);
 			}
+		
 			out.close();
 
 		}  catch (Exception e)	{
 			System.out.println(filename + " 파일을 저장하는 중 오류 발생!");
 		}
   	  }
+	 
+  private void saveBoard(String filename, List<Board> list) {
+	    try {
+	      FileOutputStream out0 = new FileOutputStream(filename);
+	      BufferedOutputStream out1 = new BufferedOutputStream(out0); // <== Decorator(장식품) 역할 수행!
+	      ObjectOutputStream out = new ObjectOutputStream(out1); // <== Decorator(장식품) 역할 수행!
 
+	      out.writeShort(list.size());
+
+	      for (Board board : list) {
+	        out.writeObject(board);
+	      }
+	      out.close();
+
+	    } catch (Exception e) {
+	      System.out.println(filename + " 파일을 저장하는 중 오류 발생!");
+	    }
+	  }
 	}

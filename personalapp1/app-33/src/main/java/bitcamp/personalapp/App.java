@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +22,6 @@ import bitcamp.personalapp.handler.FooterListener;
 import bitcamp.personalapp.handler.HeaderListener;
 import bitcamp.personalapp.handler.HelloListener;
 import bitcamp.personalapp.vo.Board;
-import bitcamp.personalapp.vo.CsvObject;
 import bitcamp.personalapp.vo.Diary;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
@@ -40,7 +38,7 @@ public class App {
 
 	  public App() {
 		prepareMenu();
-	  } 
+	  }
 
 	  public static void main(String[] args) {
 		new App().execute();
@@ -62,13 +60,13 @@ public class App {
 	  }
 
 	  private void loadData() {
-		  loadCsv("diary.csv", diaryList, Diary.class);
-		  loadCsv("board.csv", boardList, Board.class);
+		loadDiary("diary.csv", diaryList);
+		loadBoard("board.csv", boardList);
 	  }
 
 	  private void saveData() {
-		  saveCsv("diary.csv", diaryList);
-		  saveCsv("board.csv", boardList);
+		saveDiary("diary.csv", diaryList);
+		saveBoard("board.csv", boardList);
 	  }
 
 	  private void prepareMenu() {
@@ -95,20 +93,28 @@ public class App {
 		mainMenu.add(helloMenu);
 	  }
 
-	  @SuppressWarnings("unchecked")
-	private <T extends CsvObject> void loadCsv(String filename, List<T> list, Class<T> clazz) {
+	  private void loadDiary(String filename, List<Diary> list) {
 		try {
-			Method factoryMethod = clazz.getDeclaredMethod("fromCsv", String.class);
-			
 			FileReader in0 = new FileReader(filename);
 			BufferedReader in = new BufferedReader(in0);
 			
 			String line = null;
 
 			while ((line = in.readLine()) != null) {
-				list.add((T)factoryMethod.invoke(null, line));
-				//list.add(Diary.fromCsv(line));
+				String[] values = line.split(",");
+				Diary diary = new Diary();
+				diary.setNo(Integer.parseInt(values[0]));
+				diary.setDate(values[1]);
+				diary.setTitle(values[2]);
+				diary.setWeather(values[3]);
+				diary.setContents(values[4]);
+				diary.setCoffee(values[5].charAt(0));
+				list.add(diary);	
 			} 
+			
+			if (list.size() > 0) {
+			Diary.turn = diaryList.get(diaryList.size() -1).getNo() +1;
+			}
 			
 			in.close();
 
@@ -117,21 +123,85 @@ public class App {
 		}
 	  } 
 
+	  private void loadBoard(String filename, List<Board> list) {
+    	try {
+      		FileReader in0 = new FileReader(filename);
+			BufferedReader in = new BufferedReader(in0);
 
-  private void saveCsv(String filename, List<? extends CsvObject> list) {
+     	String line = null;
+
+        while ((line = in.readLine()) != null) {
+        String[] values = line.split(",");
+        
+        Board board = new Board();
+        board.setNo(Integer.parseInt(values[0]));
+        board.setTitle(values[1]);
+        board.setContent(values[2]);
+        board.setWriter(values[3]);
+        board.setPassword(values[4]);
+        board.setViewCount(Integer.parseInt(values[5]));
+        board.setCreatedDate(Long.parseLong(values[6]));
+        
+        list.add(board);
+        }
+      
+      if(list.size() > 0) {
+      Board.boardNo = Math.max(
+          Board.boardNo,
+          list.get(list.size() - 1).getNo() + 1);
+      }
+      
+      in.close();
+
+    } catch (Exception e) {
+      System.out.println(filename + " 파일을 읽는 중 오류 발생!");
+    }
+  }
+
+  private void saveDiary(String filename, List<Diary> list) {
 	try {
 		FileWriter out0 = new FileWriter(filename);
 		BufferedWriter out1 = new BufferedWriter(out0);
 		PrintWriter out = new PrintWriter(out1);
 
-		for (CsvObject obj : list){
-			out.println(obj.toCsvString());
+
+		for (Diary diary : list){
+			out.printf("%d,%s,%s,%s,%s,%c\n",
+					diary.getNo(),
+					diary.getDate(),
+					diary.getTitle(),
+					diary.getWeather(),
+					diary.getContents(),
+					diary.getCoffee());
 			}
+		
 			out.close();
 
 		}  catch (Exception e)	{
 			System.out.println(filename + " 파일을 저장하는 중 오류 발생!");
 		}
   	  }
+	 
+  private void saveBoard(String filename, List<Board> list) {
+	    try {
+	      FileWriter out0 = new FileWriter(filename);
+	      BufferedWriter out1 = new BufferedWriter(out0); // <== Decorator(장식품) 역할 수행!
+	      PrintWriter out = new PrintWriter(out1); // <== Decorator(장식품) 역할 수행!
 
+	      for (Board board : list) {
+	        out.printf("%d,%s,%s,%s,%s,%d,%d\n",
+	        		board.getNo(),
+	        		board.getTitle(),
+	        		board.getContent(),
+	        		board.getWriter(),
+	        		board.getPassword(),
+	        		board.getViewCount(),
+	        		board.getCreatedDate());
+	      }
+	      out.close();
+
+	    } catch (Exception e) {
+	      System.out.println(filename + " 파일을 저장하는 중 오류 발생!");
+	    }
+	  }
 	}
