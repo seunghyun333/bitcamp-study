@@ -7,7 +7,7 @@ public class HelloListener implements ActionListener{
 	
 	public void service(BreadcrumbPrompt prompt) {
 		String name = prompt.inputString("이름은 ? ");
-		System.out.printf("%s 님 반가워요!\n", name);
+		System.out.printf("%s아~ 안녕!!\n", name);
 	}
 
 }

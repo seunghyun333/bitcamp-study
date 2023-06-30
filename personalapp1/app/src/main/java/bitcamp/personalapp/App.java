@@ -1,14 +1,14 @@
 package bitcamp.personalapp;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.LinkedList;
+import java.util.List;
+
 import bitcamp.personalapp.handler.BoardAddListener;
 import bitcamp.personalapp.handler.BoardDeleteListener;
 import bitcamp.personalapp.handler.BoardDetailListener;
@@ -97,7 +97,7 @@ public class App {
 	  private void loadDiary() {
 		try {
 			FileInputStream in0 = new FileInputStream("diary.data");
-			BufferedInputStream in1 = new BufferedDataInputStream(in0);
+			BufferedInputStream in1 = new BufferedInputStream(in0);
 			DataInputStream in = new DataInputStream(in1);
 
 			int size = in.readShort();
@@ -120,12 +120,12 @@ public class App {
 		} catch (Exception e) {
 			System.out.println("다이어리 정보를 읽는 중 오류 발생!");
 		}
-	  }
+	  } 
 
 	  private void loadBoard(String filename, List<Board> list) {
     	try {
       		FileInputStream in0 = new FileInputStream(filename);
-			BufferedInputStream in1 = new BufferedDataInputStream(in0);
+			BufferedInputStream in1 = new BufferedInputStream(in0);
 			DataInputStream in = new DataInputStream(in1);
 
      		 int size = in.readShort();
@@ -156,7 +156,7 @@ public class App {
   private void saveDiary() {
 	try {
 		FileOutputStream out0 = new FileOutputStream("diary.data");
-		BufferedDataOutputStream out = new BufferedDataOutputStream(out0);
+		BufferedOutputStream out1 = new BufferedOutputStream(out0);
 		DataOutputStream out = new DataOutputStream(out1);
 
 		out.writeShort(diaryList.size());
@@ -179,7 +179,7 @@ public class App {
  private void saveBoard(String filename, List<Board> list) {
     try {
 	  FileOutputStream out0 = new FileOutputStream(filename);
-      BufferedDataOutputStream out = new BufferedDataOutputStream(out0);
+      BufferedOutputStream out1 = new BufferedOutputStream(out0);
 	  DataOutputStream out = new DataOutputStream(out1);
 
       out.writeShort(list.size());
