@@ -17,6 +17,8 @@ public class DiaryAddListener extends AbstractDiaryListener {
     public void service(BreadcrumbPrompt prompt) {
     	
       Diary diary = new Diary();
+      
+      diary.setNo(Diary.turn++);
       diary.setDate(prompt.inputString("날짜 ? "));
       diary.setWeather(prompt.inputString("날씨 ? "));
       diary.setTitle(prompt.inputString("제목 ? "));

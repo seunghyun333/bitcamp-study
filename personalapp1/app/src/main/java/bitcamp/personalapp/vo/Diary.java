@@ -2,7 +2,7 @@ package bitcamp.personalapp.vo;
 
 import java.io.Serializable;
 
-public class Diary implements Serializable, CsvObject{
+public class Diary implements Serializable, CsvObject, AutoIncrement{
   private static final long serialVersionUID = 1L;
 
   public static int turn = 1;
@@ -16,10 +16,8 @@ public class Diary implements Serializable, CsvObject{
   public String weather;
   public String contents;
   public char coffee;
-
-  public Diary() {
-    this.no = turn++;
-  }
+  
+  public Diary() {}
   
   public Diary(int no) {
 	  this.no = no;
@@ -42,6 +40,13 @@ public class Diary implements Serializable, CsvObject{
 	  return diary;
 	  
   }
+  
+  @Override
+	public void updateKey() {
+		if(Diary.turn <= this.no ) {
+			Diary.turn = this.no +1;
+		}
+	}
   
   @Override
   public String toCsvString() {
