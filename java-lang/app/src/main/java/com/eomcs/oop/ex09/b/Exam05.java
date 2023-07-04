@@ -19,7 +19,7 @@ class Parent {
 }
 
 class MyInterface5Impl extends Parent implements MyInterface5 {
-
+	//인터페이스도 클래스처럼 static 메서드를 정의할 수 있다.
 }
 
 public class Exam05 {

@@ -6,6 +6,7 @@ public class Exam0310 {
 
   interface ProtocolA {
     void rule1();
+    void rule2();
     default void rule3() {
       System.out.println("**ProtocolA.rule3()**");
     }

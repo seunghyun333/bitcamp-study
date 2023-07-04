@@ -22,7 +22,7 @@ public class VisitListListener extends AbstractVisitListener{
 	   
 	    for (int i = 0; i < this.list.size(); i++) {
 	    	Visit visit = this.list.get(i);
-	      System.out.printf("%d, %s, %tY-%3$tm-%3$td\n", 
+	      System.out.printf("%d, %s, %tY-%5$tm-%5$td\n", 
 	    		  visit.getNo(),visit.getName(),visit.getCreatedDate());
 	    }
 	}

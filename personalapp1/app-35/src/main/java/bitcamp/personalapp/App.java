@@ -22,7 +22,9 @@ import bitcamp.personalapp.handler.DiaryDeleteListener;
 import bitcamp.personalapp.handler.DiaryDetailListener;
 import bitcamp.personalapp.handler.DiaryListListener;
 import bitcamp.personalapp.handler.DiaryUpdateListener;
-import bitcamp.personalapp.handler.VisitAddListener;
+import bitcamp.personalapp.handler.FooterListener;
+import bitcamp.personalapp.handler.HeaderListener;
+import bitcamp.personalapp.handler.HelloListener;
 import bitcamp.personalapp.handler.VisitListListener;
 import bitcamp.personalapp.vo.AutoIncrement;
 import bitcamp.personalapp.vo.Board;
@@ -68,7 +70,7 @@ public class App {
 	  private void loadData() {
 		  loadJson("diary.csv", diaryList, Diary.class);
 		  loadJson("board.csv", boardList, Board.class);
-		  loadJson("visit.csv", visitList, Visit.class);
+		  //loadJson("visit.csv", visitList, Visit.class);
 	  }
 
 	  private void saveData() {
@@ -94,20 +96,16 @@ public class App {
 		boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardList)));
 		mainMenu.add(boardMenu);
 		
-//		Menu helloMenu = new Menu("방명록");
-//		helloMenu.addActionListener(new HeaderListener());
-//		helloMenu.addActionListener(new HelloListener());
-//		helloMenu.addActionListener(new FooterListener());
-//		mainMenu.add(helloMenu);
+		Menu helloMenu = new Menu("방명록");
+		helloMenu.addActionListener(new HeaderListener());
+		helloMenu.addActionListener(new HelloListener());
+		helloMenu.addActionListener(new FooterListener());
+		mainMenu.add(helloMenu);
 		
-		MenuGroup manageMenu = new MenuGroup("방명록");
-		manageMenu.add(new Menu("이름을 적어주세요", new VisitAddListener(visitList)));
+		MenuGroup manageMenu = new MenuGroup("방문자 관리");
+		manageMenu.add(new Menu("방문자", new VisitListListener(visitList)));
 		mainMenu.add(manageMenu);
 		
-		MenuGroup manageMenu1 = new MenuGroup("관리 페이지");
-		manageMenu1.add(new Menu("방문자", new VisitListListener(visitList)));
-		mainMenu.add(manageMenu1);
-
 		
 	  }
 
