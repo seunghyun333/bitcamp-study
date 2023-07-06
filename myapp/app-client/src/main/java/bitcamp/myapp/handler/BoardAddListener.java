@@ -24,3 +24,14 @@ public class BoardAddListener implements ActionListener {
     boardDao.insert(board);
   }
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,9 @@
 package bitcamp.myapp;
 
+import java.util.LinkedList;
+import bitcamp.myapp.dao.BoardDao;
 import bitcamp.myapp.dao.BoardListDao;
+import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.dao.MemberListDao;
 import bitcamp.myapp.handler.BoardAddListener;
 import bitcamp.myapp.handler.BoardDeleteListener;
@@ -15,15 +18,19 @@ import bitcamp.myapp.handler.MemberDeleteListener;
 import bitcamp.myapp.handler.MemberDetailListener;
 import bitcamp.myapp.handler.MemberListListener;
 import bitcamp.myapp.handler.MemberUpdateListener;
+import bitcamp.myapp.vo.Board;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
 
 public class App {
-  MemberListDao memberDao = new MemberListDao("member.json");
-  BoardListDao boardDao = new BoardListDao("board.json");
-  BoardListDao readingDao = new BoardListDao("reading.json");
-  
+
+  MemberDao memberDao = new MemberListDao("member.json");
+  BoardDao boardDao = new BoardListDao("board.json");
+  BoardDao readingDao = new BoardListDao("reading.json");
+
+  LinkedList<Board> boardList = new LinkedList<>();
+  LinkedList<Board> readingList = new LinkedList<>();
 
   BreadcrumbPrompt prompt = new BreadcrumbPrompt();
 
@@ -44,20 +51,8 @@ public class App {
 
   public void execute() {
     printTitle();
-
-    loadData();
     mainMenu.execute(prompt);
-    saveData();
-
     prompt.close();
-  }
-
-  private void loadData() {
-
-  }
-
-  private void saveData() {
-
   }
 
   private void prepareMenu() {
@@ -91,60 +86,4 @@ public class App {
     helloMenu.addActionListener(new FooterListener());
     mainMenu.add(helloMenu);
   }
-  
-//
-//  private <T> void loadJson(String filename, List<T> list, Class<T> clazz) {
-//    try {
-//    	
-//      FileReader in0 = new FileReader(filename);
-//      BufferedReader in = new BufferedReader(in0); // <== Decorator 역할을 수행!
-//      
-//      StringBuilder strBuilder = new StringBuilder();
-//      String line= null;
-//
-//      while ((line = in.readLine()) != null) {
-//        strBuilder.append(line);
-//      }
-//
-//      in.close();
-//      
-//      Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-//      Collection<T> objects = gson.fromJson(strBuilder.toString(), 
-//    		  TypeToken.getParameterized(Collection.class, clazz).getType());
-//      
-//      list.addAll(objects);
-//      
-//      Class<?>[] interfaces = clazz.getInterfaces();
-//      for (Class<?> info : interfaces) {
-//    	  if (info == AutoIncrement.class ) { // 인터페이스 비교 
-//    		  AutoIncrement autoIncrement = (AutoIncrement) list.get(list.size()-1);
-//    		  autoIncrement.updateKey();
-//    		  break;
-//    	  }
-//      }
-//
-//    } catch (Exception e) {
-//      System.out.println(filename + "파일을 읽는 중 오류 발생!");
-//    }
-//  }
-//
-// 
-//
-//  private void saveJson(String filename, List<?> list) {
-//    //List<> CsvObject 를 상속받거나 인터페이스로 갖고있는 클래스가 들어올수잇음 
-//	  try {
-//      FileWriter out0 = new FileWriter(filename);
-//      BufferedWriter out = new BufferedWriter(out0); // <== Decorator(장식품) 역할 수행!
-//
-//      Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting().create();
-//      out.write(gson.toJson(list));
-//      
-//      out.close();
-//
-//    } catch (Exception e) {
-//      System.out.println(filename +"파일을 저장하는 중 오류 발생!");
-//    }
-//  }
 }
-
-  

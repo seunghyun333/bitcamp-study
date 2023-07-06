@@ -6,8 +6,8 @@ import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
 
 public class BoardDetailListener implements ActionListener {
-	
-	BoardDao boardDao;
+
+  BoardDao boardDao;
 
   public BoardDetailListener(BoardDao boardDao) {
     this.boardDao = boardDao;

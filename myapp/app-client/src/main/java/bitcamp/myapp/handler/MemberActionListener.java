@@ -6,8 +6,7 @@ import bitcamp.util.BreadcrumbPrompt;
 
 public interface MemberActionListener extends ActionListener {
 
-
-  public static char inputGender(char gender, BreadcrumbPrompt prompt) {
+  static char inputGender(char gender, BreadcrumbPrompt prompt) {
     String label;
     if (gender == 0) {
       label = "성별?\n";

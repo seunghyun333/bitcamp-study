@@ -5,11 +5,11 @@ import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
 
 public class MemberUpdateListener implements MemberActionListener {
-	
-	MemberDao memberDao;
 
-  public MemberUpdateListener(MemberDao memberdao) {
-    memberdao = this.memberDao;
+  MemberDao memberDao;
+
+  public MemberUpdateListener(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
@@ -26,7 +26,7 @@ public class MemberUpdateListener implements MemberActionListener {
     m.setEmail(prompt.inputString("이메일(%s)? ", m.getEmail()));
     m.setPassword(prompt.inputString("새암호? "));
     m.setGender(MemberActionListener.inputGender(m.getGender(), prompt));
-    
+
     memberDao.update(m);
   }
 

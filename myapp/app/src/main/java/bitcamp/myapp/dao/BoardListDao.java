@@ -2,7 +2,6 @@ package bitcamp.myapp.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import bitcamp.myapp.vo.Board;
 import bitcamp.util.JsonDataHelper;
 
