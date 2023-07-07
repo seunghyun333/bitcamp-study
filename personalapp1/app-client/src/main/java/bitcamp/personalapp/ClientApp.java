@@ -3,13 +3,12 @@ package bitcamp.personalapp;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+
 import bitcamp.net.RequestEntity;
 import bitcamp.personalapp.dao.BoardDao;
-import bitcamp.personalapp.dao.BoardNetworkDao;
+import bitcamp.personalapp.dao.DaoBuilder;
 import bitcamp.personalapp.dao.DiaryDao;
-import bitcamp.personalapp.dao.DiaryNetworkDao;
 import bitcamp.personalapp.dao.VisitDao;
-import bitcamp.personalapp.dao.VisitNetworkDao;
 import bitcamp.personalapp.handler.BoardAddListener;
 import bitcamp.personalapp.handler.BoardDeleteListener;
 import bitcamp.personalapp.handler.BoardDetailListener;
@@ -25,7 +24,7 @@ import bitcamp.personalapp.handler.VisitListListener;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
-
+ 
 public class ClientApp {
 
   Socket socket;
@@ -45,10 +44,12 @@ public class ClientApp {
     this.socket = new Socket(ip, port);
     this.out = new DataOutputStream(socket.getOutputStream());
     this.in = new DataInputStream(socket.getInputStream());
+    
+    DaoBuilder daoBuilder = new DaoBuilder(in, out);
 
-    this.diaryDao = new DiaryNetworkDao("diary", in, out);
-    this.boardDao = new BoardNetworkDao("board", in, out);
-    this.visitDao = new VisitNetworkDao("visit", in, out);
+    this.diaryDao = daoBuilder.build("diary", DiaryDao.class);
+    this.boardDao = daoBuilder.build("board", BoardDao.class);
+    this.visitDao = daoBuilder.build("visit", VisitDao.class);
 
     prepareMenu();
   }

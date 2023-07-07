@@ -7,5 +7,23 @@
     "password": "1",
     "viewCount": 0,
     "createdDate": 1688658692987
+  },
+  {
+    "no": 6,
+    "title": "효나",
+    "content": "힘내! ",
+    "writer": "나",
+    "password": "1",
+    "viewCount": 0,
+    "createdDate": 1688710863022
+  },
+  {
+    "no": 7,
+    "title": "효나~",
+    "content": "힘내~",
+    "writer": "나",
+    "password": "1",
+    "viewCount": 1,
+    "createdDate": 1688718160524
   }
 ]

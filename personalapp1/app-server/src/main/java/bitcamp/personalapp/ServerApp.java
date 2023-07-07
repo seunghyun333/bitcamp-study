@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
 import bitcamp.personalapp.dao.BoardDao;
@@ -80,7 +81,7 @@ public class ServerApp {
         case "board/findBy":
           Board board = boardDao.findBy(request.getObject(Integer.class));
           if (board == null) {
-            response.status(ResponseEntity.FAILURE).result("해당 번호의 게시글이 없습니다!");
+            response.status(ResponseEntity.SUCCESS);
           } else {
             response.status(ResponseEntity.SUCCESS).result(board);
           }
@@ -104,11 +105,11 @@ public class ServerApp {
         case "diary/findBy":
           Diary diary = diaryDao.findBy(request.getObject(Integer.class));
           if (diary == null) {
-            response.status(ResponseEntity.FAILURE).result("해당 번호의 게시글이 없습니다!");
+            response.status(ResponseEntity.SUCCESS);
           } else {
             response.status(ResponseEntity.SUCCESS).result(diary);
           }
-          break;
+          break; 
         case "diary/update":
           value = diaryDao.update(request.getObject(Diary.class));
           response.status(ResponseEntity.SUCCESS).result(value);

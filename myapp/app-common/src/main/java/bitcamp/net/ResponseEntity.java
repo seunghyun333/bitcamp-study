@@ -1,13 +1,13 @@
 package bitcamp.net;
 
 import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class ResponseEntity {
 
   public static final String SUCCESS = "success";
-  public static final String FAILURE = "failure";
   public static final String ERROR = "error";
 
   String status;
