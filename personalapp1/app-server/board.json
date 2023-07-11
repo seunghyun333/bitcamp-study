@@ -34,5 +34,14 @@
     "password": "1",
     "viewCount": 0,
     "createdDate": 1689066753377
+  },
+  {
+    "no": 9,
+    "title": "모지",
+    "content": "되네",
+    "writer": "1",
+    "password": "1",
+    "viewCount": 0,
+    "createdDate": 1689079665571
   }
 ]
