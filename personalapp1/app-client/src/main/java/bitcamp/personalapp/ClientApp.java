@@ -1,10 +1,5 @@
 package bitcamp.personalapp;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.net.Socket;
-
-import bitcamp.net.RequestEntity;
 import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.dao.DaoBuilder;
 import bitcamp.personalapp.dao.DiaryDao;
@@ -27,10 +22,6 @@ import bitcamp.util.MenuGroup;
  
 public class ClientApp {
 
-  Socket socket;
-  DataOutputStream out;
-  DataInputStream in;
-
   DiaryDao diaryDao;
   BoardDao boardDao;
   VisitDao visitDao;
@@ -41,11 +32,7 @@ public class ClientApp {
 
   public ClientApp(String ip, int port) throws Exception {
 
-    this.socket = new Socket(ip, port);
-    this.out = new DataOutputStream(socket.getOutputStream());
-    this.in = new DataInputStream(socket.getInputStream());
-    
-    DaoBuilder daoBuilder = new DaoBuilder(in, out);
+    DaoBuilder daoBuilder = new DaoBuilder(ip, port);
 
     this.diaryDao = daoBuilder.build("diary", DiaryDao.class);
     this.boardDao = daoBuilder.build("board", BoardDao.class);
@@ -56,9 +43,6 @@ public class ClientApp {
 
   public void close() throws Exception {
     prompt.close();
-    out.close();
-    in.close();
-    socket.close();
   }
 
   public static void main(String[] args) throws Exception {
@@ -80,13 +64,6 @@ public class ClientApp {
   public void execute() {
     printTitle();
     mainMenu.execute(prompt);
-
-    try {
-      out.writeUTF(new RequestEntity().command("quit").toJson());
-    } catch (Exception e) {
-      System.out.println("종료 오류!");
-      e.printStackTrace();
-    }
   }
 
 
@@ -112,8 +89,6 @@ public class ClientApp {
     manageMenu.add(new Menu("이름을 적어주세요", new VisitAddListener(visitDao)));
     manageMenu.add(new Menu("방문자", new VisitListListener(visitDao)));
     mainMenu.add(manageMenu);
-
-
 
   }
 }

@@ -54,5 +54,12 @@
     "email": "srsr@naver.com",
     "password": "1",
     "gender": "W"
+  },
+  {
+    "no": 10,
+    "name": "박승현",
+    "email": "sh@naver.com",
+    "password": "1",
+    "gender": "W"
   }
 ]

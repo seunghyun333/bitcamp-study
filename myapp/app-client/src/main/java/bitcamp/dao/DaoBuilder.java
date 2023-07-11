@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
+import java.net.Socket;
 import java.util.List;
 
 import bitcamp.myapp.ClientApp;
@@ -12,13 +13,12 @@ import bitcamp.net.ResponseEntity;
 
 public class DaoBuilder {
 	
-  String dataName;
-  DataInputStream in;
-  DataOutputStream out;
+  String serverAddress;
+  int port;
   
-  public DaoBuilder(DataInputStream in, DataOutputStream out) {
-	  this.in = in;
-	  this.out = out;
+  public DaoBuilder(String serverAddress, int port) {
+	  this.serverAddress = serverAddress;
+	  this.port = port;
   }
   
   @SuppressWarnings("unchecked")
@@ -36,6 +36,9 @@ public <T> T build(String dataName, Class<T> type) {
 
       		    System.out.println(requestEntity.toJson());
 
+      		    try (Socket socket = new Socket(serverAddress, port);
+      		    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+      		    DataInputStream in = new DataInputStream(socket.getInputStream())) { 
       		    // 요청 정보 전송
       		    out.writeUTF(requestEntity.toJson());
 
@@ -61,8 +64,13 @@ public <T> T build(String dataName, Class<T> type) {
       		    } else {
       		      return response.getObject(returnType);
       		    }
+      		    } catch (Exception e) {
+      		    	throw new RuntimeException(e);
+      		    }
       		  }
       	  );
   }
+
+
 
 }

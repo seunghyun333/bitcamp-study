@@ -28,7 +28,8 @@ public class MenuGroup extends Menu {
         this.printMenu();
         continue;
       }
-
+      
+      try {
       int menuNo = Integer.parseInt(input);
       if (menuNo < 0 || menuNo > childs.size()) {
         System.out.println("메뉴 번호가 옳지 않습니다!");
@@ -38,6 +39,9 @@ public class MenuGroup extends Menu {
       } else {
         Menu menu = this.childs.get(menuNo - 1);
         menu.execute(prompt);
+      }
+      } catch(Exception e) {
+    	  System.out.printf("실행 오류: %s\n", e.getMessage());
       }
     }
   }

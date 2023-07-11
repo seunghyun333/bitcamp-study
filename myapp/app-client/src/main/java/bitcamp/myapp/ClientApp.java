@@ -20,7 +20,6 @@ import bitcamp.myapp.handler.MemberDeleteListener;
 import bitcamp.myapp.handler.MemberDetailListener;
 import bitcamp.myapp.handler.MemberListListener;
 import bitcamp.myapp.handler.MemberUpdateListener;
-import bitcamp.net.RequestEntity;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
@@ -41,11 +40,7 @@ public class ClientApp {
 
   public ClientApp(String ip, int port) throws Exception {
 
-    this.socket = new Socket(ip, port);
-    this.out = new DataOutputStream(socket.getOutputStream());
-    this.in = new DataInputStream(socket.getInputStream());
-
-    DaoBuilder daoBuilder = new DaoBuilder (in,out);
+    DaoBuilder daoBuilder = new DaoBuilder (ip,port);
     this.memberDao = daoBuilder.build("member", MemberDao.class);
     this.boardDao = daoBuilder.build("board", BoardDao.class);
     this.readingDao = daoBuilder.build("reading", BoardDao.class);
@@ -55,9 +50,6 @@ public class ClientApp {
 
   public void close() throws Exception {
     prompt.close();
-    out.close();
-    in.close();
-    socket.close();
   }
 
   public static void main(String[] args) throws Exception {
@@ -79,14 +71,6 @@ public class ClientApp {
   public void execute() {
     printTitle();
     mainMenu.execute(prompt);
-
-    try {
-      out.writeUTF(new RequestEntity().command("quit").toJson());
-
-    } catch (Exception e) {
-      System.out.println("종료 오류!");
-      e.printStackTrace();
-    }
   }
 
   private void prepareMenu() {

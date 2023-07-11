@@ -212,3 +212,84 @@
 
 - 입출력 관련 클래스를 자바 스트림 클래스로 교체
   - java.io.* 패키지의 클래스 사용
+
+## 32. 인스턴스를 통째로 입출력하기(객체 직렬화)
+
+- ObjectInputStream/ObjectOutputStream 사용법
+  - java.io.Serializable 인터페이스 사용법
+  - transient modifier 사용법
+
+## 33. character stream API를 사용하여 CSV 텍스트 형식으로 입출력하기
+
+- CSV 형식으로 데이터를 읽고 쓰는 법
+- FileReader/FileWriter 사용법
+
+## 34. 리팩토링: Factory Method 패턴(GoF), Information Expert 패턴(GRASP)
+
+- CSV 데이터 생성을 Board 클래스에 맡기기
+  - Information Expert 패턴 적용
+- CSV 데이터를 가지로 Board 클래스 생성하기
+  - Factory Method 패턴 적용
+  - Reflection API 사용법
+    - Class, Method 사용법
+
+## 35. JSON 형식으로 입출력하기
+
+- JSON 형식으로 데이터를 읽고 쓰는 법
+- Gson 라이브러리 사용법
+
+## 36. 데이터의 등록, 조회, 수정, 삭제 기능을 캡슐화하기 : DAO 객체 도입
+
+- XxxListener에서 데이터를 조작하는 코드를 캡슐화하여 별도의 클래스로 분리
+- 인터페이스로 DAO 객체 사용법을 정의
+
+## 37. 네트워킹을 이용하여 데이터 공유하기 : Client/Server 아키텍처로 전환
+
+- 네트워크 프로그래밍 방법
+  - Client와 Server 개념
+  - 프로토콜에 따라 애플리케이션 간에 데이터를 주고 받기
+  - GoF의 프록시 패턴의 원리 이해 및 적용
+  - 분산 컴퓨팅의 개념과 주요 기술 이해
+
+## 38. DAO 프록시 객체를 자동 생성하기
+
+- java.lang.reflect.Proxy 클래스 사용법
+- 프록시 객체의 구동원리 이해 
+
+
+## 39. Reflection API를 활용하여 DAO 메서드 호출을 자동화하기
+
+- Reflection API를 사용하는 방법
+- 서버의 DAO 메서드 호출을 자동화 하는 방법
+
+
+## 40. 예외 처리하기
+
+- 예외가 발생했을 때 시스템을 멈추기 않게 하는 방법
+- try ~ catch ~ finally 사용법
+
+## 41. 여러 클라이언트의 요청을 순차적으로 처리하기: Stateful 방식
+
+- 클라이언트 요청을 순차적으로 처리하는 방법
+- 구동 원리와 문제점
+
+## 42. 여러 클라이언트의 요청을 순차적으로 처리하기: Stateless 방식
+
+- Stateless 방식으로 통신하는 방법
+- 구동 원리와 Stateful 방식 대비 이점
+- Stateless 방식의 문제점
+
+## 43. 여러 클라이언트 요청을 동시에 처리하기: Thread 적용
+
+- 멀티태스킹의 메커니즘 이해
+  - 프로세스 스케쥴링: Round Robin 방식, Priority + Aging 방식
+  - 컨텍스트 스위칭 개념
+  - 프로세스 복제(fork)방식과 스레드 방식 비교
+  - 임계영역(Critical Region, Critical Section): 세마포어(Semaphore)와 뮤텍스(Mutex)
+- 스레드의 구동원리와 사용법
+  - 스레드의 라이프사이클 이해
+  - Thread 클래스와 Runnable 인터페이스 사용법
+
+
+
+

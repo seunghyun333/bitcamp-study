@@ -2,34 +2,32 @@ package bitcamp.personalapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 
 import bitcamp.net.RequestEntity;
 import bitcamp.net.ResponseEntity;
-import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.dao.BoardListDao;
-import bitcamp.personalapp.dao.DiaryDao;
 import bitcamp.personalapp.dao.DiaryListDao;
-import bitcamp.personalapp.dao.VisitDao;
 import bitcamp.personalapp.dao.VisitListDao;
-import bitcamp.personalapp.vo.Board;
-import bitcamp.personalapp.vo.Diary;
-import bitcamp.personalapp.vo.Visit;
 
 public class ServerApp {
 
   int port;
   ServerSocket serverSocket;
-
-  DiaryDao diaryDao = new DiaryListDao("diary.json");
-  BoardDao boardDao = new BoardListDao("board.json");
-  VisitDao visitDao = new VisitListDao("visit.json");
-
-
+  
+  HashMap<String,Object> daoMap = new HashMap<>();
 
   public ServerApp(int port) throws Exception {
     this.port = port;
+
+    daoMap.put("member", new DiaryListDao("diary.json"));
+    daoMap.put("board", new BoardListDao("board.json"));
+    daoMap.put("visit", new VisitListDao("visit.json"));
   }
 
   public void close() throws Exception {
@@ -54,89 +52,90 @@ public class ServerApp {
     this.serverSocket = new ServerSocket(port);
     System.out.println("서버 실행 중...");
 
-    Socket socket = serverSocket.accept();
-    DataInputStream in = new DataInputStream(socket.getInputStream());
-    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-
     while (true) {
-      RequestEntity request = RequestEntity.fromJson(in.readUTF());
-
-      String command = request.getCommand();
-      System.out.println(command);
-
-
-      if (command.equals("quit")) {
-        break;
-      }
-      ResponseEntity response = new ResponseEntity();
-
-      switch (command) {
-        case "board/list":
-          response.status(ResponseEntity.SUCCESS).result(boardDao.list());
-          break;
-        case "board/insert":
-          boardDao.insert(request.getObject(Board.class));
-          response.status(ResponseEntity.SUCCESS);
-          break;
-        case "board/findBy":
-          Board board = boardDao.findBy(request.getObject(Integer.class));
-          if (board == null) {
-            response.status(ResponseEntity.SUCCESS);
-          } else {
-            response.status(ResponseEntity.SUCCESS).result(board);
-          }
-          break;
-        case "board/update":
-          int value = boardDao.update(request.getObject(Board.class));
-          response.status(ResponseEntity.SUCCESS).result(value);
-          break;
-        case "board/delete":
-          value = boardDao.delete(request.getObject(Integer.class));
-          response.status(ResponseEntity.SUCCESS).result(value);
-          break;
-
-        case "diary/list":
-          response.status(ResponseEntity.SUCCESS).result(diaryDao.list());
-          break;
-        case "diary/insert":
-          diaryDao.insert(request.getObject(Diary.class));
-          response.status(ResponseEntity.SUCCESS);
-          break;
-        case "diary/findBy":
-          Diary diary = diaryDao.findBy(request.getObject(Integer.class));
-          if (diary == null) {
-            response.status(ResponseEntity.SUCCESS);
-          } else {
-            response.status(ResponseEntity.SUCCESS).result(diary);
-          }
-          break; 
-        case "diary/update":
-          value = diaryDao.update(request.getObject(Diary.class));
-          response.status(ResponseEntity.SUCCESS).result(value);
-          break;
-        case "diary/delete":
-          value = diaryDao.delete(request.getObject(Integer.class));
-          response.status(ResponseEntity.SUCCESS).result(value);
-          break;
-
-        case "visit/list":
-          response.status(ResponseEntity.SUCCESS).result(visitDao.list());
-          break;
-        case "visit/insert":
-          visitDao.insert(request.getObject(Visit.class));
-          response.status(ResponseEntity.SUCCESS);
-          break;
-        default:
-          response.status(ResponseEntity.ERROR).result("해당 명령을 지원하지 않습니다!");
-      }
-
-      out.writeUTF(response.toJson());
+    	processRequest(serverSocket.accept());
     }
+  }
+  
+  public static Method findMethod(Object obj, String methodName) {
+    Method[] methods = obj.getClass().getDeclaredMethods();
+    for (int i = 0; i < methods.length; i++) {
+    	if (methods[i].getName().equals(methodName)) {
+    		return methods[i];
+    	}
+    }
+    return null;
+  }
 
-    in.close();
-    out.close();
-    socket.close();
+  
+  public static Object call(Object obj, Method method, RequestEntity request) throws Exception{
+	  Parameter[] params = method.getParameters();
+	  if (params.length > 0) {
+		  return method.invoke(obj, request.getObject(params[0].getType()));
+	  } else {
+		  return method.invoke(obj);
+	  }
+  }
+
+  public void processRequest (Socket socket) {
+	  try(Socket s = socket;
+		  DataInputStream in = new DataInputStream(socket.getInputStream());
+		  DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
+		  
+		InetSocketAddress socketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+		System.out.printf("%s:%s 클라이언트가 접속했음!\n",
+				socketAddress.getHostString(),
+				socketAddress.getPort());
+	  
+	  // 클라이언트 요청을 반복해서 처리하지 않는다.
+		// 접속 -> 요청 -> 실행 -> 응답 -> 연결 끊기
+
+	        RequestEntity request = RequestEntity.fromJson(in.readUTF());
+
+	        String command = request.getCommand();
+	        System.out.println(command);
+	        
+	        String[] values = command.split("/");
+	        String dataName = values[0];
+	        String methodName = values[1];
+	        
+	        Object dao = daoMap.get(dataName);
+	        if (dao == null) {
+	      	  out.writeUTF(new ResponseEntity()
+	      			  .status(ResponseEntity.ERROR)
+	      			  .result("데이터를 찾을 수 없습니다.")
+	      			  .toJson());
+	      	  return;
+	        }
+	  
+	
+      Method method = findMethod(dao, methodName);
+      if (method == null) {
+        out.writeUTF(new ResponseEntity()
+            .status(ResponseEntity.ERROR)
+            .result("메서드를 찾을 수 없습니다.")
+            .toJson());
+        return;
+      }
+      
+      try {
+    	  Object result = call(dao, method, request);
+
+      ResponseEntity response = new ResponseEntity();
+      response.status(ResponseEntity.SUCCESS);
+      response.result(result);
+      out.writeUTF(response.toJson());
+      
+    } catch (Exception e) {
+    	ResponseEntity response = new ResponseEntity();
+        response.status(ResponseEntity.SUCCESS);
+        response.result(e.getMessage());
+        out.writeUTF(response.toJson());
+	 }
+  } catch (Exception e) {
+	  System.out.println(e.getMessage());
 
   }
+ }
 }
 
