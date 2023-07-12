@@ -34,8 +34,10 @@ public class DaoBuilder {
 				
 				System.out.println(requestEntity.toJson());
 				
+				// 요청 정보 전송
 				out.writeUTF(requestEntity.toJson());
 				
+				// 응답 정보 수신
 				ResponseEntity response = ResponseEntity.fromJson(in.readUTF());
 				if (response.getStatus().equals(ResponseEntity.ERROR)) {
 					throw new RuntimeException(response.getResult());
@@ -46,14 +48,16 @@ public class DaoBuilder {
 				
 				if (returnType == int.class) {
 					return response.getObject(int.class);
+					
 				} else if (returnType == void.class) {
 					return null;
+					
 				} else if (returnType == List.class) {
 					ParameterizedType paramType = (ParameterizedType)method.getGenericReturnType();
 					Class<?> itemType = (Class<?>) paramType.getActualTypeArguments()[0];
 					return response.getList(itemType);
 				} else {
-						return response.getObject(returnType);
+					return response.getObject(returnType);
 					}
 				});
 				

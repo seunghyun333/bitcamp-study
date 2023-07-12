@@ -83,6 +83,7 @@ public class ClientApp {
 
     try {
       out.writeUTF(new RequestEntity().command("quit").toJson());
+      
     } catch (Exception e) {
       System.out.println("종료 오류!");
       e.printStackTrace();
@@ -112,8 +113,6 @@ public class ClientApp {
     manageMenu.add(new Menu("이름을 적어주세요", new VisitAddListener(visitDao)));
     manageMenu.add(new Menu("방문자", new VisitListListener(visitDao)));
     mainMenu.add(manageMenu);
-
-
 
   }
 }
