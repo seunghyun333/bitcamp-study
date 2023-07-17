@@ -16,12 +16,12 @@ public class Exam0210 {
     @Override
     public void run() {
       try {
-        System.out.printf("[%s] - 스레드 실행 중...\n",
+        System.out.printf("[%s] - 스레드에서 작업 실행 중...\n",
             Thread.currentThread().getName());
 
         Thread.sleep(millisec);
 
-        System.out.printf("[%s] - 스레드 종료!\n",
+        System.out.printf("[%s] - 작업 종료 후 스레드 대기!\n",
             Thread.currentThread().getName());
       } catch (Exception e) {
         System.out.printf("[%s] 스레드 실행 중 오류 발생!\n", Thread.currentThread().getName());
@@ -39,10 +39,10 @@ public class Exam0210 {
     executorService.execute(new MyRunnable(3000));
     executorService.execute(new MyRunnable(9000));
 
-    // 스레드풀의 크기를 초과해서 작업 수행을 요청한다면?
-    // - 놀고 있는 스레드가 없을 경우,
-    //   다른 스레드의 작업이 끝날 때까지 작업큐에 대기하고 있는다.
-    // - 작업을 끝낸 스레드가 생기면 큐에서 작업을 꺼내 실행한다.
+//     스레드풀의 크기를 초과해서 작업 수행을 요청한다면?
+//     - 놀고 있는 스레드가 없을 경우,
+//       다른 스레드의 작업이 끝날 때까지 작업큐에 대기하고 있는다.
+//     - 작업을 끝낸 스레드가 생기면 큐에서 작업을 꺼내 실행한다.
     //
     executorService.execute(new MyRunnable(2000));
     executorService.execute(new MyRunnable(4000));

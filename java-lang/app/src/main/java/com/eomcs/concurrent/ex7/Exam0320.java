@@ -38,9 +38,9 @@ public class Exam0320 {
     Future<?> future1 = executorService.submit(new MyRunnable(2000));
     Future<?> future2 = executorService.submit(new MyRunnable(4000));
 
-    // Future.get()
-    // => 요청한 작업이 완료될 때 까지 기다린다.(pending)
-    // => 요청한 작업이 완료되면 null을 리턴한다.
+//     Future.get()
+//     => 요청한 작업이 완료될 때 까지 기다린다.(pending)
+//     => 요청한 작업이 완료되면 null을 리턴한다.
     //
     future2.get();
     System.out.println("두 번째 작업이 끝났음");

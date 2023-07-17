@@ -38,19 +38,19 @@ public class Exam0140 {
           while (true) {
             System.out.println("스레드 대기중...");
 
-            // wait()
-            // - 해당 객체에서 notify()를 통해 알림이 올 때까지 스레드의 실행을 멈추게 한다.
-            // - 이 메서드는 동기화 블록
-            //   (한 번에 한 스레드만이 진입하도록 설정된 블록)에서만 호출할 수 있다.
-            // 
-            // 문법 주의!
-            // => wait()/notify() 는 반드시 동기화 영역 안에서 호출해야 한다.
-            // 
-            // 동기화 영역?
-            // => synchronized로 선언된 메서드
-            //    예) synchronized void m() {}
-            // => synchronized로 묶인 블록
-            //    예) synchronized(접근대상) {...}
+//             wait()
+//             - 해당 객체에서 notify()를 통해 알림이 올 때까지 스레드의 실행을 멈추게 한다.
+//             - 이 메서드는 동기화 블록
+//               (한 번에 한 스레드만이 진입하도록 설정된 블록)에서만 호출할 수 있다.
+//             
+//             문법 주의!
+//             => wait()/notify() 는 반드시 동기화 영역 안에서 호출해야 한다.
+//             
+//             동기화 영역?
+//             => synchronized로 선언된 메서드
+//                예) synchronized void m() {}
+//             => synchronized로 묶인 블록
+//                예) synchronized(접근대상) {...}
             //
             synchronized (valueBox) {
               valueBox.wait();
