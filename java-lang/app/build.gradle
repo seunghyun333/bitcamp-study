@@ -105,6 +105,8 @@ dependencies {
 
   // Oracle JDBC Driver
   //   implementation 'com.oracle.database.jdbc:ojdbc11-production:21.7.0.0'
+  
+  implementation 'mysql:mysql-connector-java:8.0.33'
     
   // MSSQL JDBC Driver
   //   implementation 'com.microsoft.sqlserver:mssql-jdbc:11.2.0.jre17'
