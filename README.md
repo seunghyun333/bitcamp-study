@@ -373,6 +373,57 @@ https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
   - 41. 여러 클라이언트의 요청을 순차적으로 처리하기: Stateful 방식
   - 42. 여러 클라이언트의 요청을 순차적으로 처리하기: Stateless 방식
 
+### 36일(7/12,수)
+
+- 자바 프로그래밍
+- 프로젝트 실습
+  - 43. 여러 클라이언트 요청을 동시에 처리하기: Thread 적용
+
+### 37일(7/13,목)
+
+- 자바 프로그래밍
+  - 스레드 프로그래밍(com.eomcs.concurrent.ex1 ~ ex4)
+- 멀티태스킹의 메커니즘 이해
+  - 프로세스 스케쥴링: Round Robin 방식, Priority + Aging 방식
+  - 컨텍스트 스위칭 개념
+  - 프로세스 복제(fork)방식과 스레드 방식 비교
+- 스레드의 구동원리와 사용법
+  - 스레드의 라이프사이클 이해
+  - Thread 클래스와 Runnable 인터페이스 사용법
+- 프로젝트 실습
+
+### 38일(7/14,금)
+
+- 자바 프로그래밍
+  - 스레드 프로그래밍(com.eomcs.concurrent.ex5 ~ ex6)
+- 멀티태스킹의 메커니즘 이해
+  - 임계영역(Critical Region, Critical Section): 세마포어(Semaphore)와 뮤텍스(Mutex)
+- 프로젝트 실습
+  - 44. 스레드 재사용하기 : 스레드풀(thread pool) 구현
+  
+### 39일(7/17,월)
+
+- 자바 프로그래밍
+  - 스레드 프로그래밍(com.eomcs.concurrent.ex7)
+    - 스레드풀 사용법
+  - JDBC 프로그래밍(com.eomcs.jdbc)
+    - MySQL 로컬 설치 및 설정
+    - 사용자 추가/삭제
+    - 데이터베이스 추가/삭제
+    - 사용자, 데이터베이스, 테이블 정보 조회
+    - DBMS와 DBMS 클라이언트와 관계 
+- 프로젝트 실습
+  - 45. 스레드 재사용하기 : 자바에서 제공하는 스레드풀(thread pool) 사용
+
+### 40일(7/18,화)
+
+- 자바 프로그래밍
+  - JDBC 프로그래밍(com.eomcs.jdbc)
+    - DBMS API와 ODBC API
+    - JDBC API와 JDBC 드라이버
+    - SQL - DDL 사용법
+
+
 ## 웨일즈 화상회의
 
 https://whaleon.us/o/CSrtk1/001aa759f29c46b985e32dd8562f594a
