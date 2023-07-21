@@ -2,10 +2,9 @@ package bitcamp.personalapp.vo;
 
 import java.io.Serializable;
 
-public class Visit implements Serializable, AutoIncrement{
+public class Visit implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	public static int VisitNo = 1;
+
 	
 	private int no; 
 	private String name;
@@ -16,13 +15,7 @@ public class Visit implements Serializable, AutoIncrement{
 	public Visit(int no) {
 		this.no = no;
 	}
-		
-	@Override
-	public void updateKey() {
-	if(Visit.VisitNo <= this.no) {
-		Visit.VisitNo = this.no +1;
-    	}
-		}
+
 	
 	public boolean equals (Object obj) {
 		if(obj == null) {

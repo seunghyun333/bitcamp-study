@@ -1,8 +1,12 @@
 package bitcamp.personalapp;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 import bitcamp.personalapp.dao.BoardDao;
-import bitcamp.personalapp.dao.DaoBuilder;
 import bitcamp.personalapp.dao.DiaryDao;
+import bitcamp.personalapp.dao.MySQLBoardDao;
+import bitcamp.personalapp.dao.MySQLDiaryDao;
 import bitcamp.personalapp.dao.VisitDao;
 import bitcamp.personalapp.handler.BoardAddListener;
 import bitcamp.personalapp.handler.BoardDeleteListener;
@@ -32,11 +36,13 @@ public class ClientApp {
 
   public ClientApp(String ip, int port) throws Exception {
 
-    DaoBuilder daoBuilder = new DaoBuilder(ip, port);
+	  Connection con = DriverManager.getConnection(
+		        "jdbc:mysql://study:1111@localhost:3306/studydb" // JDBC URL
+		        );
 
-    this.diaryDao = daoBuilder.build("diary", DiaryDao.class);
-    this.boardDao = daoBuilder.build("board", BoardDao.class);
-    this.visitDao = daoBuilder.build("visit", VisitDao.class);
+    this.diaryDao = new MySQLDiaryDao(con);;
+    this.boardDao = new MySQLBoardDao(con);
+    this.visitDao = null;
 
     prepareMenu();
   }

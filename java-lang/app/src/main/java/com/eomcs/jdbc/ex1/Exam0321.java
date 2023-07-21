@@ -3,7 +3,7 @@ package com.eomcs.jdbc.ex1;
 
 import java.sql.DriverManager;
 
-public class Exam0321 {
+public class Exam0321 { 
 
   public static void main(String[] args) throws Exception {
     try (
