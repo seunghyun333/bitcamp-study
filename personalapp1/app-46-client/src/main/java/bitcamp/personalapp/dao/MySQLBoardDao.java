@@ -20,11 +20,14 @@ public class MySQLBoardDao implements BoardDao{
 	public void insert(Board board) {
 		try(Statement stmt = con.createStatement()) {
 			
-			stmt.executeUpdate(String.format("insert into personalapp_board(title,content,writer,password) values('%s','%s','%s','%s')",
+			stmt.executeUpdate(String.format(
+					"insert into personalapp_board(title,content,writer,password)"
+					+ " values('%s','%s','%s','%s')",
 					board.getTitle(),
 					board.getContent(),
 					board.getWriter(),
 					board.getPassword()));
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -35,7 +38,9 @@ public class MySQLBoardDao implements BoardDao{
 	public List<Board> list() {
 		try(Statement stmt=con.createStatement();
 			ResultSet rs = stmt.executeQuery(
-					"select Board_no, title, content, writer, password from personalapp_board order by board_no asc")){
+					"select Board_no, title, writer, view_count, created_date"
+					+ " from personalapp_board"
+					+ " order by board_no desc")){
 			
 			List<Board> list = new ArrayList<>();
 			
@@ -43,13 +48,14 @@ public class MySQLBoardDao implements BoardDao{
 				Board b = new Board();
 				b.setNo(rs.getInt("board_no"));
 				b.setTitle(rs.getString("title"));
-				b.setContent(rs.getString("content"));
 				b.setWriter(rs.getString("writer"));
-				b.setPassword(rs.getString("password"));
+				b.setViewCount(rs.getInt("view_count"));
+				b.setCreatedDate(rs.getTimestamp("created_date"));
 				
 				list.add(b);
 			}
 			return list;
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -101,11 +107,13 @@ public class MySQLBoardDao implements BoardDao{
 	}
 
 	@Override
-	public int delete(int no) {
-		try(Statement stmt = con.createStatement()){
+	public int delete(Board board) {
+		try(Statement stmt = con.createStatement()) {
+			
 			return stmt.executeUpdate(String.format(
-					"delete form personalapp_boardr where board_no=%d",
-					no));
+					"delete form personalapp_boardr where board_no=%d and password='%s'",
+					board.getNo(),
+					board.getPassword()));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

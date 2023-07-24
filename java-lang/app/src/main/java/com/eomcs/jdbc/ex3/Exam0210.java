@@ -33,9 +33,9 @@ public class Exam0210 {
       // 내용? bbbb'), ('haha', 'hoho'), ('hehe', 'puhul
       //
 
-      // 위에서 준비한 SQL 문에 값을 설정한다.
-      // => ? : 값이 놓일 자리를 의미한다. 'in-parameter' 라 부른다.
-      // => in-parameter 에 들어갈 값의 타입에 따라 적절한 setXxx() 메서드를 호출한다.
+//       위에서 준비한 SQL 문에 값을 설정한다.
+//       => ? : 값이 놓일 자리를 의미한다. 'in-parameter' 라 부른다.
+//       => in-parameter 에 들어갈 값의 타입에 따라 적절한 setXxx() 메서드를 호출한다.
       //
       stmt.setString(1, title);
       stmt.setString(2, contents);

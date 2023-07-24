@@ -8,7 +8,8 @@ public interface BoardDao {
 	void insert(Board board);
 	List<Board> list();
 	Board findBy(int no);
+	Board findByIdAndPassword(Board board);
 	int update(Board board);
-	int delete(int no);
+	int delete(Board board);
 
 }

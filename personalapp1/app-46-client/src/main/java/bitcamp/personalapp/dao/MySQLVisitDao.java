@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import bitcamp.personalapp.vo.Visit;
 
 public class MySQLVisitDao implements VisitDao {
@@ -31,7 +32,8 @@ public class MySQLVisitDao implements VisitDao {
   public List<Visit> list() {
     try (Statement stmt = con.createStatement();
         ResultSet rs =
-            stmt.executeQuery("select visit_no, name from personalapp_visit order by visit_no")) {
+            stmt.executeQuery("select visit_no, name, created_date"
+            		+ " from personalapp_visit order by visit_no")) {
 
       List<Visit> list = new ArrayList<>();
 
@@ -39,6 +41,7 @@ public class MySQLVisitDao implements VisitDao {
         Visit v = new Visit();
         v.setNo(rs.getInt("visit_no"));
         v.setName(rs.getString("name"));
+        v.setCreatedDate(rs.getTimestamp("created_date"));
 
         list.add(v);
       }

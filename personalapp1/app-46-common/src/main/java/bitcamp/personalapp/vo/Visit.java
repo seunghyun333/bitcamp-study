@@ -1,6 +1,7 @@
 package bitcamp.personalapp.vo;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class Visit implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -8,7 +9,7 @@ public class Visit implements Serializable{
 	
 	private int no; 
 	private String name;
-	private long createdDate;
+	private Timestamp createdDate;
 	
 	public Visit() {}
 	
@@ -47,14 +48,16 @@ public class Visit implements Serializable{
 	public String getName() {
 		return name;
 	}
-	
-	public long getCreatedDate() {
+
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(long createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
+	
+
 }
 
 
