@@ -1,3 +1,10 @@
+-- personalapp_visit 테이블 예제 데이터
+insert into personalapp_visit(visit_no, name) values (1, '우세림');
+insert into personalapp_visit(visit_no, name) values (2, '홍래경');
+insert into personalapp_visit(visit_no, name) values (3, '신소연');
+insert into personalapp_visit(visit_no, name) values (4, '엄마');
+insert into personalapp_visit(visit_no, name) values (5, '아빠');
+
 -- personalapp_board 테이블 예제 데이터
 insert into personalapp_board(board_no, title, content, writer, password) 
   values(1, '박', '박승현 화이팅', 1, '1111');
@@ -18,12 +25,6 @@ insert into personalapp_diary(diary_no, writedate, title, weather, content, coff
 insert into personalapp_diary(diary_no, writedate, title, weather, content, coffee) values(15, '7/11', '제목 5','폭우', '내용5', 'O');
 insert into personalapp_diary(diary_no, writedate, title, weather, content, coffee) values(16, '7/12', '제목 6','폭우', '내용6', 'X');
 
--- personalapp_visit 테이블 예제 데이터
-insert into personalapp_visit(visit_no, name) values (1, '우세림');
-insert into personalapp_visit(visit_no, name) values (2, '홍래경');
-insert into personalapp_visit(visit_no, name) values (3, '신소연');
-insert into personalapp_visit(visit_no, name) values (4, '엄마');
-insert into personalapp_visit(visit_no, name) values (5, '아빠');
 
 
 

@@ -1,3 +1,13 @@
+create table personalapp_visit(
+  visit_no int not null,
+  name varchar(255) not null,
+  created_date datetime default now()
+  );
+
+alter table personalapp_visit
+  add constraint primary key (visit_no),
+  modify column visit_no int not null auto_increment;
+  
 create table personalapp_board(
   board_no int not null,
   title varchar(255) not null,
@@ -26,15 +36,6 @@ alter table personalapp_diary
   modify column diary_no int not null auto_increment;
   
   
-create table personalapp_visit(
-  visit_no int not null,
-  name varchar(255) not null,
-  created_date datetime default now()
-  );
-
-alter table personalapp_visit
-  add constraint primary key (visit_no),
-  modify column visit_no int not null auto_increment;
   
  --게시판 작성자에 대해 외부키 설정
 alter table personalapp_board

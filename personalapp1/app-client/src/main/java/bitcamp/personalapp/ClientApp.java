@@ -2,7 +2,6 @@ package bitcamp.personalapp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
 import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.dao.DiaryDao;
 import bitcamp.personalapp.dao.MySQLBoardDao;
@@ -22,14 +21,14 @@ import bitcamp.personalapp.handler.DiaryUpdateListener;
 import bitcamp.personalapp.handler.LoginListener;
 import bitcamp.personalapp.handler.VisitAddListener;
 import bitcamp.personalapp.handler.VisitListListener;
-import bitcamp.personalapp.vo.Board;
+import bitcamp.personalapp.vo.Visit;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
 
 public class ClientApp {
-	
-  public static Board loginUser;
+
+  public static Visit loginUser;
 
   DiaryDao diaryDao;
   BoardDao boardDao;
@@ -74,9 +73,9 @@ public class ClientApp {
 
   public void execute() {
     printTitle();
-    
-    new LoginListener(boardDao).service(prompt);
-    
+
+    new LoginListener(visitDao).service(prompt);
+
     mainMenu.execute(prompt);
   }
 
