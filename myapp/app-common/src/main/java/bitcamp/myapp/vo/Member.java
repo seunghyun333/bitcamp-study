@@ -7,7 +7,6 @@ import java.util.Objects;
 public class Member implements Serializable {
   private static final long serialVersionUID = 1L;
 
-
   public static final char MALE = 'M';
   public static final char FEMALE = 'W';
 
@@ -18,24 +17,22 @@ public class Member implements Serializable {
   private char gender;
   private Date createdDate;
 
- 
-	  @Override
-	public int hashCode() {
-		return Objects.hash(no);
-	}
-  
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
-		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Member other = (Member) obj;
-	return no == other.no;
-}
-public int getNo() {
+  @Override
+  public int hashCode() {
+    return Objects.hash(no);
+  }
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Member other = (Member) obj;
+    return no == other.no;
+  }
+  public int getNo() {
     return no;
   }
   public void setNo(int no) {
@@ -65,13 +62,10 @@ public int getNo() {
   public void setGender(char gender) {
     this.gender = gender;
   }
-
-public Date getCreatedDate() {
-	return createdDate;
-}
-
-public void setCreatedDate(Date createdDate) {
-	this.createdDate = createdDate;
-}
-
+  public Date getCreatedDate() {
+    return createdDate;
+  }
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
+  }
 }

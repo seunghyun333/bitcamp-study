@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class Board implements Serializable  {
+public class Board implements Serializable {
   private static final long serialVersionUID = 1L;
-
 
   private int no;
   private String title;
@@ -17,25 +16,22 @@ public class Board implements Serializable  {
   private Timestamp createdDate;
   private int category;
 
-
-  
-
   @Override
-public int hashCode() {
-	return Objects.hash(no);
-}
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
-		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Board other = (Board) obj;
-	return no == other.no;
-}
-public int getNo() {
+  public int hashCode() {
+    return Objects.hash(no);
+  }
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Board other = (Board) obj;
+    return no == other.no;
+  }
+  public int getNo() {
     return no;
   }
   public void setNo(int no) {
@@ -65,29 +61,22 @@ public int getNo() {
   public void setViewCount(int viewCount) {
     this.viewCount = viewCount;
   }
-
   public Timestamp getCreatedDate() {
-	return createdDate;
-}
-
-public void setCreatedDate(Timestamp createdDate) {
-	this.createdDate = createdDate;
-}
-
-public String getPassword() {
+    return createdDate;
+  }
+  public void setCreatedDate(Timestamp createdDate) {
+    this.createdDate = createdDate;
+  }
+  public String getPassword() {
     return password;
   }
   public void setPassword(String password) {
     this.password = password;
   }
-
-public int getCategory() {
-	return category;
-}
-
-public void setCategory(int category) {
-	this.category = category;
-}
-
-
+  public int getCategory() {
+    return category;
+  }
+  public void setCategory(int category) {
+    this.category = category;
+  }
 }
