@@ -5,13 +5,16 @@ import java.io.IOException;
 import bitcamp.personalapp.dao.DiaryDao;
 import bitcamp.personalapp.vo.Diary;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.DataSource;
 
 public class DiaryAddListener implements DiaryActionListener {
 
 	DiaryDao diaryDao;
+	DataSource ds;
     
-    public DiaryAddListener(DiaryDao diaryDao) {
+    public DiaryAddListener(DiaryDao diaryDao, DataSource ds) {
     	this.diaryDao = diaryDao;
+    	this.ds = ds;
     }
 
 
@@ -24,7 +27,14 @@ public class DiaryAddListener implements DiaryActionListener {
       diary.setContents(prompt.inputString("내용 ? "));
       diary.setCoffee(DiaryActionListener.inputCoffee((char) 0, prompt));
 
+      try {
       diaryDao.insert(diary);
+      ds.getConnection().commit();
+      
+      } catch (Exception e) {
+    	  try {ds.getConnection().rollback();} catch (Exception e2) {}
+    	  throw new RuntimeException(e);
+      }
     }
     }
 
