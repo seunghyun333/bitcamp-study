@@ -8,9 +8,8 @@
   <id column="board_no" property="no"/>
   <result column="title" property="title"/>
   <result column="content" property="content"/>
-  <result column="writer" property="writer"/>
   <result column="view_count" property="viewCount"/>
-  <result column="created_Date" property="createdDate"/>
+  <result column="created_date" property="createdDate"/>
   
   <association property="writer" javaType="bitcamp.personalapp.vo.Visit">
     <id column="visit_no" property="no"/>
@@ -61,7 +60,7 @@
    and writer=#{writer.no}
   </update>
   
-  <update id="updateCount" parameterType="bitcamp.personoalapp.vo.Board">
+  <update id="updateCount" parameterType="bitcamp.personalapp.vo.Board">
     update personalapp_board set
       view_count=#{viewCount}
     where

@@ -1,7 +1,6 @@
 package bitcamp.personalapp.handler;
 
 import java.io.IOException;
-
 import bitcamp.personalapp.dao.VisitDao;
 import bitcamp.personalapp.vo.Visit;
 import bitcamp.util.BreadcrumbPrompt;
@@ -29,6 +28,7 @@ public class LoginListener implements VisitActionListener {
         prompt.setAttribute("loginUser", loginUser);
         break;
       }
+      prompt.end();
     }
   }
 }

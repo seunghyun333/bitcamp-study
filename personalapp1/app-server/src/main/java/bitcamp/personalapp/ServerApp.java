@@ -8,11 +8,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import bitcamp.net.NetProtocol;
 import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.dao.DiaryDao;
@@ -50,18 +48,19 @@ public class ServerApp {
   VisitDao visitDao;
 
   MenuGroup mainMenu = new MenuGroup("메인");
-  
+
   int port;
 
   public ServerApp(int port) throws Exception {
-	  
-	this.port = port;
-	
-	InputStream mybatisConfigIn = Resources.getResourceAsStream("bitcamp/personalapp/config/mybatis-config.xml");
-	
-	SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-	
-	sqlSessionFactory = new SqlSessionFactoryProxy(builder.build(mybatisConfigIn));
+
+    this.port = port;
+
+    InputStream mybatisConfigIn =
+        Resources.getResourceAsStream("bitcamp/personalapp/config/mybatis-config.xml");
+
+    SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+
+    sqlSessionFactory = new SqlSessionFactoryProxy(builder.build(mybatisConfigIn));
 
     this.diaryDao = new MySQLDiaryDao(ds);
     this.boardDao = new MySQLBoardDao(sqlSessionFactory, ds);
@@ -70,8 +69,7 @@ public class ServerApp {
     prepareMenu();
   }
 
-  public void close() throws Exception {
-  }
+  public void close() throws Exception {}
 
   public static void main(String[] args) throws Exception {
     ServerApp app = new ServerApp(8888);
@@ -83,41 +81,40 @@ public class ServerApp {
 
   public void execute() {
     try (ServerSocket serverSocket = new ServerSocket(this.port)) {
-    	System.out.println("서버 실행 중...");
-    	
-    	while (true) {
-    		Socket socket = serverSocket.accept();
-    		threadPool.execute(()-> processRequest(socket));
-    	}
+      System.out.println("서버 실행 중...");
+
+      while (true) {
+        Socket socket = serverSocket.accept();
+        threadPool.execute(() -> processRequest(socket));
+      }
     } catch (Exception e) {
-    	System.out.println("서버 실행 오류!");
-    	e.printStackTrace();
+      System.out.println("서버 실행 오류!");
+      e.printStackTrace();
     }
   }
-  
+
   private void processRequest(Socket socket) {
-	  try (Socket s = socket;
-		  DataInputStream in = new DataInputStream(socket.getInputStream());
-		  DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
-		  
-		BreadcrumbPrompt prompt = new BreadcrumbPrompt(in, out);
-		
-		InetSocketAddress clientAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-		System.out.printf("%s 클라이언트 접속함!\n", clientAddress.getHostString());
-		
-		out.writeUTF("[나의 다이어리 관리 시스템]\n"
-				+ "-------------------------------------");
-		
-		new LoginListener(visitDao).service(prompt);
-		
-		mainMenu.execute(prompt);
-		out.writeUTF(NetProtocol.NET_END);
-	  } catch (Exception e) {
-		  System.out.println("클라이언트 통신 오류!");
-		  e.printStackTrace();
-	  } finally {
-		  ds.clean();
-	  }
+    try (Socket s = socket;
+        DataInputStream in = new DataInputStream(socket.getInputStream());
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream())) {
+
+      BreadcrumbPrompt prompt = new BreadcrumbPrompt(in, out);
+
+      InetSocketAddress clientAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+      System.out.printf("%s 클라이언트 접속함!\n", clientAddress.getHostString());
+
+      out.writeUTF("[나의 다이어리 관리 시스템]\n" + "-------------------------------------");
+
+      new LoginListener(visitDao).service(prompt);
+
+      mainMenu.execute(prompt);
+      out.writeUTF(NetProtocol.NET_END);
+    } catch (Exception e) {
+      System.out.println("클라이언트 통신 오류!");
+      e.printStackTrace();
+    } finally {
+      ds.clean();
+    }
   }
 
 
@@ -131,11 +128,11 @@ public class ServerApp {
     mainMenu.add(diaryMenu);
 
     MenuGroup boardMenu = new MenuGroup("응원의 한마디");
-    boardMenu.add(new Menu("등록", new BoardAddListener(boardDao, ds)));
+    boardMenu.add(new Menu("등록", new BoardAddListener(boardDao, sqlSessionFactory)));
     boardMenu.add(new Menu("목록", new BoardListListener(boardDao)));
-    boardMenu.add(new Menu("조회", new BoardDetailListener(boardDao, ds)));
-    boardMenu.add(new Menu("변경", new BoardUpdateListener(boardDao, ds)));
-    boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardDao, ds)));
+    boardMenu.add(new Menu("조회", new BoardDetailListener(boardDao, sqlSessionFactory)));
+    boardMenu.add(new Menu("변경", new BoardUpdateListener(boardDao, sqlSessionFactory)));
+    boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardDao, sqlSessionFactory)));
     mainMenu.add(boardMenu);
 
 
