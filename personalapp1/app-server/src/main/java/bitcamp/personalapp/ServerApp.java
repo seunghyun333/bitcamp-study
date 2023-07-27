@@ -2,11 +2,16 @@ package bitcamp.personalapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import bitcamp.net.NetProtocol;
 import bitcamp.personalapp.dao.BoardDao;
@@ -32,11 +37,13 @@ import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.DataSource;
 import bitcamp.util.Menu;
 import bitcamp.util.MenuGroup;
+import bitcamp.util.SqlSessionFactoryProxy;
 
 public class ServerApp {
 
   ExecutorService threadPool = Executors.newFixedThreadPool(2);
 
+  SqlSessionFactory sqlSessionFactory;
   DataSource ds = new DataSource("jdbc:mysql://localhost:3306/studydb", "study", "1111");
   DiaryDao diaryDao;
   BoardDao boardDao;
@@ -49,9 +56,15 @@ public class ServerApp {
   public ServerApp(int port) throws Exception {
 	  
 	this.port = port;
+	
+	InputStream mybatisConfigIn = Resources.getResourceAsStream("bitcamp/personalapp/config/mybatis-config.xml");
+	
+	SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+	
+	sqlSessionFactory = new SqlSessionFactoryProxy(builder.build(mybatisConfigIn));
 
     this.diaryDao = new MySQLDiaryDao(ds);
-    this.boardDao = new MySQLBoardDao(ds);
+    this.boardDao = new MySQLBoardDao(sqlSessionFactory, ds);
     this.visitDao = new MySQLVisitDao(ds);
 
     prepareMenu();

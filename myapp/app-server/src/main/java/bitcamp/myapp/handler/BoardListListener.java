@@ -32,7 +32,8 @@ public class BoardListListener implements ActionListener {
           board.getTitle(),
           board.getWriter().getName(),
           board.getViewCount(),
-          dateFormatter.format(board.getCreatedDate()));
+          dateFormatter.format(board.getCreatedDate())
+          );
     }
   }
 
