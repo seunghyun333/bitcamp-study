@@ -23,7 +23,7 @@ public class VisitListListener implements ActionListener {
 	    prompt.printf("ID번호, 방문자, 날짜\n");
 	    prompt.println("============================");
 	    
-	   List<Visit> list = visitDao.list();
+	   List<Visit> list = visitDao.findAll();
 	    for (Visit visit : list) {
 	      prompt.printf("%d, %s, %tY-%3$tm-%3$td\n", 
 	    		  visit.getNo(),visit.getName(),visit.getCreatedDate());

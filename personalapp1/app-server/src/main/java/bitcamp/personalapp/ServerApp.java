@@ -64,7 +64,7 @@ public class ServerApp {
 
     this.diaryDao = new MySQLDiaryDao(ds);
     this.boardDao = new MySQLBoardDao(sqlSessionFactory, ds);
-    this.visitDao = new MySQLVisitDao(ds);
+    this.visitDao = new MySQLVisitDao(sqlSessionFactory, ds);
 
     prepareMenu();
   }
@@ -137,7 +137,7 @@ public class ServerApp {
 
 
     MenuGroup manageMenu = new MenuGroup("방명록");
-    manageMenu.add(new Menu("이름을 적어주세요", new VisitAddListener(visitDao, ds)));
+    manageMenu.add(new Menu("이름을 적어주세요", new VisitAddListener(visitDao, sqlSessionFactory)));
     manageMenu.add(new Menu("방문자", new VisitListListener(visitDao)));
     mainMenu.add(manageMenu);
 

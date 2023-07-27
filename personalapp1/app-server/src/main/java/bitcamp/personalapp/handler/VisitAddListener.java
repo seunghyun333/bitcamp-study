@@ -1,22 +1,21 @@
 package bitcamp.personalapp.handler;
 
 import java.io.IOException;
-
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.personalapp.dao.VisitDao;
 import bitcamp.personalapp.vo.Visit;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.DataSource;
 
 public class VisitAddListener implements ActionListener {
 
   VisitDao visitDao;
-  DataSource ds;
+  SqlSessionFactory sqlSessionFactory;
 
 
-  public VisitAddListener(VisitDao visitDao, DataSource ds) {
+  public VisitAddListener(VisitDao visitDao, SqlSessionFactory sqlSessionFactory) {
     this.visitDao = visitDao;
-    this.ds =ds;
+    this.sqlSessionFactory = sqlSessionFactory;
   }
 
 
@@ -29,11 +28,10 @@ public class VisitAddListener implements ActionListener {
     prompt.printf("%s아~ 고마워♡\n", visit.getName());
 
     try {
-    visitDao.insert(visit);
-    ds.getConnection().commit();
+      visitDao.insert(visit);
+      sqlSessionFactory.openSession(false).commit();
     } catch (Exception e) {
-    	try {ds.getConnection().rollback();} catch (Exception e2) {}
-    	throw new RuntimeException(e);
+      throw new RuntimeException(e);
     }
   }
 
