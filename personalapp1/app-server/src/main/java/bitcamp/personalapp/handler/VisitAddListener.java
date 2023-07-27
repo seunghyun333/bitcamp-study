@@ -27,7 +27,6 @@ public class VisitAddListener implements ActionListener {
 
     visit.setName(prompt.inputString("이름을 적어주세요 ♡"));
     prompt.printf("%s아~ 고마워♡\n", visit.getName());
-    prompt.printf("아이디 번호는 %d 야!♡\n", visit.getNo());
 
     try {
     visitDao.insert(visit);

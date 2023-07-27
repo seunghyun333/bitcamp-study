@@ -22,6 +22,9 @@ public class Board implements Serializable{
   }
 	
 	public boolean equals (Object obj) {
+		if (this == obj)
+			return true;
+		
 		if(obj == null) {
 			return false;
 		}
@@ -29,11 +32,9 @@ public class Board implements Serializable{
 			return false;
 		}
 		
-		Board board =(Board) obj;
-		if(this.getNo() != board.getNo()) {
-			return false;
-		}
-		return true;
+		Board other =(Board) obj;
+		return no == other.no;
+		
 	}
 
 

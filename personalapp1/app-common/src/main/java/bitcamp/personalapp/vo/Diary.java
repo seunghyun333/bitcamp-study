@@ -23,6 +23,9 @@ public class Diary implements Serializable{
   }
   
   public boolean equals (Object obj) {
+	  if (this == obj)
+	      return true;
+	  
 	  if(obj == null) {
 		  return false;
 	  }
@@ -30,12 +33,8 @@ public class Diary implements Serializable{
 		  return false;
 	  }
 	  
-	  Diary diary = (Diary) obj;
-	  
-	  if(this.getNo() != diary.getNo() ) {
-		  return false;
-	  }
-	  return true;
+	  Diary other = (Diary) obj;
+	  return no == other.no;
   }
 
 public int getNo() {

@@ -4,15 +4,19 @@ import java.io.IOException;
 
 import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.vo.Board;
+import bitcamp.personalapp.vo.Visit;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.DataSource;
 
 public class BoardUpdateListener implements ActionListener{
 
 	BoardDao boardDao;
+	DataSource ds;
 	
-	public BoardUpdateListener(BoardDao boardDao) {
+	public BoardUpdateListener(BoardDao boardDao, DataSource ds) {
 		this.boardDao = boardDao;
+		this.ds = ds;
 	}
 
 	@Override
@@ -27,14 +31,21 @@ public class BoardUpdateListener implements ActionListener{
 		
 		board.setTitle(prompt.inputString("제목(%s)?", board.getTitle()));
 		board.setContent(prompt.inputString("내용(%s)?", board.getContent()));
-		board.setPassword(prompt.inputString("암호?"));
+		board.setWriter((Visit) prompt.getAttribute("loginUser"));
 		
 		
 
+		try {
 		if (boardDao.update(board) == 0) {
-			prompt.println("암호가 일치하지 않습니다.");
+			prompt.println("게시글 변경 권한이 없습니다.");
 		} else {
 			prompt.println("변경했습니다.");
+		}
+		ds.getConnection().commit();
+		
+		}catch (Exception e) {
+			try {ds.getConnection().rollback();} catch (Exception e2) {}
+			throw new RuntimeException(e);
 		}
 	}
 	}

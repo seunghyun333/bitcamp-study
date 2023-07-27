@@ -19,6 +19,9 @@ public class Visit implements Serializable{
 
 	
 	public boolean equals (Object obj) {
+		if (this == obj)
+		      return true;
+		
 		if(obj == null) {
 			return false;
 		}
@@ -26,11 +29,9 @@ public class Visit implements Serializable{
 			return false;
 		}
 		
-		Visit visit =(Visit) obj;
-		if(this.getNo() != visit.getNo()) {
-			return false;
-		}
-		return true;
+		Visit other =(Visit) obj;
+		return no == other.no;
+		
 	}
 
 	public int getNo() {

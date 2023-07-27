@@ -124,10 +124,10 @@ public class MySQLBoardDao implements BoardDao {
   @Override
   public int delete(Board board) {
     try (PreparedStatement stmt = ds.getConnection(false).prepareStatement(
-        "delete from personalapp_board" + " where board_no=? and password=sha1(?)")) {
+        "delete from personalapp_board" + " where board_no=? and writer=?")) {
 
       stmt.setInt(1, board.getNo());
-      stmt.setString(2, board.getPassword());
+      stmt.setInt(2, board.getWriter().getNo());
 
       return stmt.executeUpdate();
 

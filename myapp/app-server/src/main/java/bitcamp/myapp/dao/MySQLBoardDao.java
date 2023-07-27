@@ -1,43 +1,35 @@
-package bitcamp.dao;
+package bitcamp.myapp.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import bitcamp.myapp.dao.BoardDao;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.DataSource;
 
 public class MySQLBoardDao implements BoardDao {
 	
+  SqlSessionFactory sqlSessionFactroy;
   DataSource ds;
   int category;
 
-  public MySQLBoardDao(DataSource ds, int category) {
-    this.ds = ds;
+  public MySQLBoardDao(SqlSessionFactory sqlSessionFactroy, DataSource ds, int category) {
+    this.sqlSessionFactroy = sqlSessionFactroy;
+	this.ds = ds;
     this.category = category;
   }
 
   @Override
   public void insert(Board board) {
-
-    try (PreparedStatement stmt = ds.getConnection(false).prepareStatement(
-        "insert into myapp_board(title,content,writer,password,category)"
-            + " values(?,?,?,sha1(?),?)")) {
-
-      stmt.setString(1, board.getTitle());
-      stmt.setString(2, board.getContent());
-      stmt.setInt(3, board.getWriter().getNo());
-      stmt.setString(4, board.getPassword());
-      stmt.setInt(5, this.category);
-
-      stmt.executeUpdate();
-
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+	  board.setCategory(this.category);
+	  SqlSession sqlSession = sqlSessionFactroy.openSession(false);
+	  sqlSession.insert("bitcamp.myapp.dao.BoardDao.insert", board);
+  
 
   }
 
@@ -57,7 +49,7 @@ public class MySQLBoardDao implements BoardDao {
      board_no desc
    */
   @Override
-  public List<Board> list() {
+  public List<Board> findAll() {
     try (PreparedStatement stmt = ds.getConnection(false).prepareStatement(
         "select" +
             "  b.board_no, " +

@@ -110,24 +110,24 @@ public class ServerApp {
 
   private void prepareMenu() {
     MenuGroup diaryMenu = new MenuGroup("오늘의 일기");
-    diaryMenu.add(new Menu("등록", new DiaryAddListener(diaryDao)));
+    diaryMenu.add(new Menu("등록", new DiaryAddListener(diaryDao, ds)));
     diaryMenu.add(new Menu("목록", new DiaryListListener(diaryDao)));
     diaryMenu.add(new Menu("조회", new DiaryDetailListener(diaryDao)));
-    diaryMenu.add(new Menu("변경", new DiaryUpdateListener(diaryDao)));
-    diaryMenu.add(new Menu("삭제", new DiaryDeleteListener(diaryDao)));
+    diaryMenu.add(new Menu("변경", new DiaryUpdateListener(diaryDao, ds)));
+    diaryMenu.add(new Menu("삭제", new DiaryDeleteListener(diaryDao, ds)));
     mainMenu.add(diaryMenu);
 
     MenuGroup boardMenu = new MenuGroup("응원의 한마디");
     boardMenu.add(new Menu("등록", new BoardAddListener(boardDao, ds)));
     boardMenu.add(new Menu("목록", new BoardListListener(boardDao)));
-    boardMenu.add(new Menu("조회", new BoardDetailListener(boardDao)));
-    boardMenu.add(new Menu("변경", new BoardUpdateListener(boardDao)));
-    boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardDao)));
+    boardMenu.add(new Menu("조회", new BoardDetailListener(boardDao, ds)));
+    boardMenu.add(new Menu("변경", new BoardUpdateListener(boardDao, ds)));
+    boardMenu.add(new Menu("삭제", new BoardDeleteListener(boardDao, ds)));
     mainMenu.add(boardMenu);
 
 
     MenuGroup manageMenu = new MenuGroup("방명록");
-    manageMenu.add(new Menu("이름을 적어주세요", new VisitAddListener(visitDao)));
+    manageMenu.add(new Menu("이름을 적어주세요", new VisitAddListener(visitDao, ds)));
     manageMenu.add(new Menu("방문자", new VisitListListener(visitDao)));
     mainMenu.add(manageMenu);
 
