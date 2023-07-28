@@ -14,6 +14,7 @@ public class Diary implements Serializable{
   public String title;
   public String weather;
   public String content;
+  private String password;
   public char coffee;
   
   public Diary() {}
@@ -36,6 +37,14 @@ public class Diary implements Serializable{
 	  Diary other = (Diary) obj;
 	  return no == other.no;
   }
+
+public String getPassword() {
+	return password;
+}
+
+public void setPassword(String password) {
+	this.password = password;
+}
 
 public int getNo() {
 	return no;	
@@ -73,7 +82,7 @@ public String getContent() {
 	return content;
 }
 
-public void setContents(String content) {
+public void setContent(String content) {
 	this.content = content;
 }
 

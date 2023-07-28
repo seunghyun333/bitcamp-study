@@ -32,7 +32,7 @@ public class DiaryUpdateListener implements DiaryActionListener {
         
         d.setDate(prompt.inputString("날짜(%s)? >", d.getDate()));
         d.setTitle(prompt.inputString("제목(%s)? >", d.getTitle()));
-        d.setContents(prompt.inputString("내용(%s)? >", d.getContent()));
+        d.setContent(prompt.inputString("내용(%s)? >", d.getContent()));
         d.setCoffee(DiaryActionListener.inputCoffee(d.getCoffee(), prompt));
             
         try {

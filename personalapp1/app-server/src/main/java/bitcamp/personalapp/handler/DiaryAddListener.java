@@ -21,11 +21,17 @@ public class DiaryAddListener implements DiaryActionListener {
 
     public void service(BreadcrumbPrompt prompt) throws IOException {
     	
+    	 String password = prompt.inputString("비밀번호 입력: ");
+    	  if (!"0318".equals(password)) {
+    	    System.out.println("비밀번호가 틀렸습니다..");
+    	    return;
+    	  }
+    	
       Diary diary = new Diary();
       diary.setDate(prompt.inputString("날짜 ? "));
       diary.setWeather(prompt.inputString("날씨 ? "));
       diary.setTitle(prompt.inputString("제목 ? "));
-      diary.setContents(prompt.inputString("내용 ? "));
+      diary.setContent(prompt.inputString("내용 ? "));
       diary.setCoffee(DiaryActionListener.inputCoffee((char) 0, prompt));
 
       try {
