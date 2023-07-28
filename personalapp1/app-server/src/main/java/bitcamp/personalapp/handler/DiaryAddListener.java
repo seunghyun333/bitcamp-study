@@ -2,19 +2,20 @@ package bitcamp.personalapp.handler;
 
 import java.io.IOException;
 
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import bitcamp.personalapp.dao.DiaryDao;
 import bitcamp.personalapp.vo.Diary;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.DataSource;
 
 public class DiaryAddListener implements DiaryActionListener {
 
 	DiaryDao diaryDao;
-	DataSource ds;
+	SqlSessionFactory sqlSessionFactory;
     
-    public DiaryAddListener(DiaryDao diaryDao, DataSource ds) {
+    public DiaryAddListener(DiaryDao diaryDao, SqlSessionFactory sqlSessionFactory) {
     	this.diaryDao = diaryDao;
-    	this.ds = ds;
+    	this.sqlSessionFactory = sqlSessionFactory;
     }
 
 
@@ -29,10 +30,10 @@ public class DiaryAddListener implements DiaryActionListener {
 
       try {
       diaryDao.insert(diary);
-      ds.getConnection().commit();
+      sqlSessionFactory.openSession(false).commit();
       
       } catch (Exception e) {
-    	  try {ds.getConnection().rollback();} catch (Exception e2) {}
+    	  sqlSessionFactory.openSession(false).rollback();
     	  throw new RuntimeException(e);
       }
     }

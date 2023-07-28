@@ -24,7 +24,7 @@ alter table personalapp_board
   
 create table personalapp_diary(
   diary_no int not null,
-  writedate varchar(20) not null,
+  w_date varchar(20) not null,
   title varchar(50) not null,
   weather varchar(100) not null,
   content text null,

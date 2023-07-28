@@ -2,19 +2,20 @@ package bitcamp.personalapp.handler;
 
 import java.io.IOException;
 
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import bitcamp.personalapp.dao.DiaryDao;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
-import bitcamp.util.DataSource;
 
 public class DiaryDeleteListener implements ActionListener {
 	
 	DiaryDao diaryDao;
-	DataSource ds;
+	SqlSessionFactory sqlSessionFactory;
     
-    public DiaryDeleteListener(DiaryDao diaryDao, DataSource ds) {
+    public DiaryDeleteListener(DiaryDao diaryDao, SqlSessionFactory sqlSessionFactory) {
     	this.diaryDao = diaryDao;
-    	this.ds = ds;
+    	this.sqlSessionFactory = sqlSessionFactory;
     }
 
 
@@ -24,10 +25,10 @@ public class DiaryDeleteListener implements ActionListener {
     		prompt.println("무효한 번호입니다!! ");
     	} 
     		prompt.println("삭제 완료 ! ");
-    		ds.getConnection().commit();
+    		sqlSessionFactory.openSession(false).commit();
     		
     	} catch (Exception e) {
-    		try {ds.getConnection().rollback();} catch (Exception e2) {}
+    		sqlSessionFactory.openSession(false).rollback();
     		throw new RuntimeException(e);
     		
     	}

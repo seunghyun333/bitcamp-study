@@ -28,7 +28,7 @@ public class DiaryDetailListener implements ActionListener {
             prompt.printf("날짜 : %s \n", diary.getDate());
             prompt.printf("날씨 : %s \n", diary.getWeather());
             prompt.printf("제목 : %s \n", diary.getTitle());
-            prompt.printf("내용 : %s \n", diary.getContents());
+            prompt.printf("내용 : %s \n", diary.getContent());
             prompt.printf("모닝커피 : %s \n", diary.getCoffee() == 'O' ? "마심" : "안 마심");
           }   
     }

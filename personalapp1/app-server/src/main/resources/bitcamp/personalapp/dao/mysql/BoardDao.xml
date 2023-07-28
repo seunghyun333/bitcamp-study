@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.personalapp.dao.BoardDao">
 
-<resultMap type="bitcamp.personalapp.vo.Board" id="boardMap">
+<resultMap type="Board" id="boardMap">
   <id column="board_no" property="no"/>
   <result column="title" property="title"/>
   <result column="content" property="content"/>
@@ -18,7 +18,7 @@
   
 </resultMap>
 
-  <insert id="insert" parameterType="bitcamp.personalapp.vo.Board">
+  <insert id="insert" parameterType="board">
     insert into personalapp_board(title,content,writer)
      values(#{title},#{content},#{writer.no})
   </insert>
@@ -51,7 +51,7 @@
    where board_no=#{boardNo}
   </select>
   
-  <update id="update" parameterType="bitcamp.personalapp.vo.Board">
+  <update id="update" parameterType="board">
   update 
   personalapp_board set
   title=#{title},
@@ -60,14 +60,14 @@
    and writer=#{writer.no}
   </update>
   
-  <update id="updateCount" parameterType="bitcamp.personalapp.vo.Board">
+  <update id="updateCount" parameterType="board">
     update personalapp_board set
       view_count=#{viewCount}
     where
       board_no=#{no}
   </update>
   
-  <delete id="delete" parameterType="bitcamp.personalapp.vo.Board">
+  <delete id="delete" parameterType="board">
   delete from personalapp_board
   where board_no=#{no} 
   and writer=#{writer.no}

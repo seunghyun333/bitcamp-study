@@ -8,16 +8,14 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import bitcamp.personalapp.vo.Board;
-import bitcamp.util.DataSource;
 
 public class MySQLBoardDao implements BoardDao {
 
   SqlSessionFactory sqlSessionFactory;
-  DataSource ds;
 
-  public MySQLBoardDao(SqlSessionFactory sqlSessionFactory, DataSource ds) {
+  public MySQLBoardDao(SqlSessionFactory sqlSessionFactory) {
 	this.sqlSessionFactory = sqlSessionFactory;
-    this.ds = ds;
+
   }
 
   @Override

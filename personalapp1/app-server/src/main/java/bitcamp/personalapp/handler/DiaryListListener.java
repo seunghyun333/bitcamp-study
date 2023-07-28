@@ -21,7 +21,7 @@ public class DiaryListListener implements ActionListener{
         prompt.println("번호, 날짜, 날씨, 제목, 모닝커피");      
         prompt.println("--------------------------------------------");
 
-        List<Diary> list = diaryDao.list();
+        List<Diary> list = diaryDao.findAll();
         for (Diary diary : list) {
           prompt.printf("%d, %s, %s, %s, %s\n", 
         diary.getNo(), diary.getDate(), diary.getWeather(), diary.getTitle(), 

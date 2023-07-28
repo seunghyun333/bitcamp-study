@@ -13,7 +13,7 @@ public class Diary implements Serializable{
   public String date;
   public String title;
   public String weather;
-  public String contents;
+  public String content;
   public char coffee;
   
   public Diary() {}
@@ -69,12 +69,12 @@ public void setWeather(String weather) {
 	this.weather = weather;
 }
 
-public String getContents() {
-	return contents;
+public String getContent() {
+	return content;
 }
 
-public void setContents(String contents) {
-	this.contents = contents;
+public void setContents(String content) {
+	this.content = content;
 }
 
 public char getCoffee() {

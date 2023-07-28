@@ -8,9 +8,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
 import bitcamp.net.NetProtocol;
 import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.dao.DiaryDao;
@@ -62,9 +64,9 @@ public class ServerApp {
 
     sqlSessionFactory = new SqlSessionFactoryProxy(builder.build(mybatisConfigIn));
 
-    this.diaryDao = new MySQLDiaryDao(ds);
-    this.boardDao = new MySQLBoardDao(sqlSessionFactory, ds);
-    this.visitDao = new MySQLVisitDao(sqlSessionFactory, ds);
+    this.diaryDao = new MySQLDiaryDao(sqlSessionFactory);
+    this.boardDao = new MySQLBoardDao(sqlSessionFactory);
+    this.visitDao = new MySQLVisitDao(sqlSessionFactory);
 
     prepareMenu();
   }
@@ -120,11 +122,11 @@ public class ServerApp {
 
   private void prepareMenu() {
     MenuGroup diaryMenu = new MenuGroup("오늘의 일기");
-    diaryMenu.add(new Menu("등록", new DiaryAddListener(diaryDao, ds)));
+    diaryMenu.add(new Menu("등록", new DiaryAddListener(diaryDao, sqlSessionFactory)));
     diaryMenu.add(new Menu("목록", new DiaryListListener(diaryDao)));
     diaryMenu.add(new Menu("조회", new DiaryDetailListener(diaryDao)));
-    diaryMenu.add(new Menu("변경", new DiaryUpdateListener(diaryDao, ds)));
-    diaryMenu.add(new Menu("삭제", new DiaryDeleteListener(diaryDao, ds)));
+    diaryMenu.add(new Menu("변경", new DiaryUpdateListener(diaryDao, sqlSessionFactory)));
+    diaryMenu.add(new Menu("삭제", new DiaryDeleteListener(diaryDao, sqlSessionFactory)));
     mainMenu.add(diaryMenu);
 
     MenuGroup boardMenu = new MenuGroup("응원의 한마디");
