@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.personalapp.dao.VisitDao">
+
+<resultMap type="visit" id="visitMap">
+  <id column="visit_no" property="no"/>
+  <result column="name" property="name"/>
+  <result column="created_date"   property="createdDate"/>
+</resultMap>
+
+  <insert id="insert" parameterType="bitcamp.personalapp.vo.Visit">
+    insert into personalapp_visit(name) values(#{name})
+  </insert>
+  
+  <select id="findAll" parameterType="int" resultMap="visitMap">
+   select 
+   	visit_no, 
+   	name, 
+   	created_date
+	 from personalapp_visit 
+	 order by 
+	   visit_no
+  </select>
+  
+  <select id="findByIdAndPassword" parameterType="visit" resultMap="visitMap">
+    select 
+    visit_no 
+    from personalapp_visit 
+    where name=#{name}
+  </select>
+  
+
+  
+  <!--  
+  <select id="findBy" parameterType="map" resultMap="boardMap">
+  select
+    b.Board_no,
+     b.title, 
+     b.content,
+     b.view_count, 
+     b.created_date, 
+     v.visit_No, 
+     v.name
+   from
+     personalapp_board b inner join personalapp_visit v on b.writer=v.visit_no
+   where board_no=#{boardNo}
+  </select>
+  
+
+  <update id="update" parameterType="bitcamp.personalapp.vo.Board">
+  update 
+  personalapp_board set
+  title=#{title},
+  content=#{content}
+   where board_no=#{no}
+   and writer=#{writer.no}
+  </update>
+  
+  
+  <delete id="delete" parameterType="bitcamp.personalapp.vo.Board">
+  delete from personalapp_board
+  where board_no=#{no} 
+  and writer=#{writer.no}
+  </delete>
+  -->
+  
+</mapper>
