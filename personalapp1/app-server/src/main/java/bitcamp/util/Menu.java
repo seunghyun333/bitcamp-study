@@ -3,13 +3,13 @@ package bitcamp.util;
 import java.util.ArrayList;
 
 public class Menu {
-	
+
   private String path;
   private String title;
   private ArrayList<ActionListener> listeners = new ArrayList<>();
 
   public Menu(String path, String title) {
-	this.path = path;
+    this.path = path;
     this.title = title;
   }
 
@@ -31,22 +31,34 @@ public class Menu {
   }
 
   public void execute(BreadcrumbPrompt prompt) {
-   try {
-	prompt.setAttribute("menuPath", this.path);
-	
-    for (int i = 0; i < listeners.size(); i++) {
-      ActionListener listener = listeners.get(i);
-      listener.service(prompt);
+    try {
+      String[] values = this.path.split("[?]");
+      prompt.setAttribute("menuPath", values[0]);
+
+      if (values.length > 1) {
+        String[] params = values[1].split("&");
+
+        for (String param : params) {
+          String[] kv = param.split("=");
+          prompt.setAttribute(kv[0], kv[1]);
+        }
+      }
+
+
+      for (int i = 0; i < listeners.size(); i++) {
+        ActionListener listener = listeners.get(i);
+        listener.service(prompt);
+      }
+    } catch (Exception e) {
+      prompt.clear();
+      prompt.println(e.getMessage());
+
+    } finally {
+      try {
+        prompt.end();
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
     }
-   } catch (Exception e) {
-	   prompt.clear();
-	   prompt.println(e.getMessage());
-   } finally {
-	   try {
-		   prompt.end();
-	   } catch (Exception e) {
-		   throw new RuntimeException(e);
-	   }
-   }
   }
 }
