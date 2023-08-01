@@ -3,18 +3,18 @@ package bitcamp.personalapp.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-
 import bitcamp.personalapp.vo.Board;
+import bitcamp.util.Component;
 
+@Component
 public class MySQLBoardDao implements BoardDao {
 
   SqlSessionFactory sqlSessionFactory;
 
   public MySQLBoardDao(SqlSessionFactory sqlSessionFactory) {
-	this.sqlSessionFactory = sqlSessionFactory;
+    this.sqlSessionFactory = sqlSessionFactory;
 
   }
 
@@ -26,28 +26,28 @@ public class MySQLBoardDao implements BoardDao {
 
   @Override
   public List<Board> findAll() {
-	  SqlSession sqlSession = sqlSessionFactory.openSession(true);
-	  return sqlSession.selectList("bitcamp.personalapp.dao.BoardDao.findAll");
+    SqlSession sqlSession = sqlSessionFactory.openSession(true);
+    return sqlSession.selectList("bitcamp.personalapp.dao.BoardDao.findAll");
   }
 
   @Override
   public Board findBy(int no) {
-	  SqlSession sqlSession = sqlSessionFactory.openSession(true);
-	  
-	  Map<String,Object> paramMap = new HashMap<>();
-	  paramMap.put("boardNo", no);
-	  
-	  return sqlSession.selectOne("bitcamp.personalapp.dao.BoardDao.findBy", paramMap);
+    SqlSession sqlSession = sqlSessionFactory.openSession(true);
+
+    Map<String, Object> paramMap = new HashMap<>();
+    paramMap.put("boardNo", no);
+
+    return sqlSession.selectOne("bitcamp.personalapp.dao.BoardDao.findBy", paramMap);
   }
 
 
 
   @Override
   public int update(Board board) {
-	  SqlSession sqlSession = sqlSessionFactory.openSession(false);
-	  return sqlSession.update("bitcamp.personalapp.dao.BoardDao.update", board);
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.update("bitcamp.personalapp.dao.BoardDao.update", board);
   }
-  
+
   @Override
   public int updateCount(Board board) {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
@@ -56,8 +56,8 @@ public class MySQLBoardDao implements BoardDao {
 
   @Override
   public int delete(Board board) {
-	  SqlSession sqlSession = sqlSessionFactory.openSession(false);
-	    return sqlSession.update("bitcamp.personalapp.dao.BoardDao.delete", board);
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.update("bitcamp.personalapp.dao.BoardDao.delete", board);
   }
 
 

@@ -7,7 +7,10 @@ import bitcamp.personalapp.vo.Board;
 import bitcamp.personalapp.vo.Visit;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+
+@Component("/board/add")
 public class BoardAddListener implements ActionListener {
 
   BoardDao boardDao;

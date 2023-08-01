@@ -6,7 +6,9 @@ import bitcamp.personalapp.dao.VisitDao;
 import bitcamp.personalapp.vo.Visit;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/visit/add")
 public class VisitAddListener implements ActionListener {
 
   VisitDao visitDao;

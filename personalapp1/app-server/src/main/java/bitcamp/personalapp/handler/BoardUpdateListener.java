@@ -7,7 +7,9 @@ import bitcamp.personalapp.vo.Board;
 import bitcamp.personalapp.vo.Visit;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/board/update")
 public class BoardUpdateListener implements ActionListener {
 
   BoardDao boardDao;

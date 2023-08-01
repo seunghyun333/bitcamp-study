@@ -6,7 +6,9 @@ import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.vo.Board;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/board/detail")
 public class BoardDetailListener implements ActionListener {
   BoardDao boardDao;
   SqlSessionFactory sqlSessionFactory;

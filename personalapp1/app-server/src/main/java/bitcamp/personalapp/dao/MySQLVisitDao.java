@@ -1,12 +1,12 @@
 package bitcamp.personalapp.dao;
 
 import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-
 import bitcamp.personalapp.vo.Visit;
+import bitcamp.util.Component;
 
+@Component
 public class MySQLVisitDao implements VisitDao {
 
   SqlSessionFactory sqlSessionFactory;
@@ -31,10 +31,10 @@ public class MySQLVisitDao implements VisitDao {
 
   @Override
   public Visit findByIdAndPassword(Visit visit) {
-    SqlSession sqlSession = sqlSessionFactory.openSession(false);    
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.selectOne("bitcamp.personalapp.dao.VisitDao.findByIdAndPassword", visit);
   }
-  
-  
+
+
 }
 

@@ -1,15 +1,15 @@
 package bitcamp.personalapp.handler;
 
 import java.io.IOException;
-
 import org.apache.ibatis.session.SqlSessionFactory;
-
 import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.vo.Board;
 import bitcamp.personalapp.vo.Visit;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/board/delete")
 public class BoardDeleteListener implements ActionListener {
 
   BoardDao boardDao;

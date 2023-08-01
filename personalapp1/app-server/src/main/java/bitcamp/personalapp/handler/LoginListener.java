@@ -4,7 +4,9 @@ import java.io.IOException;
 import bitcamp.personalapp.dao.VisitDao;
 import bitcamp.personalapp.vo.Visit;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/auth/login")
 public class LoginListener implements VisitActionListener {
 
   VisitDao visitDao;

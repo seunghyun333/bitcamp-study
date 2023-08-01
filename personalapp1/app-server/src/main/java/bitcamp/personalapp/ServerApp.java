@@ -7,8 +7,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import bitcamp.net.NetProtocol;
+import bitcamp.personalapp.config.AppConfig;
+import bitcamp.util.ApplicationContext;
 import bitcamp.util.BreadcrumbPrompt;
 import bitcamp.util.DispatcherListener;
 import bitcamp.util.MenuGroup;
@@ -19,17 +20,20 @@ public class ServerApp {
   ExecutorService threadPool = Executors.newFixedThreadPool(2);
 
   MenuGroup mainMenu = new MenuGroup("/", "메인");
-  DispatcherListener facadeListener = new DispatcherListener();
+
+  ApplicationContext iocContainer;
+  DispatcherListener facadeListener;
 
   int port;
 
   public ServerApp(int port) throws Exception {
     this.port = port;
+    iocContainer = new ApplicationContext(AppConfig.class);
+    facadeListener = new DispatcherListener(iocContainer);
     prepareMenu();
   }
 
-  public void close() throws Exception {
-  }
+  public void close() throws Exception {}
 
   public static void main(String[] args) throws Exception {
     ServerApp app = new ServerApp(8888);
@@ -64,46 +68,46 @@ public class ServerApp {
       System.out.printf("%s 클라이언트 접속함!\n", clientAddress.getHostString());
 
       out.writeUTF("[나의 다이어리 관리 시스템]\n" + "-------------------------------------");
-      
-      prompt.setAttribute("menuPath", "login");
+
+      prompt.setAttribute("menuPath", "/auth/login");
       facadeListener.service(prompt);
 
       mainMenu.execute(prompt);
       out.writeUTF(NetProtocol.NET_END);
-      
+
     } catch (Exception e) {
       System.out.println("클라이언트 통신 오류!");
       e.printStackTrace();
-      
+
     } finally {
-     SqlSessionFactoryProxy sqlSessionFactoryProxy =
-       (SqlSessionFactoryProxy) facadeListener.getBean("sqlSessionFactory");
-     sqlSessionFactoryProxy.clean();
+      SqlSessionFactoryProxy sqlSessionFactoryProxy =
+          (SqlSessionFactoryProxy) iocContainer.getBean("sqlSessionFactory");
+      sqlSessionFactoryProxy.clean();
     }
   }
 
 
   private void prepareMenu() {
-    MenuGroup diaryMenu = new MenuGroup("diary", "오늘의 일기");
-    diaryMenu.add("diary/add", "등록", facadeListener);
-    diaryMenu.add("diary/list", "목록", facadeListener);
-    diaryMenu.add("diary/detail", "조회", facadeListener);
-    diaryMenu.add("diary/update", "변경", facadeListener);
-    diaryMenu.add("diary/delete", "삭제", facadeListener);
+    MenuGroup diaryMenu = new MenuGroup("/diary", "오늘의 일기");
+    diaryMenu.add("/diary/add", "등록", facadeListener);
+    diaryMenu.add("/diary/list", "목록", facadeListener);
+    diaryMenu.add("/diary/detail", "조회", facadeListener);
+    diaryMenu.add("/diary/update", "변경", facadeListener);
+    diaryMenu.add("/diary/delete", "삭제", facadeListener);
     mainMenu.add(diaryMenu);
 
-    MenuGroup boardMenu = new MenuGroup("board", "응원의 한마디");
-    boardMenu.add("board/add", "등록", facadeListener);
-    boardMenu.add("board/list", "목록", facadeListener);
-    boardMenu.add("board/detail", "조회", facadeListener);
-    boardMenu.add("board/update", "변경", facadeListener);
-    boardMenu.add("board/delete", "삭제", facadeListener);
+    MenuGroup boardMenu = new MenuGroup("/board", "응원의 한마디");
+    boardMenu.add("/board/add", "등록", facadeListener);
+    boardMenu.add("/board/list", "목록", facadeListener);
+    boardMenu.add("/board/detail", "조회", facadeListener);
+    boardMenu.add("/board/update", "변경", facadeListener);
+    boardMenu.add("/board/delete", "삭제", facadeListener);
     mainMenu.add(boardMenu);
 
 
-    MenuGroup manageMenu = new MenuGroup("visit", "방명록");
-    manageMenu.add("visit/add", "이름을 적어주세요", facadeListener);
-    manageMenu.add("visit/list", "방문자", facadeListener);
+    MenuGroup manageMenu = new MenuGroup("/visit", "방명록");
+    manageMenu.add("/visit/add", "이름을 적어주세요", facadeListener);
+    manageMenu.add("/visit/list", "방문자", facadeListener);
     mainMenu.add(manageMenu);
 
   }
