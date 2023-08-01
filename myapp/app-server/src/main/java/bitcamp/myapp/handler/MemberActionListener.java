@@ -1,7 +1,6 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
-
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.ActionListener;
 import bitcamp.util.BreadcrumbPrompt;
@@ -17,7 +16,6 @@ public interface MemberActionListener extends ActionListener {
     }
 
     while (true) {
-    
       String menuNo = prompt.inputString(label +
           "  1. 남자\n" +
           "  2. 여자\n" +
@@ -31,8 +29,7 @@ public interface MemberActionListener extends ActionListener {
         default:
           prompt.println("무효한 번호입니다.");
       }
-    } 
-    
+    }
   }
 
 }

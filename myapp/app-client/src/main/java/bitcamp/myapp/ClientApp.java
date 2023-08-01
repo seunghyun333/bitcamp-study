@@ -4,7 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
-
 import bitcamp.net.NetProtocol;
 
 public class ClientApp {
@@ -55,13 +54,5 @@ public class ClientApp {
     }
   }
 }
-
-
-
-
-
-
-
-
 
 

@@ -1,13 +1,13 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
-
 import org.apache.ibatis.session.SqlSessionFactory;
-
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/member/add")
 public class MemberAddListener implements MemberActionListener {
 
   MemberDao memberDao;
@@ -20,7 +20,6 @@ public class MemberAddListener implements MemberActionListener {
 
   @Override
   public void service(BreadcrumbPrompt prompt) throws IOException {
-
     Member m = new Member();
     m.setName(prompt.inputString("이름? "));
     m.setEmail(prompt.inputString("이메일? "));
@@ -28,13 +27,12 @@ public class MemberAddListener implements MemberActionListener {
     m.setGender(MemberActionListener.inputGender((char)0, prompt));
 
     try {
-    memberDao.insert(m);
-    sqlSessionFactory.openSession(false).commit();
-    
+      memberDao.insert(m);
+      sqlSessionFactory.openSession(false).commit();
+
     } catch (Exception e) {
-    	sqlSessionFactory.openSession(false).rollback();
-    	throw new RuntimeException(e); 
+      sqlSessionFactory.openSession(false).rollback();
+      throw new RuntimeException(e);
     }
-	
   }
 }

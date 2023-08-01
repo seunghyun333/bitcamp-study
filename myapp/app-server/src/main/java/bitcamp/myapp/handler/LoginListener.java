@@ -1,11 +1,12 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
-
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/auth/login")
 public class LoginListener implements MemberActionListener {
 
   MemberDao memberDao;

@@ -1,13 +1,13 @@
 package bitcamp.myapp.handler;
 
 import java.io.IOException;
-
 import org.apache.ibatis.session.SqlSessionFactory;
-
 import bitcamp.myapp.dao.MemberDao;
 import bitcamp.myapp.vo.Member;
 import bitcamp.util.BreadcrumbPrompt;
+import bitcamp.util.Component;
 
+@Component("/member/update")
 public class MemberUpdateListener implements MemberActionListener {
 
   MemberDao memberDao;
@@ -34,12 +34,12 @@ public class MemberUpdateListener implements MemberActionListener {
     m.setGender(MemberActionListener.inputGender(m.getGender(), prompt));
 
     try {
-    memberDao.update(m);
-    sqlSessionFactory.openSession(false).commit();
-    
+      memberDao.update(m);
+      sqlSessionFactory.openSession(false).commit();
+
     } catch (Exception e) {
-    	sqlSessionFactory.openSession(false).rollback();
-    	throw new RuntimeException(e);
+      sqlSessionFactory.openSession(false).rollback();
+      throw new RuntimeException(e);
     }
   }
 

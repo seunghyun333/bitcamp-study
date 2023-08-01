@@ -5,10 +5,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// 메서드에 붙일 애노테이션
+// 클래스에 붙일 애노테이션
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Bean {
+@Target(ElementType.TYPE)
+public @interface Component {
   String value() default "";
 }
