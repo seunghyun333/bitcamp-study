@@ -61,7 +61,7 @@ public class ApplicationContext {
       // 메서드 중에서 리턴 값이 있는 메서드를 호출한다.
       // 즉 오직 값을 리턴하는 메서드만 호출한다.
       Object returnValue = m.invoke(obj);
-
+      System.out.println(returnValue + "####################");
       // 메서드가 리턴한 값을 컨테이너에 저장한다.
       if (beanAnnotation.value().length() > 0) {
         // 애노테이션에 객체 이름이 지정되어 있다면 그 이름으로 객체를 저장한다.
@@ -104,7 +104,6 @@ public class ApplicationContext {
         }).collect(Collectors.toSet());
 
     for (Class<?> clazz : classes) {
-      System.out.println("#####" + clazz.getName());
       if (clazz.isEnum() || clazz.isInterface() || clazz.isLocalClass() || clazz.isMemberClass()) {
         continue;
       }
@@ -122,6 +121,9 @@ public class ApplicationContext {
 
       if (compAnno.value().length() > 0) {
         beanContainer.put(compAnno.value(), obj);
+      } else {
+        // 그렇지 않다면, 클래스 이름으로 객체를 저장한다.
+        beanContainer.put(clazz.getSimpleName(), obj);
       }
       System.out.printf("%s 객체 생성!\n", clazz.getName());
 
@@ -133,6 +135,7 @@ public class ApplicationContext {
 
     for (Parameter param : params) {
       args.add(getBean(param.getType()));
+      System.out.println(param.getType());
     }
 
     return args.toArray();
@@ -164,5 +167,6 @@ public class ApplicationContext {
     for (String name : applicationContext.getBeanNames()) {
       System.out.println(name);
     }
+
   }
 }

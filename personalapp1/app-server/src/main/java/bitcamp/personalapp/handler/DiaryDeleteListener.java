@@ -22,11 +22,7 @@ public class DiaryDeleteListener implements ActionListener {
   @Override
   public void service(BreadcrumbPrompt prompt) throws IOException {
 
-    String password = prompt.inputString("비밀번호 입력: ");
-    if (!"0318".equals(password)) {
-      System.out.println("비밀번호가 틀렸습니다..");
-      return;
-    }
+
 
     try {
       if (diaryDao.delete(prompt.inputInt("삭제할 번호?")) == 0) {

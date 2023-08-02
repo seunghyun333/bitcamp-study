@@ -11,13 +11,16 @@ import bitcamp.util.HttpServletResponse;
 import bitcamp.util.Servlet;
 
 @Component("/board/list")
-public class BoardListListener implements Servlet {
+public class BoardListServlet implements Servlet {
 
   BoardDao boardDao;
   SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
-  public BoardListListener(BoardDao boardDao) {
+  public BoardListServlet(BoardDao boardDao) {
     this.boardDao = boardDao;
+
+    System.out.println("결과: " + boardDao);
+
   }
 
   @Override
@@ -32,6 +35,9 @@ public class BoardListListener implements Servlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>게시글 목록</h1>");
+    out.println("<div sytle='margin:5px;'>");
+    out.println("<a href='/board/form'>새 글</a>");
+    out.println("</div>");
     out.println("<table border='1'>");
     out.println("<thead>");
     out.println("  <tr><th>번호</th> <th>제목</th> <th>작성자</th> <th>조회수</th> <th>등록일</th></tr>");
@@ -39,14 +45,17 @@ public class BoardListListener implements Servlet {
 
 
     List<Board> list = boardDao.findAll();
-    out.println("<tbody>");
 
     for (Board board : list) {
-      out.printf("<tr><td>%d</td> <td>%s</td> <td>%s</td> <td>%d</td> <td>%s</td></tr>\n",
-          board.getNo(), board.getTitle(), board.getWriter().getName(), board.getViewCount(),
-          dateFormatter.format(board.getCreatedDate()));
+      out.printf(
+          "<tr>" + "<td>%d</td>" + " <td><a href='/board/detail?no=%d'>%s</a></td>" + " <td>%s</td>"
+              + "<td>%d</td> " + "<td>%s</td></tr>\n",
+          board.getNo(), board.getNo(), board.getTitle(), board.getWriter().getName(),
+          board.getViewCount(), dateFormatter.format(board.getCreatedDate()));
     }
     out.println("</tbody>");
+    out.println("</table>");
+    out.println("<a href='/'>메인</a>");
     out.println("</body>");
     out.println("</html>");
   }

@@ -26,13 +26,13 @@ public class MySQLBoardDao implements BoardDao {
 
   @Override
   public List<Board> findAll() {
-    SqlSession sqlSession = sqlSessionFactory.openSession(true);
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.selectList("bitcamp.personalapp.dao.BoardDao.findAll");
   }
 
   @Override
   public Board findBy(int no) {
-    SqlSession sqlSession = sqlSessionFactory.openSession(true);
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
 
     Map<String, Object> paramMap = new HashMap<>();
     paramMap.put("boardNo", no);
@@ -59,7 +59,5 @@ public class MySQLBoardDao implements BoardDao {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.update("bitcamp.personalapp.dao.BoardDao.delete", board);
   }
-
-
 
 }

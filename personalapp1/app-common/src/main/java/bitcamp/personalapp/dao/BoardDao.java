@@ -1,7 +1,6 @@
 package bitcamp.personalapp.dao;
 
 import java.util.List;
-
 import bitcamp.personalapp.vo.Board;
 
 public interface BoardDao {
@@ -12,7 +11,7 @@ public interface BoardDao {
   Board findBy(int no);
 
   int update(Board board);
-  
+
   int updateCount(Board board);
 
   int delete(Board board);

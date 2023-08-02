@@ -1,10 +1,12 @@
 package bitcamp.myapp;
 
+import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.myapp.config.AppConfig;
 import bitcamp.util.ApplicationContext;
 import bitcamp.util.DispatcherServlet;
 import bitcamp.util.HttpServletRequest;
 import bitcamp.util.HttpServletResponse;
+import bitcamp.util.SqlSessionFactoryProxy;
 import reactor.core.publisher.Mono;
 import reactor.netty.DisposableServer;
 import reactor.netty.NettyOutbound;
@@ -45,10 +47,11 @@ public class ServerApp {
   }
 
   private NettyOutbound processRequest(HttpServerRequest request, HttpServerResponse response) {
-    try {
 
-      HttpServletRequest request2 = new HttpServletRequest(request);
-      HttpServletResponse response2 = new HttpServletResponse(response);
+    HttpServletRequest request2 = new HttpServletRequest(request);
+    HttpServletResponse response2 = new HttpServletResponse(response);
+
+    try {
       dispatcherServlet.service(request2, response2);
 
       // HTTP 응답 프로토콜의 헤더 설정
@@ -59,12 +62,12 @@ public class ServerApp {
 
     } catch (Exception e) {
       e.printStackTrace();
-      return response.sendString(Mono.just("Error!"));
+      return response.sendString(Mono.just(response2.getContent()));
 
     } finally {
-      // SqlSessionFactoryProxy sqlSessionFactoryProxy =
-      // (SqlSessionFactoryProxy) iocContainer.getBean(SqlSessionFactory.class);
-      // sqlSessionFactoryProxy.clean();
+      SqlSessionFactoryProxy sqlSessionFactoryProxy =
+          (SqlSessionFactoryProxy) iocContainer.getBean(SqlSessionFactory.class);
+      sqlSessionFactoryProxy.clean();
     }
   }
 }

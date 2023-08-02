@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.net.URL;
-import bitcamp.myapp.dao.MemberDao;
+import bitcamp.personalapp.dao.BoardDao;
 
 public class DispatcherServlet implements Servlet {
 
@@ -16,15 +16,16 @@ public class DispatcherServlet implements Servlet {
 
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    // 지정한 경로의 기본 문서를 요청할 경우
     try {
+      // 지정한 경로의 기본 문서를 요청할 경우,
       if (request.getServletPath().endsWith("/")) {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.print(getStaticContent(request.getServletPath() + "index.html"));
         return;
       }
-      // html 문서를 요청할 경우
+
+      // HTML 문서를 요청할 경우,
       if (request.getServletPath().endsWith(".html")) {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -32,16 +33,14 @@ public class DispatcherServlet implements Servlet {
         return;
       }
 
-      // 서블릿에 실행을 요구한 경우,
+      // 서블릿의 실행을 요구할 경우,
       Servlet servlet = (Servlet) iocContainer.getBean(request.getServletPath());
       if (servlet == null) {
         throw new Exception("요청한 URL이 유효하지 않습니다.");
       }
-
-      MemberDao memberDao = iocContainer.getBean(MemberDao.class);
-      request.setAttribute("loginUser", memberDao.findBy(3));
+      BoardDao boardDao = iocContainer.getBean(BoardDao.class);
+      request.setAttribute("loginUser", boardDao.findBy(1));
       servlet.service(request, response);
-
     } catch (Exception e) {
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
@@ -52,7 +51,7 @@ public class DispatcherServlet implements Servlet {
       out.println("<title>게시글</title>");
       out.println("</head>");
       out.println("<body>");
-      out.println("<h1>실행오류</h1>");
+      out.println("<h1>실행 오류</h1>");
       out.printf("<p>%s</p>\n", e.getMessage());
       out.println("</body>");
       out.println("</html>");
@@ -60,36 +59,22 @@ public class DispatcherServlet implements Servlet {
   }
 
   private String getStaticContent(String url) throws Exception {
-    // 파일에서 읽은 데이터를 담은 버퍼 객체
     StringBuilder strBuf = new StringBuilder();
 
-    // 클라이언트가 요청한 URL의 실제 파일 위치를 알아나낸다.
     String realPath = getRealPath(url);
     try (BufferedReader in = new BufferedReader(new FileReader(realPath))) {
       String line = null;
       while ((line = in.readLine()) != null) {
-        // 파일에서 한 줄 씩 읽어서 버퍼에 담는다!
         strBuf.append(line);
       }
     }
-    // 버퍼에 담은 모든 데이터를 리턴한다.
-    // 즉 파일에서 읽은 데이터를 리턴하는 것이다.
     return strBuf.toString();
   }
 
-  private String getRealPath(String urlpath) throws Exception {
-    // 일반 파일(static resource)은 static 이라는 이름의 패키지에 있기 때문에
-    // 일반 파일을 찾을 때는 static 패키지에서 찾아야한다.
-    String staticResourcePath = "/static" + urlpath;
-    // 틀래스 정보를 담고 있는 객체를 알아낸다.
-    // 어떤 클래스라도 상관없다.
-    // 일반 파일이 놓여있는 classpath에 존재하는 클래스면 된다.
+  private String getRealPath(String urlPath) throws Exception {
+    String staticResourcePath = "/static" + urlPath;
     Class<?> clazz = DispatcherServlet.class;
-
-    // Class.getResource()는 주어진 경로의 파일의 실제 위치를 찾아준다.
     URL fileURL = clazz.getResource(staticResourcePath);
-
-    // URL 객체에서 파일 경로를 문자열로 추출하여 리턶
     return fileURL.getFile();
   }
 }

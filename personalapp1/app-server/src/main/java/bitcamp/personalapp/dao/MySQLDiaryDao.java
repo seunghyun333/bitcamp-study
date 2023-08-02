@@ -29,7 +29,7 @@ public class MySQLDiaryDao implements DiaryDao {
 
   @Override
   public Diary findBy(int no) {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.selectOne("bitcamp.personalapp.dao.DiaryDao.findBy", no);
   }
 
