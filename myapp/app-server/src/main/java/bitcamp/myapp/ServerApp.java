@@ -46,12 +46,13 @@ public class ServerApp {
 
   private NettyOutbound processRequest(HttpServerRequest request, HttpServerResponse response) {
     try {
+
       HttpServletRequest request2 = new HttpServletRequest(request);
       HttpServletResponse response2 = new HttpServletResponse(response);
       dispatcherServlet.service(request2, response2);
 
       // HTTP 응답 프로토콜의 헤더 설정
-      response.addHeader("content-Type", response2.getContent());
+      response.addHeader("Content-Type", response2.getContentType());
 
       // 서블릿이 출력한 문자열을 버퍼에서 꺼내 HTTP 프로토콜에 맞춰 응답한다.
       return response.sendString(Mono.just(response2.getContent()));

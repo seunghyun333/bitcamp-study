@@ -32,11 +32,12 @@ import reactor.netty.http.websocket.WebsocketOutbound;
 public class HttpServletResponse {
 
   HttpServerResponse original;
-  // 서블릿이 클라이언트에게 응답할 때 사용할 출력 스트림
-  StringWriter buf = new StringWriter();
-  PrintWriter out = new PrintWriter(buf);
 
-  // 응답 컨텐트의 타입
+  // 서블릿이 클라이언트에게 응답할 때 사용할 출력 스트림 도구
+  StringWriter buf = new StringWriter();
+  PrintWriter out;
+
+  // 응답 콘텐트의 타입
   String contentType = "text/plain;charset=ISO-8859-1";
 
   public HttpServletResponse(HttpServerResponse original) {
@@ -50,7 +51,6 @@ public class HttpServletResponse {
     return this.out;
   }
 
-
   public String getContent() {
     return buf.toString();
   }
@@ -60,10 +60,11 @@ public class HttpServletResponse {
       // 출력 스트림을 사용한 상태라면 콘텐트 설정을 무시한다.
       return;
     }
+
     this.contentType = contentType;
   }
 
-  public String getcontentType() {
+  public String getContentType() {
     return this.contentType;
   }
 
@@ -226,7 +227,7 @@ public class HttpServletResponse {
 
   public Mono<Void> sendWebsocket(
       BiFunction<? super WebsocketInbound, ? super WebsocketOutbound, ? extends Publisher<Void>> websocketHandler,
-      WebsocketServerSpec websocketServerSpec) {
+          WebsocketServerSpec websocketServerSpec) {
     return original.sendWebsocket(websocketHandler, websocketServerSpec);
   }
 
@@ -302,5 +303,6 @@ public class HttpServletResponse {
   public NettyOutbound then(Publisher<Void> other, Runnable onCleanup) {
     return original.then(other, onCleanup);
   }
+
 
 }

@@ -16,7 +16,7 @@ public class DispatcherServlet implements Servlet {
     if (servlet == null) {
       response.setContentType("text/plain;charset=UTF-8");
       PrintWriter out = response.getWriter();
-      out.println("해당 요청을 처리할 수 없습니다.");
+      out.println("해당 요청을 처리할 수 없습니다!");
       return;
     }
     servlet.service(request, response);
