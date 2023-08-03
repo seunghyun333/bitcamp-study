@@ -1,36 +1,34 @@
-package bitcamp.personalapp.handler;
+package bitcamp.myapp.handler;
 
 import java.io.PrintWriter;
 import org.apache.ibatis.session.SqlSessionFactory;
-import bitcamp.personalapp.dao.DiaryDao;
-import bitcamp.personalapp.vo.Diary;
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.vo.Member;
 import bitcamp.util.Component;
 import bitcamp.util.HttpServletRequest;
 import bitcamp.util.HttpServletResponse;
 import bitcamp.util.Servlet;
 
-@Component("/diary/update")
-public class DiaryUpdateServlet implements Servlet {
+@Component("/member/update")
+public class MemberUpdateServlet implements Servlet {
 
-  DiaryDao diaryDao;
+  MemberDao memberDao;
   SqlSessionFactory sqlSessionFactory;
 
-  public DiaryUpdateServlet(DiaryDao diaryDao, SqlSessionFactory sqlSessionFactory) {
-    this.diaryDao = diaryDao;
+  public MemberUpdateServlet(MemberDao memberDao, SqlSessionFactory sqlSessionFactory) {
+    this.memberDao = memberDao;
     this.sqlSessionFactory = sqlSessionFactory;
   }
-
-
 
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    Diary diary = new Diary();
-    diary.setNo(Integer.parseInt(request.getParameter("no")));
-    diary.setDate(request.getParameter("date"));
-    diary.setTitle(request.getParameter("title"));
-    diary.setContent(request.getParameter("content"));
-    diary.setCoffee(request.getParameter("coffee").charAt(0));
+    Member member = new Member();
+    member.setNo(Integer.parseInt(request.getParameter("no")));
+    member.setName(request.getParameter("name"));
+    member.setEmail(request.getParameter("email"));
+    member.setPassword(request.getParameter("password"));
+    member.setGender(request.getParameter("gender").charAt(0));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -38,16 +36,15 @@ public class DiaryUpdateServlet implements Servlet {
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    out.println("<meta http-equiv='refresh' content='1;url=/diary/list'>");
-    out.println("<title>일기</title>");
+    out.println("<meta http-equiv='refresh' content='1;url=/member/list'>");
+    out.println("<title>회원</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>일기 변경</h1>");
-
+    out.println("<h1>회원 변경</h1>");
 
     try {
-      if (diaryDao.update(diary) == 0) {
-        out.println("<p>해당 번호의 일기가 없습니다.</p>");
+      if (memberDao.update(member) == 0) {
+        out.println("<p>회원이 없습니다.</p>");
       } else {
         sqlSessionFactory.openSession(false).commit();
         out.println("<p>변경했습니다!</p>");
@@ -57,9 +54,9 @@ public class DiaryUpdateServlet implements Servlet {
       out.println("<p>변경 실패입니다!</p>");
       e.printStackTrace();
     }
+
     out.println("</body>");
     out.println("</html>");
   }
+
 }
-
-

@@ -32,9 +32,9 @@ public class MySQLBoardDao implements BoardDao {
 
   @Override
   public Board findBy(int category, int no) {
-    SqlSession sqlSession = sqlSessionFactory.openSession(true);
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
 
-    Map<String, Object> paramMap = new HashMap<>();
+    Map<String,Object> paramMap = new HashMap<>();
     paramMap.put("categoryNo", category);
     paramMap.put("boardNo", no);
 

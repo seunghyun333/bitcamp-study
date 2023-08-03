@@ -1,12 +1,20 @@
 package bitcamp.personalapp;
 
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.personalapp.config.AppConfig;
 import bitcamp.util.ApplicationContext;
 import bitcamp.util.DispatcherServlet;
 import bitcamp.util.HttpServletRequest;
 import bitcamp.util.HttpServletResponse;
+import bitcamp.util.HttpSession;
 import bitcamp.util.SqlSessionFactoryProxy;
+import io.netty.handler.codec.http.cookie.Cookie;
+import io.netty.handler.codec.http.cookie.DefaultCookie;
 import reactor.core.publisher.Mono;
 import reactor.netty.DisposableServer;
 import reactor.netty.NettyOutbound;
@@ -16,9 +24,12 @@ import reactor.netty.http.server.HttpServerResponse;
 
 public class ServerApp {
 
+  public static final String PERSONALAPP_SESSION_ID = "personalapp_session_id";
+
 
   ApplicationContext iocContainer;
   DispatcherServlet dispatcherServlet;
+  Map<String, HttpSession> sessionMap = new HashMap<>();
 
   int port;
 
@@ -50,7 +61,49 @@ public class ServerApp {
   private NettyOutbound processRequest(HttpServerRequest request, HttpServerResponse response) {
     HttpServletRequest request2 = new HttpServletRequest(request);
     HttpServletResponse response2 = new HttpServletResponse(response);
+
+
     try {
+      String sessionId = null;
+      boolean firstVist = false;
+
+      List<Cookie> cookies = request2.allCookies().get(PERSONALAPP_SESSION_ID);
+      if (cookies != null) {
+        sessionId = cookies.get(0).value();
+      } else {
+        sessionId = UUID.randomUUID().toString();
+        firstVist = true;
+      }
+
+      HttpSession session = sessionMap.get(sessionId);
+      if (session == null) {
+        session = new HttpSession(sessionId);
+        sessionMap.put(sessionId, session);
+      }
+
+      request2.setSession(session);
+
+      if (firstVist) {
+        response.addCookie(new DefaultCookie(PERSONALAPP_SESSION_ID, sessionId));
+      }
+
+      String servletPath = request2.getServletPath();
+
+      // favicon.ico 요청에 대한 응답
+      if (servletPath.equals("/favicon.ico")) {
+        response.addHeader("Content-Type", "image/vnd.microsoft.icon");
+        return response
+            .sendFile(Path.of(ServerApp.class.getResource("/static/favicon.ico").toURI()));
+      }
+
+      // welcome 파일 또는 HTML 파일을 요청할 때
+      if (servletPath.endsWith("/") || servletPath.endsWith(".html")) {
+        String resourcePath = String.format("/static%s%s", servletPath,
+            (servletPath.endsWith("/") ? "index.html" : ""));
+
+        response.addHeader("Content-Type", "text/html;charset=UTF-8");
+        return response.sendFile(Path.of(ServerApp.class.getResource(resourcePath).toURI()));
+      }
       dispatcherServlet.service(request2, response2);
 
       // HTTP 응답 프로토콜의 헤더 설정

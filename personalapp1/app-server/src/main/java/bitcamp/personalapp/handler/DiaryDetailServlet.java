@@ -1,7 +1,6 @@
 package bitcamp.personalapp.handler;
 
 import java.io.PrintWriter;
-import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.personalapp.dao.DiaryDao;
 import bitcamp.personalapp.vo.Diary;
 import bitcamp.util.Component;
@@ -13,11 +12,10 @@ import bitcamp.util.Servlet;
 public class DiaryDetailServlet implements Servlet {
 
   DiaryDao diaryDao;
-  SqlSessionFactory sqlSessionFactory;
 
-  public DiaryDetailServlet(DiaryDao diaryDao, SqlSessionFactory sqlSessionFactory) {
+
+  public DiaryDetailServlet(DiaryDao diaryDao) {
     this.diaryDao = diaryDao;
-    this.sqlSessionFactory = sqlSessionFactory;
   }
 
 
@@ -43,28 +41,33 @@ public class DiaryDetailServlet implements Servlet {
 
     } else {
       out.println("<form action='/diary/update'>");
-      out.printf("<input type='hidden'>\n");
       out.println("<table border='1'>");
       out.printf("<tr><th style='width:120px;'>번호</th>"
           + " <td style='width:300px;'><input type='text' name='no' value='%d' readonly></td></tr>\n",
           diary.getNo());
+
       out.printf("<tr><th>날짜</th>" + " <td><input type='text' name='date' value='%s'></td></tr>\n",
           diary.getDate());
-      out.printf("<tr><th>날씨</th>"
-          + " <td><textarea name='weather' style='height:200px; width:400px;'>%s</textarea></td></tr>\n",
+
+      out.printf(
+          "<tr><th>날씨</th>" + " <td><input type='text' name='weather' value='%s'></td></tr>\n",
           diary.getWeather());
-      out.printf("<tr><th>제목</th>"
-          + " <td><textarea name='title' style='height:200px; width:400px;'>%s</textarea></td></tr>\n",
+
+
+      out.printf("<tr><th>제목</th>" + " <td><input type='text' name='title' value='%s'></td></tr>\n",
           diary.getTitle());
-      out.printf("<tr><th>내용</th>"
-          + " <td><textarea name='content' style='height:200px; width:400px;'>%s</textarea></td></tr>\n",
+
+      out.printf(
+          "<tr><th>내용</th>" + " <td><input type='text' name='content' value='%s'></td></tr>\n",
           diary.getContent());
+
       out.printf(
           "<tr><th>모닝커피</th>\n" + " <td><select name='coffee'>\n"
               + " <option value='O' %s>마심</option>\n"
               + " <option value='X' %s>안 마심</option></select></td></tr>\n",
           (diary.getCoffee() == 'O' ? "selected" : ""),
           (diary.getCoffee() == 'X' ? "selected" : ""));
+
       out.println("</table>");
 
       out.println("<div>");

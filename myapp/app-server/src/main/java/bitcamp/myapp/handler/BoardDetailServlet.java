@@ -22,7 +22,9 @@ public class BoardDetailServlet implements Servlet {
 
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    Board board = boardDao.findBy(Integer.parseInt(request.getParameter("category")),
+
+    Board board = boardDao.findBy(
+        Integer.parseInt(request.getParameter("category")),
         Integer.parseInt(request.getParameter("no")));
 
     response.setContentType("text/html;charset=UTF-8");
@@ -41,32 +43,27 @@ public class BoardDetailServlet implements Servlet {
 
     } else {
       out.println("<form action='/board/update'>");
-      out.printf("<input type='hidden' name='category' value=%d>\n", board.getCategory());
+      out.printf("<input type='hidden' name='category' value='%d'>\n", board.getCategory());
       out.println("<table border='1'>");
-      out.printf("<tr><th sytle='width:120px;'>번호</th> "
-          + "<td style='width:300px;'><input type='text' name='no' value='%d' readonly='readonly'></td></tr>\n",
-          board.getNo());
-
-      out.printf("<tr><th>제목</th> " + "<td><input type='text' name='title' value='%s'></td></tr>\n",
-          board.getTitle());
-
-      out.printf("<tr><th>내용</th> "
-          + "<td><textarea name='content' style='height:200px; width:400px;'>%s</textarea></td></tr>\n",
-          board.getContent());
-      out.printf("<tr><th>작성자</th> <td> %s</td></tr>\n", board.getWriter().getName());
-      out.printf("<tr><th>조회수</th> <td> %s</td></tr>\n", board.getViewCount());
-      out.printf("<tr><th>등록일</th> <td> %tY-%1$tm-%1$td</td></tr>\n", board.getCreatedDate());
+      out.printf("<tr><th style='width:120px;'>번호</th>"
+          + " <td style='width:300px;'><input type='text' name='no' value='%d' readonly></td></tr>\n", board.getNo());
+      out.printf("<tr><th>제목</th>"
+          + " <td><input type='text' name='title' value='%s'></td></tr>\n", board.getTitle());
+      out.printf("<tr><th>내용</th>"
+          + " <td><textarea name='content' style='height:200px; width:400px;'>%s</textarea></td></tr>\n", board.getContent());
+      out.printf("<tr><th>작성자</th> <td>%s</td></tr>\n", board.getWriter().getName());
+      out.printf("<tr><th>조회수</th> <td>%s</td></tr>\n", board.getViewCount());
+      out.printf("<tr><th>등록일</th> <td>%tY-%1$tm-%1$td</td></tr>\n", board.getCreatedDate());
       out.println("</table>");
 
       out.println("<div>");
       out.println("<button>변경</button>");
       out.println("<button type='reset'>초기화</button>");
-      out.printf("<a href='/board/delete?category=%d&no=%d'>삭제</a>\n", board.getCategory(),
-          board.getNo());
+      out.printf("<a href='/board/delete?category=%d&no=%d'>삭제</a>\n",
+          board.getCategory(), board.getNo());
       out.printf("<a href='/board/list?category=%d'>목록</a>\n", board.getCategory());
       out.println("</div>");
       out.println("</form>");
-
       try {
         board.setViewCount(board.getViewCount() + 1);
         boardDao.updateCount(board);
@@ -76,9 +73,20 @@ public class BoardDetailServlet implements Servlet {
         sqlSessionFactory.openSession(false).rollback();
       }
     }
+
     out.println("</body>");
     out.println("</html>");
+
   }
 }
+
+
+
+
+
+
+
+
+
 
 
