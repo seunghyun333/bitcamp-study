@@ -26,9 +26,11 @@
   
   <select id="findByIdAndPassword" parameterType="visit" resultMap="visitMap">
     select 
-    visit_no 
-    from personalapp_visit 
-    where name=#{name}
+      visit_no 
+    from 
+      personalapp_visit 
+    where 
+      name=#{name}
   </select>
   
 

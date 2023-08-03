@@ -3,6 +3,7 @@ package bitcamp.util;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.util.Stack;
+import bitcamp.util.Prompt;
 
 public class BreadcrumbPrompt extends Prompt {
 
@@ -32,11 +33,5 @@ public class BreadcrumbPrompt extends Prompt {
     return this.inputString(titleBuilder.toString());
   }
 }
-
-
-
-
-
-
 
 

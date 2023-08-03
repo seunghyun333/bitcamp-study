@@ -42,7 +42,8 @@ public class BoardDetailServlet implements Servlet {
       out.println("<p>해당 번호의 게시글이 없습니다!</p>");
 
     } else {
-      out.println("<form action='/board/update'>");
+      out.println("<form action='/board/update' method='post'>");
+      out.printf("<input type='hidden' name='category'>\n");
       out.println("<table border='1'>");
       out.printf("<tr><th style='width:120px;'>번호</th>"
           + " <td style='width:300px;'><input type='text' name='no' value='%d' readonly></td></tr>\n",

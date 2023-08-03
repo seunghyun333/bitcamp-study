@@ -28,10 +28,11 @@ public class BoardAddServlet implements Servlet {
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+
     Board board = new Board();
     board.setTitle(request.getParameter("title"));
     board.setContent(request.getParameter("content"));
-    board.setWriter((Visit) request.getAttribute("loginUser"));
+    board.setWriter((Visit) request.getSession().getAttribute("loginUser"));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
