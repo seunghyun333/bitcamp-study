@@ -11,7 +11,7 @@
   <result column="view_count" property="viewCount"/>
   <result column="created_date" property="createdDate"/>
   
-  <association property="writer" javaType="bitcamp.personalapp.vo.Visit">
+  <association property="writer" javaType="visit">
     <id column="visit_no" property="no"/>
     <result column="name" property="name"/>
   </association>
@@ -22,8 +22,8 @@
     insert into personalapp_board(title,content,writer)
      values(#{title},#{content},#{writer.no})
   </insert>
-  
-  <select id="findAll" resultMap="boardMap">
+
+<select id="findAll" resultMap="boardMap">
     select
       b.board_no,
       b.title, 
@@ -36,7 +36,7 @@
       order by 
         board_no desc
   </select>
-  
+
   <select id="findBy" parameterType="int" resultMap="boardMap">
   select
     b.board_no,
@@ -50,7 +50,7 @@
      personalapp_board b inner join personalapp_visit v on b.writer=v.visit_no
    where board_no=#{boardNo}
   </select>
-  
+
   <update id="update" parameterType="board">
   update 
   personalapp_board set
@@ -59,18 +59,18 @@
    where board_no=#{no}
    and writer=#{writer.no}
   </update>
-  
+
   <update id="updateCount" parameterType="board">
     update personalapp_board set
       view_count=#{viewCount}
     where
       board_no=#{no}
   </update>
-  
+
   <delete id="delete" parameterType="board">
   delete from personalapp_board
   where board_no=#{no} 
   and writer=#{writer.no}
   </delete>
-  
+
 </mapper>

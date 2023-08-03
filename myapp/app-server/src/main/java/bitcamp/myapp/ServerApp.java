@@ -28,7 +28,7 @@ public class ServerApp {
 
   ApplicationContext iocContainer;
   DispatcherServlet dispatcherServlet;
-  Map<String,HttpSession> sessionMap = new HashMap<>();
+  Map<String, HttpSession> sessionMap = new HashMap<>();
 
   int port;
 
@@ -49,11 +49,8 @@ public class ServerApp {
   }
 
   public void execute() throws Exception {
-    DisposableServer server = HttpServer
-        .create()
-        .port(8888)
-        .handle((request, response) -> processRequest(request, response))
-        .bindNow();
+    DisposableServer server = HttpServer.create().port(8888)
+        .handle((request, response) -> processRequest(request, response)).bindNow();
     System.out.println("서버 실행됨!");
 
     server.onDispose().block();
@@ -104,13 +101,13 @@ public class ServerApp {
       // favicon.ico 요청에 대한 응답
       if (servletPath.equals("/favicon.ico")) {
         response.addHeader("Content-Type", "image/vnd.microsoft.icon");
-        return response.sendFile(Path.of(ServerApp.class.getResource("/static/favicon.ico").toURI()));
+        return response
+            .sendFile(Path.of(ServerApp.class.getResource("/static/favicon.ico").toURI()));
       }
 
       // welcome 파일 또는 HTML 파일을 요청할 때
       if (servletPath.endsWith("/") || servletPath.endsWith(".html")) {
-        String resourcePath = String.format("/static%s%s",
-            servletPath,
+        String resourcePath = String.format("/static%s%s", servletPath,
             (servletPath.endsWith("/") ? "index.html" : ""));
 
         response.addHeader("Content-Type", "text/html;charset=UTF-8");

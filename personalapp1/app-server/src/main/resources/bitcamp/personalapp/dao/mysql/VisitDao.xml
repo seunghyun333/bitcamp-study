@@ -10,11 +10,11 @@
   <result column="created_date"   property="createdDate"/>
 </resultMap>
 
-  <insert id="insert" parameterType="bitcamp.personalapp.vo.Visit">
+  <insert id="insert" parameterType="visit">
     insert into personalapp_visit(name) values(#{name})
   </insert>
   
-  <select id="findAll" parameterType="int" resultMap="visitMap">
+  <select id="findAll" resultMap="visitMap">
    select 
    	visit_no, 
    	name, 
