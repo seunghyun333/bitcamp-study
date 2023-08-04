@@ -25,9 +25,15 @@ public class BoardDeleteServlet implements Servlet {
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+    Visit loginUser = (Visit) request.getSession().getAttribute("loginUser");
+    if (loginUser == null) {
+      response.sendRedirect("/auth/form.html");
+      return;
+    }
+
     Board b = new Board();
     b.setNo(Integer.parseInt(request.getParameter("no")));
-    b.setWriter((Visit) request.getAttribute("loginUser"));
+    b.setWriter(loginUser);
 
     try {
       if (boardDao.delete(b) == 0) {

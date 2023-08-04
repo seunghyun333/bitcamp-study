@@ -13,7 +13,6 @@ public class DispatcherServlet implements Servlet {
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
     try {
-
       // 서블릿의 실행을 요구할 경우,
       Servlet servlet = (Servlet) iocContainer.getBean(request.getServletPath());
       if (servlet == null) {
@@ -23,6 +22,7 @@ public class DispatcherServlet implements Servlet {
       servlet.service(request, response);
 
     } catch (Exception e) {
+      e.printStackTrace();
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
       out.println("<!DOCTYPE html>");
@@ -32,11 +32,12 @@ public class DispatcherServlet implements Servlet {
       out.println("<title>게시글</title>");
       out.println("</head>");
       out.println("<body>");
-      out.println("<h1>실행 오류</h1>");
+      out.println("<h1>실행 오류!</h1>");
       out.printf("<p>%s</p>\n", e.getMessage());
       out.println("</body>");
       out.println("</html>");
     }
   }
-
 }
+
+

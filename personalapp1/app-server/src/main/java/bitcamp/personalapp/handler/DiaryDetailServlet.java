@@ -40,7 +40,7 @@ public class DiaryDetailServlet implements Servlet {
       out.println("<p>해당 번호의 일기가 없습니다.</p>");
 
     } else {
-      out.println("<form action='/diary/update'>");
+      out.println("<form action='/diary/update' method='post'>");
       out.println("<table border='1'>");
       out.printf("<tr><th style='width:120px;'>번호</th>"
           + " <td style='width:300px;'><input type='text' name='no' value='%d' readonly></td></tr>\n",
@@ -80,6 +80,8 @@ public class DiaryDetailServlet implements Servlet {
     }
     out.println("</body>");
     out.println("</html>");
+
+
   }
 }
 

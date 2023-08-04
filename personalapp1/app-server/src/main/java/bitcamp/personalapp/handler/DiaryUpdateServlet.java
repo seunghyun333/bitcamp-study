@@ -28,6 +28,7 @@ public class DiaryUpdateServlet implements Servlet {
     Diary diary = new Diary();
     diary.setNo(Integer.parseInt(request.getParameter("no")));
     diary.setDate(request.getParameter("date"));
+    diary.setWeather(request.getParameter("weather"));
     diary.setTitle(request.getParameter("title"));
     diary.setContent(request.getParameter("content"));
     diary.setCoffee(request.getParameter("coffee").charAt(0));

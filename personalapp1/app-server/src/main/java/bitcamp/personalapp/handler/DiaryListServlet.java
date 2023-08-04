@@ -44,12 +44,11 @@ public class DiaryListServlet implements Servlet {
 
 
     List<Diary> list = diaryDao.findAll();
-
-
     for (Diary diary : list) {
       out.printf(
-          "<tr><td>%d</td>, <td>%s</td>, <td>%s</td>, <td><a href='/diary/detail'>%s</a></td>\n",
-          diary.getNo(), diary.getDate(), diary.getWeather(),
+          "<tr><td>%d</td>, " + "<td>%s</td>, " + "<td>%s</td>, "
+              + "<td><a href='/diary/detail?no=%d'>%s</a></td>\n",
+          diary.getNo(), diary.getDate(), diary.getWeather(), diary.getNo(),
           diary.getTitle().length() > 0 ? diary.getTitle() : "제목없음");
     }
     out.println("</tbody>");

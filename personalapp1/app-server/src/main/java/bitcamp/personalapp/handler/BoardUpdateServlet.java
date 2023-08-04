@@ -24,11 +24,17 @@ public class BoardUpdateServlet implements Servlet {
   @Override
   public void service(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+    Visit loginUser = (Visit) request.getSession().getAttribute("loginUser");
+    if (loginUser == null) {
+      response.sendRedirect("/auth/form.html");
+      return;
+    }
+
     Board board = new Board();
     board.setNo(Integer.parseInt(request.getParameter("no")));
     board.setTitle(request.getParameter("title"));
     board.setContent(request.getParameter("content"));
-    board.setWriter((Visit) request.getAttribute("loginUser"));
+    board.setWriter(loginUser);
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();

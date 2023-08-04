@@ -35,7 +35,6 @@ public class SqlSessionFactoryProxy implements SqlSessionFactory {
   @Override
   public SqlSession openSession(boolean autoCommit) {
     SqlSession sqlSession = sqlSessionBox.get();
-
     if (sqlSession == null) {
       sqlSession = original.openSession(autoCommit);
       sqlSessionBox.set(sqlSession);
@@ -77,7 +76,4 @@ public class SqlSessionFactoryProxy implements SqlSessionFactory {
   public Configuration getConfiguration() {
     return original.getConfiguration();
   }
-
-
-
 }
