@@ -4,9 +4,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.personalapp.vo.Visit;
-import bitcamp.util.Component;
 
-@Component
+
+
 public class MySQLVisitDao implements VisitDao {
 
   SqlSessionFactory sqlSessionFactory;

@@ -4,9 +4,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import bitcamp.personalapp.vo.Diary;
-import bitcamp.util.Component;
 
-@Component
+
+
 public class MySQLDiaryDao implements DiaryDao {
 
   SqlSessionFactory sqlSessionFactory;
