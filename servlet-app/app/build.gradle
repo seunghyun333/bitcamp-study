@@ -1,6 +1,6 @@
 plugins {
    id 'java'
-   id 'eclipse'
+   id 'eclipse-wtp'
    id 'war'
 }
 
@@ -46,6 +46,18 @@ eclipse {
       sourceCompatibility = 17
       targetCompatibility = 17
       javaRuntimeName = "JavaSE-17"
+    }
+
+    // 자바 웹 개발 도구에서 사용할 값을 설정한다.
+    wtp {
+        facet {
+            facet name: 'jst.java', version: '17'
+            //facet name: 'jst.web', version: '4.0'
+        }
+        component {
+            contextPath = '/'
+            //deployName = 'web'
+        }
     }
 }
 
