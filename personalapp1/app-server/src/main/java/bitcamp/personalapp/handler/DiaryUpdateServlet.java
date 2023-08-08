@@ -16,7 +16,7 @@ public class DiaryUpdateServlet extends HttpServlet {
 
 
   @Override
-  public void service(HttpServletRequest request, HttpServletResponse response)
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     Diary diary = new Diary();

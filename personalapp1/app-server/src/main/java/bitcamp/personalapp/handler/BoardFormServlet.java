@@ -15,7 +15,7 @@ public class BoardFormServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
-  protected void service(HttpServletRequest request, HttpServletResponse response)
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
@@ -28,7 +28,7 @@ public class BoardFormServlet extends HttpServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>게시글</h1>");
-    out.println("<form action='/board/add'>");
+    out.println("<form action='/board/add' method='post'>");
     out.println("제목 <input type='text' name='title'><br>");
     out.println("내용 <textarea name='content'></textarea><br>");
     out.println("<button>등록</button>");
