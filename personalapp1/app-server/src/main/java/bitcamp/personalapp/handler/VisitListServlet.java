@@ -2,6 +2,7 @@ package bitcamp.personalapp.handler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,10 +15,12 @@ import bitcamp.personalapp.vo.Visit;
 public class VisitListServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
+  SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -34,13 +37,14 @@ public class VisitListServlet extends HttpServlet {
     out.println("</div>");
     out.println("<table border='1'>");
     out.println("<thead>");
-    out.println("  <tr><th>ID번호</th> <th>이름</th> <th>날짜</th></tr>");
+    out.println("  <tr><th>ID번호</th> <th>이름</th></tr>");
     out.println("</thead>");
 
     List<Visit> list = InitServlet.visitDao.findAll();
     for (Visit visit : list) {
-      out.printf("<tr><td>%d</td> <td>%s</td>, <td>%tY-%3$tm-%3$td</td></tr>\n", visit.getNo(),
-          visit.getName(), visit.getCreatedDate());
+      out.printf("<tr>" + " <td>%d</td>" + " <td><a href='/visit/detail?no=%d'>%s</a></td></tr>\n",
+          visit.getNo(), visit.getNo(), visit.getName());
+
     }
     out.println("</tbody>");
     out.println("</table>");

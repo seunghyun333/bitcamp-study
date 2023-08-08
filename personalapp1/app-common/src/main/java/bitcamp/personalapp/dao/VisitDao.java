@@ -8,7 +8,11 @@ public interface VisitDao {
 
   List<Visit> findAll();
 
+  Visit findBy(int no);
+
   Visit findByIdAndPassword(Visit v);
+
+  int delete(int no);
 
 
 

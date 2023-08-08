@@ -24,6 +24,12 @@ public class MySQLVisitDao implements VisitDao {
   }
 
   @Override
+  public Visit findBy(int no) {
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.selectOne("bitcamp.personalapp.dao.VisitDao.findBy", no);
+  }
+
+  @Override
   public List<Visit> findAll() {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.selectList("bitcamp.personalapp.dao.VisitDao.findAll");
@@ -33,6 +39,12 @@ public class MySQLVisitDao implements VisitDao {
   public Visit findByIdAndPassword(Visit visit) {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.selectOne("bitcamp.personalapp.dao.VisitDao.findByIdAndPassword", visit);
+  }
+
+  @Override
+  public int delete(int no) {
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.delete("bitcamp.personalapp.dao.VisitDao.delete", no);
   }
 
 

@@ -33,39 +33,21 @@
       name=#{name}
   </select>
   
-
-  
-  <!--  
-  <select id="findBy" parameterType="map" resultMap="boardMap">
-  select
-    b.Board_no,
-     b.title, 
-     b.content,
-     b.view_count, 
-     b.created_date, 
-     v.visit_No, 
-     v.name
-   from
-     personalapp_board b inner join personalapp_visit v on b.writer=v.visit_no
-   where board_no=#{boardNo}
-  </select>
-  
-
-  <update id="update" parameterType="bitcamp.personalapp.vo.Board">
-  update 
-  personalapp_board set
-  title=#{title},
-  content=#{content}
-   where board_no=#{no}
-   and writer=#{writer.no}
-  </update>
-  
-  
-  <delete id="delete" parameterType="bitcamp.personalapp.vo.Board">
-  delete from personalapp_board
-  where board_no=#{no} 
-  and writer=#{writer.no}
+  <delete id="delete" parameterType="int">
+  delete from personalapp_visit 
+  where 
+    visit_no=#{no}
   </delete>
-  -->
+
+  <select id="findBy" parameterType="int" resultMap="visitMap">
+  select 
+    visit_no, 
+    name, 
+    created_date 
+  from 
+    personalapp_visit
+  where 
+    visit_no=#{no}
+  </select>
   
 </mapper>
