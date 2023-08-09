@@ -19,6 +19,7 @@ public class BoardDeleteServlet extends HttpServlet {
       throws ServletException, IOException {
 
 
+
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
       response.sendRedirect("/auth/form.html");

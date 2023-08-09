@@ -19,6 +19,8 @@ public class BoardAddServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    request.setCharacterEncoding("UTF-8");
+
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
       response.sendRedirect("/auth/form.html");
@@ -27,11 +29,13 @@ public class BoardAddServlet extends HttpServlet {
 
     int category = Integer.parseInt(request.getParameter("category"));
 
+
     Board board = new Board();
     board.setTitle(request.getParameter("title"));
     board.setContent(request.getParameter("content"));
     board.setWriter(loginUser);
     board.setCategory(category);
+
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();

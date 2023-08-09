@@ -35,6 +35,7 @@ public class BoardUpdateServlet extends HttpServlet {
     board.setWriter(loginUser);
     board.setCategory(category);
 
+    request.setCharacterEncoding("UTF-8");
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");

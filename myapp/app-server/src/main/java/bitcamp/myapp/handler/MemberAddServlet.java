@@ -18,6 +18,8 @@ public class MemberAddServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    request.setCharacterEncoding("UTF-8");
+
     Member m = new Member();
     m.setName(request.getParameter("name"));
     m.setEmail(request.getParameter("email"));
