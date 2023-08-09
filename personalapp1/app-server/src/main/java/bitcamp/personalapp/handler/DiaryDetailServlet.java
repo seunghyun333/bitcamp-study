@@ -53,8 +53,8 @@ public class DiaryDetailServlet extends HttpServlet {
       out.printf("<tr><th>제목</th>" + " <td><input type='text' name='title' value='%s'></td></tr>\n",
           diary.getTitle());
 
-      out.printf(
-          "<tr><th>내용</th>" + " <td><input type='text' name='content' value='%s'></td></tr>\n",
+      out.printf("<tr><th>내용</th>"
+          + " <td><textarea name='content' style='height:300px; width:500px;'>%s</textarea></td></tr>\n",
           diary.getContent());
 
       out.printf(
