@@ -37,7 +37,6 @@ public class HomeServlet extends HttpServlet {
     out.println("  <li><a href='/diary/list'>일기</a></li>");
     out.println("  <li><a href='/board/list'>응원의 한마디</a></li>");
     out.println("  <li><a href='/visit/list'>방문자</a></li>");
-    // out.println(" <li><a href='/auth/form.html'>로그인</a></li>");
 
     out.println("</body>");
     out.println("</html>");
