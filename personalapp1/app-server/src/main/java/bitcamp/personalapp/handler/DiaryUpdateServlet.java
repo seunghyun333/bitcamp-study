@@ -19,6 +19,8 @@ public class DiaryUpdateServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    request.setCharacterEncoding("UTF-8");
+
     Diary diary = new Diary();
     diary.setNo(Integer.parseInt(request.getParameter("no")));
     diary.setDate(request.getParameter("date"));

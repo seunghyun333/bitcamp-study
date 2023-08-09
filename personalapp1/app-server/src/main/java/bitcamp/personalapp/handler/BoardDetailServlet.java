@@ -18,6 +18,8 @@ public class BoardDetailServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    request.setCharacterEncoding("UTF-8");
+
 
     Board board = InitServlet.boardDao.findBy(Integer.parseInt(request.getParameter("no")));
 
@@ -38,7 +40,7 @@ public class BoardDetailServlet extends HttpServlet {
 
     } else {
       out.println("<form action='/board/update' method='post'>");
-      out.printf("<input type='hidden' name='category'>\n");
+      // out.printf("<input type='hidden' name='category'>\n");
       out.println("<table border='1'>");
       out.printf("<tr><th style='width:120px;'>번호</th>"
           + " <td style='width:300px;'><input type='text' name='no' value='%d' readonly></td></tr>\n",
@@ -46,7 +48,7 @@ public class BoardDetailServlet extends HttpServlet {
       out.printf("<tr><th>제목</th>" + " <td><input type='text' name='title' value='%s'></td></tr>\n",
           board.getTitle());
       out.printf("<tr><th>내용</th>"
-          + " <td><textarea name='content' style='height:200px; width:400px;'>%s</textarea></td></tr>\n",
+          + " <td><textarea name='content' style='height:300px; width:500px;'>%s</textarea></td></tr>\n",
           board.getContent());
 
       out.printf("<tr><th>작성자</th> <td>%s</td></tr>\n", board.getWriter().getName());

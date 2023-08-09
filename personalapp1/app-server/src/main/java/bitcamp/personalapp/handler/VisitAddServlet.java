@@ -18,6 +18,8 @@ public class VisitAddServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    request.setCharacterEncoding("UTF-8");
+
 
     Visit visit = new Visit();
     visit.setName(request.getParameter("name"));
@@ -41,6 +43,7 @@ public class VisitAddServlet extends HttpServlet {
       InitServlet.visitDao.insert(visit);
       InitServlet.sqlSessionFactory.openSession(false).commit();
       out.println("<p>등록 성공입니다!</p>");
+      out.printf("%s아~ 고마워♡\n", visit.getName());
     } catch (Exception e) {
       InitServlet.sqlSessionFactory.openSession(false).rollback();
       out.println("<p>등록 실패입니다!</p>");

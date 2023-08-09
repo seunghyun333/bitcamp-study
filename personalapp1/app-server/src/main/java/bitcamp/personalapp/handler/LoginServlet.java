@@ -18,6 +18,8 @@ public class LoginServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    request.setCharacterEncoding("UTF-8");
+
     Visit v = new Visit();
     v.setName(request.getParameter("name"));
 

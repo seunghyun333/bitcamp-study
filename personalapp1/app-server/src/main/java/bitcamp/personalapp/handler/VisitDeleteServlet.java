@@ -17,6 +17,8 @@ public class VisitDeleteServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    request.setCharacterEncoding("UTF-8");
+
 
     try {
       if (InitServlet.visitDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
