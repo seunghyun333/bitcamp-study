@@ -14,7 +14,6 @@ public class Diary implements Serializable {
   public String title;
   public String weather;
   public String content;
-  private String password;
   public char coffee;
 
 
@@ -73,14 +72,6 @@ public class Diary implements Serializable {
 
   public void setContent(String content) {
     this.content = content;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   public char getCoffee() {
