@@ -7,7 +7,7 @@ public class AttachedFile implements Serializable {
 
   int no;
   String originName;
-  String filepath;
+  String filePath;
 
 
   public int getNo() {
@@ -26,13 +26,14 @@ public class AttachedFile implements Serializable {
     this.originName = originName;
   }
 
-  public String getFilepath() {
-    return filepath;
+  public String getFilePath() {
+    return filePath;
   }
 
-  public void setFilepath(String filepath) {
-    this.filepath = filepath;
+  public void setFilePath(String filePath) {
+    this.filePath = filePath;
   }
+
 
 
 }

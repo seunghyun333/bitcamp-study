@@ -78,7 +78,7 @@ public class BoardAddServlet extends HttpServlet {
 
           // 3) 파일 이름을 객체에 보관하여 목록에 추가한다.
           AttachedFile attachedFile = new AttachedFile();
-          attachedFile.setFilepath(filename);
+          attachedFile.setFilePath(filename);
 
           attachedFiles.add(attachedFile);
         }
@@ -99,8 +99,12 @@ public class BoardAddServlet extends HttpServlet {
       out.println("<body>");
       out.println("<h1>게시글 등록</h1>");
       try {
+        // System.out.println(board.getNo());
         InitServlet.boardDao.insert(board);
-        InitServlet.boardDao.insertFiles(board); // 여기서 꺼내씀(**)
+        // System.out.println(board.getNo());
+        int count = InitServlet.boardDao.insertFiles(board); // 여기서 꺼내씀(**)
+        System.out.println(count);
+
         InitServlet.sqlSessionFactory.openSession(false).commit();
         out.println("<p>등록 성공입니다!</p>");
 

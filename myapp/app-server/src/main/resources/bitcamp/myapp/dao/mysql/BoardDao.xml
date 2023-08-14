@@ -57,12 +57,12 @@
       b.created_date,
       b.category,
       m.member_no,
-      m.name
+      m.name,
       f.board_file_no,
       f.filepath
     from
       myapp_board b inner join myapp_member m on b.writer=m.member_no
-      outer left join myapp_board_file f on b.board_no=f.board_no
+      left outer join myapp_board_file f on b.board_no=f.board_no
     where
       b.category=#{categoryNo}
       and b.board_no=#{boardNo}
@@ -97,7 +97,7 @@
   <insert id="insertFiles" parameterType="board" >
     insert into myapp_board_file(filepath, board_no)
     values 
-    <foreach collection="attachedFiles" item="file" separator=","> (#{file.filePath} #{no})</foreach> 
+    <foreach collection="attachedFiles" item="file" separator=",">(#{file.filePath}, #{no})</foreach> 
   </insert>
 </mapper>
 
