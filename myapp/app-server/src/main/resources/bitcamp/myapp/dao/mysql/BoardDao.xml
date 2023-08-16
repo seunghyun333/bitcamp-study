@@ -25,6 +25,12 @@
     
   </resultMap>
 
+  <resultMap type="attachedFile" id="attachedFileMap">
+    <id     column="board_file_no"       property="no"/>
+    <result column="filepath"          property="filepath"/>
+    <result column="board_no"        property="boardNo"/>
+   </resultMap>
+    
   <insert id="insert" parameterType="board"
           useGeneratedKeys="true" keyColumn="board_no" keyProperty="no">
     insert into myapp_board(title,content,writer,category)
@@ -99,6 +105,19 @@
     values 
     <foreach collection="attachedFiles" item="file" separator=",">(#{file.filePath}, #{no})</foreach> 
   </insert>
+  
+  <select id="findFileBy" parameterType="int" resultMap="attachedFileMap">
+    select
+      board_file_no,
+      filepath,
+      board_no
+    from
+      myapp_board_file
+    where
+      board_file_no=#{no}
+  </select>
+  
+  
 </mapper>
 
 
