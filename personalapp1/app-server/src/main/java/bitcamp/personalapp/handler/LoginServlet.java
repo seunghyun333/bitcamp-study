@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import bitcamp.personalapp.vo.Visit;
+import bitcamp.personalapp.vo.Member;
 
 @WebServlet("/auth/login")
 public class LoginServlet extends HttpServlet {
@@ -18,10 +18,11 @@ public class LoginServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    Visit v = new Visit();
-    v.setName(request.getParameter("name"));
+    Member m = new Member();
+    m.setEmail(request.getParameter("email"));
+    m.setPw(request.getParameter("pw"));
 
-    Visit loginUser = InitServlet.visitDao.findByIdAndPassword(v);
+    Member loginUser = InitServlet.memberDao.findByIdAndPassword(m);
     if (loginUser != null) {
       request.getSession().setAttribute("loginUser", loginUser);
       response.sendRedirect("/");

@@ -8,12 +8,12 @@ public class Board implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private int no;
+  private int mno;
   private String title;
   private String content;
-  private Visit writer;
-  private String password;
-  private int viewCount;
-  private Timestamp createdDate;
+  private Timestamp w_date;
+  private int v_count;
+  private boolean secret;
 
 
   @Override
@@ -33,13 +33,20 @@ public class Board implements Serializable {
     return no == other.no;
   }
 
-
   public int getNo() {
     return no;
   }
 
   public void setNo(int no) {
     this.no = no;
+  }
+
+  public int getMno() {
+    return mno;
+  }
+
+  public void setMno(int mno) {
+    this.mno = mno;
   }
 
   public String getTitle() {
@@ -58,36 +65,28 @@ public class Board implements Serializable {
     this.content = content;
   }
 
-  public Visit getWriter() {
-    return writer;
+  public Timestamp getW_date() {
+    return w_date;
   }
 
-  public void setWriter(Visit writer) {
-    this.writer = writer;
+  public void setW_date(Timestamp w_date) {
+    this.w_date = w_date;
   }
 
-  public String getPassword() {
-    return password;
+  public int getV_count() {
+    return v_count;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setV_count(int v_count) {
+    this.v_count = v_count;
   }
 
-  public int getViewCount() {
-    return viewCount;
+  public boolean isSecret() {
+    return secret;
   }
 
-  public void setViewCount(int viewCount) {
-    this.viewCount = viewCount;
-  }
-
-  public Timestamp getCreatedDate() {
-    return createdDate;
-  }
-
-  public void setCreatedDate(Timestamp createdDate) {
-    this.createdDate = createdDate;
+  public void setSecret(boolean secret) {
+    this.secret = secret;
   }
 
 

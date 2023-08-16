@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import bitcamp.personalapp.vo.Board;
-import bitcamp.personalapp.vo.Visit;
+import bitcamp.personalapp.vo.Member;
 
 @WebServlet("/board/delete")
 public class BoardDeleteServlet extends HttpServlet {
@@ -19,7 +19,7 @@ public class BoardDeleteServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    Visit loginUser = (Visit) request.getSession().getAttribute("loginUser");
+    Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
       response.sendRedirect("/auth/form.html");
       return;

@@ -4,13 +4,17 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class Visit implements Serializable {
+public class Member implements Serializable {
   private static final long serialVersionUID = 1L;
 
 
   private int no;
   private String name;
-  private Timestamp createdDate;
+  private String email;
+  private String pw;
+  private String tel;
+  private Timestamp w_date;
+
 
   @Override
   public int hashCode() {
@@ -30,7 +34,7 @@ public class Visit implements Serializable {
       return false;
 
 
-    Visit other = (Visit) obj;
+    Member other = (Member) obj;
     return no == other.no;
 
   }
@@ -51,13 +55,51 @@ public class Visit implements Serializable {
     return name;
   }
 
-  public Timestamp getCreatedDate() {
-    return createdDate;
+
+  public String getEmail() {
+    return email;
   }
 
-  public void setCreatedDate(Timestamp createdDate) {
-    this.createdDate = createdDate;
+
+  public void setEmail(String email) {
+    this.email = email;
   }
+
+
+  public String getPw() {
+    return pw;
+  }
+
+
+  public void setPw(String pw) {
+    this.pw = pw;
+  }
+
+
+  public String getTel() {
+    return tel;
+  }
+
+
+  public void setTel(String tel) {
+    this.tel = tel;
+  }
+
+
+  public Timestamp getW_date() {
+    return w_date;
+  }
+
+
+  public void setW_date(Timestamp w_date) {
+    this.w_date = w_date;
+  }
+
+
+  public static long getSerialversionuid() {
+    return serialVersionUID;
+  }
+
 
 
 }

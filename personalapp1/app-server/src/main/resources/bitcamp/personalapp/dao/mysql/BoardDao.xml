@@ -5,14 +5,14 @@
 <mapper namespace="bitcamp.personalapp.dao.BoardDao">
 
 <resultMap type="board" id="boardMap">
-  <id column="board_no" property="no"/>
+  <id column="cno" property="no"/>
   <result column="title" property="title"/>
   <result column="content" property="content"/>
-  <result column="view_count" property="viewCount"/>
-  <result column="created_date" property="createdDate"/>
+  <result column="v_count" property="v_count"/>
+  <result column="w_date" property="w_date"/>
   
-  <association property="writer" javaType="visit">
-    <id column="visit_no" property="no"/>
+  <association property="mno" javaType="member">
+    <id column="mno" property="mno"/>
     <result column="name" property="name"/>
   </association>
   
@@ -25,16 +25,15 @@
 
 <select id="findAll" resultMap="boardMap">
     select
-      b.board_no,
-      b.title, 
-      b.view_count,
-      b.created_date, 
-      v.visit_No, 
-      v.name 
+      cno,
+      mno, 
+      title,
+      w_date, 
+      v_count
       from
-        personalapp_board b inner join personalapp_visit v on b.writer=v.visit_no
+        dia_content c inner join dia_member m on c.mno=m.mno
       order by 
-        board_no desc
+       cno desc
   </select>
 
   <select id="findBy" parameterType="int" resultMap="boardMap">

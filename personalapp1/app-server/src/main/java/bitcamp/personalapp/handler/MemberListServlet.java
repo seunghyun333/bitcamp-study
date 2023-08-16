@@ -9,10 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import bitcamp.personalapp.vo.Visit;
+import bitcamp.personalapp.vo.Member;
 
-@WebServlet("/visit/list")
-public class VisitListServlet extends HttpServlet {
+@WebServlet("/member/list")
+public class MemberListServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
   SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -27,22 +27,22 @@ public class VisitListServlet extends HttpServlet {
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    out.println("<title>방문자</title>");
+    out.println("<title>회원</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>방문자 목록</h1>");
+    out.println("<h1>회원 목록</h1>");
     out.println("<div style='margin:5px;'>");
-    out.println("<a href='/visit/form.html'>새 방문자</a>");
+    out.println("<a href='/member/form.html'>회원가입</a>");
     out.println("</div>");
     out.println("<table border='1'>");
     out.println("<thead>");
-    out.println("  <tr><th>ID번호</th> <th>이름</th></tr>");
+    out.println("  <tr><th>회원번호</th> <th>이름</th></tr>");
     out.println("</thead>");
 
-    List<Visit> list = InitServlet.visitDao.findAll();
-    for (Visit visit : list) {
-      out.printf("<tr>" + " <td>%d</td>" + " <td><a href='/visit/detail?no=%d'>%s</a></td></tr>\n",
-          visit.getNo(), visit.getNo(), visit.getName());
+    List<Member> list = InitServlet.memberDao.findAll();
+    for (Member member : list) {
+      out.printf("<tr>" + " <td>%d</td>" + " <td><a href='/member/detail?no=%d'>%s</a></td></tr>\n",
+          member.getNo(), member.getNo(), member.getName());
 
     }
     out.println("</tbody>");

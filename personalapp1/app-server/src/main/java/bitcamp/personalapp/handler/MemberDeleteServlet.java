@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/visit/delete")
-public class VisitDeleteServlet extends HttpServlet {
+@WebServlet("/member/delete")
+public class MemberDeleteServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -18,10 +18,10 @@ public class VisitDeleteServlet extends HttpServlet {
       throws ServletException, IOException {
 
     try {
-      if (InitServlet.visitDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
+      if (InitServlet.memberDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
         throw new Exception("해당 방문자가 없습니다!! ");
       } else {
-        response.sendRedirect("/visit/list");
+        response.sendRedirect("/member/list");
       }
       InitServlet.sqlSessionFactory.openSession(false).commit();
 

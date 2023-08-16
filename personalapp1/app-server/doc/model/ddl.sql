@@ -4,9 +4,6 @@ DROP TABLE IF EXISTS dia_diary RESTRICT;
 -- 회원
 DROP TABLE IF EXISTS dia_member RESTRICT;
 
--- 응원게시판
-DROP TABLE IF EXISTS dia_board RESTRICT;
-
 -- 댓글
 DROP TABLE IF EXISTS dia_comment RESTRICT;
 
@@ -19,11 +16,13 @@ DROP TABLE IF EXISTS dia_notice RESTRICT;
 -- 콘텐트
 DROP TABLE IF EXISTS dia_content RESTRICT;
 
+-- 자유게시판
+DROP TABLE IF EXISTS dia_free RESTRICT;
+
 -- 일기
 CREATE TABLE dia_diary (
   cno     INTEGER      NOT NULL COMMENT '콘텐트번호', -- 콘텐트번호
-  weather VARCHAR(255) NOT NULL COMMENT '날씨', -- 날씨
-  coffee  VARCHAR(10)  NOT NULL COMMENT '커피' -- 커피
+  weather VARCHAR(255) NULL     COMMENT '날씨' -- 날씨
 )
 COMMENT '일기';
 
@@ -36,11 +35,12 @@ ALTER TABLE dia_diary
 
 -- 회원
 CREATE TABLE dia_member (
-  mno   INTEGER     NOT NULL COMMENT '회원번호', -- 회원번호
-  name  VARCHAR(50) NOT NULL COMMENT '이름', -- 이름
-  email VARCHAR(40) NOT NULL COMMENT '이메일', -- 이메일
-  pw    VARCHAR(50) NOT NULL COMMENT '암호', -- 암호
-  tel   VARCHAR(30) NOT NULL COMMENT '전화번호' -- 전화번호
+  mno    INTEGER     NOT NULL COMMENT '회원번호', -- 회원번호
+  name   VARCHAR(50) NOT NULL COMMENT '이름', -- 이름
+  email  VARCHAR(40) NOT NULL COMMENT '이메일', -- 이메일
+  pw     VARCHAR(50) NOT NULL COMMENT '암호', -- 암호
+  tel    VARCHAR(30) NOT NULL COMMENT '전화번호', -- 전화번호
+  w_date DATETIME    NOT NULL DEFAULT now() COMMENT '등록일' -- 등록일
 )
 COMMENT '회원';
 
@@ -72,29 +72,13 @@ CREATE INDEX IX_dia_member2
 ALTER TABLE dia_member
   MODIFY COLUMN mno INTEGER NOT NULL AUTO_INCREMENT COMMENT '회원번호';
 
--- 응원게시판
-CREATE TABLE dia_board (
-  cno    INTEGER NOT NULL COMMENT '콘텐트번호', -- 콘텐트번호
-  mno    INTEGER NOT NULL COMMENT '응원대상자번호', -- 응원대상자번호
-  secret BOOLEAN NOT NULL COMMENT '비밀여부' -- 비밀여부
-)
-COMMENT '응원게시판';
-
--- 응원게시판
-ALTER TABLE dia_board
-  ADD CONSTRAINT PK_dia_board -- 응원게시판 기본키
-  PRIMARY KEY (
-  cno -- 콘텐트번호
-  );
-
 -- 댓글
 CREATE TABLE dia_comment (
-  cmno    INTEGER      NOT NULL COMMENT '댓글번호', -- 댓글번호
-  cno     INTEGER      NOT NULL COMMENT '콘텐트번호', -- 콘텐트번호
-  mno     INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
-  title   VARCHAR(255) NOT NULL COMMENT '제목', -- 제목
-  content MEDIUMTEXT   NULL     COMMENT '내용', -- 내용
-  w_date  DATETIME     NOT NULL COMMENT '등록일' -- 등록일
+  cmno    INTEGER    NOT NULL COMMENT '댓글번호', -- 댓글번호
+  cno     INTEGER    NOT NULL COMMENT '콘텐트번호', -- 콘텐트번호
+  mno     INTEGER    NOT NULL COMMENT '회원번호', -- 회원번호
+  content MEDIUMTEXT NOT NULL COMMENT '내용', -- 내용
+  w_date  DATETIME   NOT NULL DEFAULT now() COMMENT '등록일' -- 등록일
 )
 COMMENT '댓글';
 
@@ -113,7 +97,6 @@ CREATE INDEX IX_dia_comment
 -- 댓글 인덱스2
 CREATE INDEX IX_dia_comment2
   ON dia_comment( -- 댓글
-    title ASC -- 제목
   );
 
 ALTER TABLE dia_comment
@@ -171,9 +154,10 @@ CREATE TABLE dia_content (
   cno     INTEGER      NOT NULL COMMENT '콘텐트번호', -- 콘텐트번호
   mno     INTEGER      NOT NULL COMMENT '작성자번호', -- 작성자번호
   title   VARCHAR(255) NOT NULL COMMENT '제목', -- 제목
-  content MEDIUMTEXT   NULL     COMMENT '내용(사진포함)', -- 내용(사진포함)
-  w_date  DATETIME     NOT NULL COMMENT '등록일', -- 등록일
-  v_count INTEGER      NOT NULL COMMENT '조회수' -- 조회수
+  content MEDIUMTEXT   NOT NULL COMMENT '내용(사진포함)', -- 내용(사진포함)
+  w_date  DATETIME     NOT NULL DEFAULT now() COMMENT '등록일', -- 등록일
+  v_count INTEGER      NOT NULL DEFAULT 0 COMMENT '조회수', -- 조회수
+  secret  BOOLEAN      NOT NULL COMMENT '비밀여부' -- 비밀여부
 )
 COMMENT '콘텐트';
 
@@ -193,29 +177,22 @@ CREATE INDEX IX_dia_content
 ALTER TABLE dia_content
   MODIFY COLUMN cno INTEGER NOT NULL AUTO_INCREMENT COMMENT '콘텐트번호';
 
+-- 자유게시판
+CREATE TABLE dia_free (
+  cno INTEGER NOT NULL COMMENT '콘텐트번호' -- 콘텐트번호
+)
+COMMENT '자유게시판';
+
+-- 자유게시판
+ALTER TABLE dia_free
+  ADD CONSTRAINT PK_dia_free -- 자유게시판 기본키
+  PRIMARY KEY (
+  cno -- 콘텐트번호
+  );
+
 -- 일기
 ALTER TABLE dia_diary
   ADD CONSTRAINT FK_dia_content_TO_dia_diary -- 콘텐트 -> 일기
-  FOREIGN KEY (
-  cno -- 콘텐트번호
-  )
-  REFERENCES dia_content ( -- 콘텐트
-  cno -- 콘텐트번호
-  );
-
--- 응원게시판
-ALTER TABLE dia_board
-  ADD CONSTRAINT FK_dia_member_TO_dia_board -- 회원 -> 응원게시판
-  FOREIGN KEY (
-  mno -- 응원대상자번호
-  )
-  REFERENCES dia_member ( -- 회원
-  mno -- 회원번호
-  );
-
--- 응원게시판
-ALTER TABLE dia_board
-  ADD CONSTRAINT FK_dia_content_TO_dia_board -- 콘텐트 -> 응원게시판
   FOREIGN KEY (
   cno -- 콘텐트번호
   )
@@ -261,4 +238,14 @@ ALTER TABLE dia_content
   )
   REFERENCES dia_member ( -- 회원
   mno -- 회원번호
+  );
+
+-- 자유게시판
+ALTER TABLE dia_free
+  ADD CONSTRAINT FK_dia_content_TO_dia_free -- 콘텐트 -> 자유게시판
+  FOREIGN KEY (
+  cno -- 콘텐트번호
+  )
+  REFERENCES dia_content ( -- 콘텐트
+  cno -- 콘텐트번호
   );

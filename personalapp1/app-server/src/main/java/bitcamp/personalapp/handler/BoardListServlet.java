@@ -49,8 +49,8 @@ public class BoardListServlet extends HttpServlet {
       out.printf(
           "<tr>" + "<td>%d</td>" + " <td><a href='/board/detail?no=%d'>%s</a></td>" + " <td>%s</td>"
               + "<td>%d</td> " + "<td>%s</td></tr>\n",
-          board.getNo(), board.getNo(), board.getTitle(), board.getWriter().getName(),
-          board.getViewCount(), dateFormatter.format(board.getCreatedDate()));
+          board.getNo(), board.getNo(), board.getTitle(), board.getMno(), board.getV_count(),
+          dateFormatter.format(board.getW_date()));
     }
     out.println("</tbody>");
     out.println("</table>");
