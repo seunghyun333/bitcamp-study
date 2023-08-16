@@ -21,4 +21,7 @@ public interface BoardDao {
 
   AttachedFile findFileBy(int no);
 
+  int deleteFile(int fileNo);
+
+
 }

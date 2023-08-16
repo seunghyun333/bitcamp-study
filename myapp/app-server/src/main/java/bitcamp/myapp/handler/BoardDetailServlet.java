@@ -39,7 +39,7 @@ public class BoardDetailServlet extends HttpServlet {
       out.println("<p>해당 번호의 게시글이 없습니다!</p>");
 
     } else {
-      out.println("<form action='/board/update' method='post'>");
+      out.println("<form action='/board/update' method='post' enctype='multipart/form-data'>");
       out.printf("<input type='hidden' name='category' value='%d'>\n", board.getCategory());
       out.println("<table border='1'>");
       out.printf("<tr><th style='width:120px;'>번호</th>"
@@ -57,10 +57,12 @@ public class BoardDetailServlet extends HttpServlet {
 
       for (AttachedFile file : board.getAttachedFiles()) {
         out.printf(
-            "<a href='/upload/board/%s'>%1$s</a>"
-                + "   [<a href='/board/file/delete?cateogry=%d&no=%d'>삭제</a>]" + "<br>\n",
+            "<a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-07/board/%s'>%1$s</a>"
+                + " [<a href='/board/file/delete?category=%d&no=%d'>삭제</a>]" + "<br>\n",
             file.getFilePath(), category, file.getNo());
       }
+
+      out.println("<input type='file' name='files' multiple>");
 
       out.println("</td></tr>");
       out.println("</table>");
