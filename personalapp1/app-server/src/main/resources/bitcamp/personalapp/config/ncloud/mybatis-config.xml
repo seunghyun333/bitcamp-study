@@ -22,7 +22,7 @@
   </environments>
   
   <mappers>
-    <!--  <mapper resource="bitcamp/personalapp/dao/mysql/BoardDao.xml"/> -->
+    <mapper resource="bitcamp/personalapp/dao/mysql/BoardDao.xml"/>
     <mapper resource="bitcamp/personalapp/dao/mysql/MemberDao.xml"/>
     <!-- <mapper resource="bitcamp/personalapp/dao/mysql/DiaryDao.xml"/> -->
   

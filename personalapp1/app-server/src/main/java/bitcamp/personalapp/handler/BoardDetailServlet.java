@@ -48,9 +48,9 @@ public class BoardDetailServlet extends HttpServlet {
           + " <td><textarea name='content' style='height:300px; width:500px;'>%s</textarea></td></tr>\n",
           board.getContent());
 
-      out.printf("<tr><th>작성자</th> <td>%s</td></tr>\n", board.getWriter().getName());
-      out.printf("<tr><th>조회수</th> <td>%s</td></tr>\n", board.getViewCount());
-      out.printf("<tr><th>등록일</th> <td>%tY-%1$tm-%1$td</td></tr>\n", board.getCreatedDate());
+      out.printf("<tr><th>작성자</th> <td>%s</td></tr>\n", board.getMno().getName());
+      out.printf("<tr><th>조회수</th> <td>%s</td></tr>\n", board.getV_count());
+      out.printf("<tr><th>등록일</th> <td>%tY-%1$tm-%1$td</td></tr>\n", board.getW_date());
       out.println("</table>");
 
       out.println("<div>");
@@ -62,7 +62,7 @@ public class BoardDetailServlet extends HttpServlet {
       out.println("</form>");
 
       try {
-        board.setViewCount(board.getViewCount() + 1);
+        board.setV_count(board.getV_count() + 1);
         InitServlet.boardDao.updateCount(board);
         InitServlet.sqlSessionFactory.openSession(false).commit();
 

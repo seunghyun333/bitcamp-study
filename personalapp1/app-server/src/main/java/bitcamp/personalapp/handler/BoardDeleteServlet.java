@@ -27,7 +27,7 @@ public class BoardDeleteServlet extends HttpServlet {
 
     Board b = new Board();
     b.setNo(Integer.parseInt(request.getParameter("no")));
-    b.setWriter(loginUser);
+    b.setMno(loginUser);
 
     try {
       if (InitServlet.boardDao.delete(b) == 0) {

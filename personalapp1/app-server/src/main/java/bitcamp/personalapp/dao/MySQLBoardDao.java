@@ -34,7 +34,7 @@ public class MySQLBoardDao implements BoardDao {
   public Board findBy(int no) {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
 
-    Map<String, Object> paramMap = new HashMap<>();
+    Map<String,Object> paramMap = new HashMap<>();
     paramMap.put("boardNo", no);
 
     return sqlSession.selectOne("bitcamp.personalapp.dao.BoardDao.findBy", paramMap);

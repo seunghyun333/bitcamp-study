@@ -25,9 +25,13 @@
   </select>
   
   <select id="findByIdAndPassword" parameterType="member" resultMap="memberMap">
-    select 
+    select
+      mno,
+      name,
+      w_date, 
       email,
-      pw 
+      pw,
+      tel 
     from 
       dia_member 
     where 

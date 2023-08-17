@@ -8,7 +8,7 @@ public class Board implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private int no;
-  private int mno;
+  private Member mno;
   private String title;
   private String content;
   private Timestamp w_date;
@@ -41,15 +41,17 @@ public class Board implements Serializable {
     this.no = no;
   }
 
-  public int getMno() {
-    return mno;
-  }
 
-  public void setMno(int mno) {
-    this.mno = mno;
-  }
 
-  public String getTitle() {
+  public Member getMno() {
+	return mno;
+}
+
+public void setMno(Member mno) {
+	this.mno = mno;
+}
+
+public String getTitle() {
     return title;
   }
 

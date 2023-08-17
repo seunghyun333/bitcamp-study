@@ -12,64 +12,69 @@
   <result column="w_date" property="w_date"/>
   
   <association property="mno" javaType="member">
-    <id column="mno" property="mno"/>
+    <id column="mno" property="no"/>
     <result column="name" property="name"/>
   </association>
   
 </resultMap>
 
   <insert id="insert" parameterType="board">
-    insert into personalapp_board(title,content,writer)
+    insert into dia_content(title,content,writer)
      values(#{title},#{content},#{writer.no})
   </insert>
 
 <select id="findAll" resultMap="boardMap">
     select
-      cno,
-      mno, 
-      title,
-      w_date, 
-      v_count
+      c.cno,
+      m.mno, 
+      c.title,
+      c.w_date, 
+      c.v_count,
+      c.secret,
+      m.name
       from
         dia_content c inner join dia_member m on c.mno=m.mno
       order by 
        cno desc
   </select>
 
-  <select id="findBy" parameterType="int" resultMap="boardMap">
+  <select id="findBy" parameterType="map" resultMap="boardMap">
   select
-    b.board_no,
-     b.title, 
-     b.content,
-     b.view_count, 
-     b.created_date, 
-     v.visit_No, 
-     v.name
+    c.cno,
+     c.title, 
+     c.content,
+     c.v_count, 
+     c.w_date,
+     c.secret,
+     m.mno, 
+     m.name
    from
-     personalapp_board b inner join personalapp_visit v on b.writer=v.visit_no
-   where board_no=#{boardNo}
+     dia_content c inner join dia_member m on c.mno=m.mno
+   where 
+   	c.cno=#{cno}
   </select>
 
   <update id="update" parameterType="board">
   update 
-  personalapp_board set
+  dia_content set
   title=#{title},
   content=#{content}
-   where board_no=#{no}
-   and writer=#{writer.no}
+   where cno=#{no}
+   and mno=#{mno.no}
   </update>
 
   <update id="updateCount" parameterType="board">
-    update personalapp_board set
-      view_count=#{viewCount}
+    update dia_content set
+      v_count=#{v_count}
     where
-      board_no=#{no}
+      cno=#{no}
   </update>
 
   <delete id="delete" parameterType="board">
-  delete from personalapp_board
-  where board_no=#{no} 
-  and writer=#{writer.no}
+  delete from dia_content
+  where cno=#{no} 
+  and mno=#{mno.no}
   </delete>
 
 </mapper>
+

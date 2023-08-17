@@ -30,7 +30,8 @@ public class BoardAddServlet extends HttpServlet {
     Board board = new Board();
     board.setTitle(request.getParameter("title"));
     board.setContent(request.getParameter("content"));
-    board.setWriter(loginUser);
+    board.setMno(loginUser);
+    
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
