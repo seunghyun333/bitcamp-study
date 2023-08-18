@@ -44,14 +44,14 @@ public class Board implements Serializable {
 
 
   public Member getMno() {
-	return mno;
-}
+    return mno;
+  }
 
-public void setMno(Member mno) {
-	this.mno = mno;
-}
+  public void setMno(Member mno) {
+    this.mno = mno;
+  }
 
-public String getTitle() {
+  public String getTitle() {
     return title;
   }
 
@@ -90,7 +90,6 @@ public String getTitle() {
   public void setSecret(boolean secret) {
     this.secret = secret;
   }
-
 
 
 }

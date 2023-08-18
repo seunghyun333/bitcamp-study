@@ -19,8 +19,8 @@
 </resultMap>
 
   <insert id="insert" parameterType="board">
-    insert into dia_content(title,content,writer)
-     values(#{title},#{content},#{writer.no})
+    insert into dia_content(title,content,mno,secret)
+     values(#{title},#{content},#{mno.no},#{secret})
   </insert>
 
 <select id="findAll" resultMap="boardMap">

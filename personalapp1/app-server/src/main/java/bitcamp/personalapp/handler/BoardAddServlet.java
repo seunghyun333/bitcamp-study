@@ -30,8 +30,11 @@ public class BoardAddServlet extends HttpServlet {
     Board board = new Board();
     board.setTitle(request.getParameter("title"));
     board.setContent(request.getParameter("content"));
+    board.setSecret(Boolean.parseBoolean(request.getParameter("secret")));
+
+    // 생성한 게시물 객체에 불린 값을 설정
     board.setMno(loginUser);
-    
+
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();

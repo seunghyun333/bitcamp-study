@@ -39,10 +39,10 @@ public class BoardAddServlet extends HttpServlet {
 
       ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
       for (Part part : request.getParts()) {
-        // System.out.println(part.getName());
+        //        System.out.println(part.getName());
         if (part.getName().equals("files") && part.getSize() > 0) {
-          String uploadFileUrl = InitServlet.ncpObjectStorageService
-              .uploadFile("bitcamp-nc7-bucket-118", "board/", part);
+          String uploadFileUrl = InitServlet.ncpObjectStorageService.uploadFile(
+                  "bitcamp-nc7-bucket-07", "board/", part);
           AttachedFile attachedFile = new AttachedFile();
           attachedFile.setFilePath(uploadFileUrl);
           attachedFiles.add(attachedFile);

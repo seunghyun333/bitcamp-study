@@ -50,6 +50,7 @@ public class BoardDetailServlet extends HttpServlet {
           board.getContent());
 
       out.printf("<tr><th>작성자</th> <td>%s</td></tr>\n", board.getMno().getName());
+      out.printf("<tr><th>비밀여부</th> <td>%s</td></tr>\n", board.isSecret());
       out.printf("<tr><th>조회수</th> <td>%s</td></tr>\n", board.getV_count());
       out.printf("<tr><th>등록일</th> <td>%tY-%1$tm-%1$td</td></tr>\n", board.getW_date());
       out.println("</table>");
