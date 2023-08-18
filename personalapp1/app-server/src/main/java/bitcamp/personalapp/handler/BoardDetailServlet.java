@@ -17,7 +17,6 @@ public class BoardDetailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
     Board board = InitServlet.boardDao.findBy(Integer.parseInt(request.getParameter("no")));
 
     response.setContentType("text/html;charset=UTF-8");
@@ -30,6 +29,8 @@ public class BoardDetailServlet extends HttpServlet {
     out.println("</head>");
     out.println("<body>");
     out.println("<h1>게시글</h1>");
+
+    System.out.println(Integer.parseInt(request.getParameter("no")));
 
 
     if (board == null) {

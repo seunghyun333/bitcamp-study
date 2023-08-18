@@ -21,6 +21,8 @@ public class LoginServlet extends HttpServlet {
     Member m = new Member();
     m.setEmail(request.getParameter("email"));
     m.setPw(request.getParameter("pw"));
+    System.out.println(request.getParameter("email"));
+    System.out.println(request.getParameter("pw"));
 
     Member loginUser = InitServlet.memberDao.findByIdAndPassword(m);
     if (loginUser != null) {
@@ -28,6 +30,7 @@ public class LoginServlet extends HttpServlet {
       response.sendRedirect("/");
       return;
     }
+    System.out.println((loginUser));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();

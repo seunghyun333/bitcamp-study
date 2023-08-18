@@ -6,10 +6,10 @@ insert into dia_diary(cno, weather) values(1, '후덥지근');
 insert into dia_diary(cno, weather) values(2, '숨막히는!');
 
 -- 회원  dia_member 
-insert into dia_member(name, email, pw, tel) values('박승현', 'psh@test.com', '1111', '01033334444');
-insert into dia_member(name, email, pw, tel) values('우세림', 'wsr@test.com', '1111', '01033354444');
-insert into dia_member(name, email, pw, tel) values('권태환', 'kth@test.com', '1111', '01033364444');
-insert into dia_member(name, email, pw, tel) values('정희은', 'jhe@test.com', '1111', '01033384444');
+insert into dia_member(name, email, pw, tel) values('박승현', 'psh@test.com', sha1('1111'), '01033334444');
+insert into dia_member(name, email, pw, tel) values('우세림', 'wsr@test.com', sha1('1111'), '01033354444');
+insert into dia_member(name, email, pw, tel) values('권태환', 'kth@test.com', sha1('1111'), '01033364444');
+insert into dia_member(name, email, pw, tel) values('정희은', 'jhe@test.com', sha1('1111'), '01033384444');
 
 -- 댓글  dia_comment
 insert into dia_comment(cno, mno, content) values(1, 3, '헉 부럽다,,');
