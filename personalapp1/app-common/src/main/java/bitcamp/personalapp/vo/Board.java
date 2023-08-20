@@ -2,6 +2,7 @@ package bitcamp.personalapp.vo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 public class Board implements Serializable {
@@ -14,7 +15,15 @@ public class Board implements Serializable {
   private Timestamp w_date;
   private int v_count;
   private boolean secret;
+  private List<AttachedFile> attachedFiles;
 
+  
+  @Override
+  public String toString() {
+    return "Board [no=" + no + ", title=" + title + ", content=" + content + ", mno=" + mno
+        + ", w_date=" + w_date + ", v_count=" + v_count + ", secret=" + secret
+        + ", attachedFiles=" + attachedFiles + "]";
+  }
 
   @Override
   public int hashCode() {
@@ -90,6 +99,16 @@ public class Board implements Serializable {
   public void setSecret(boolean secret) {
     this.secret = secret;
   }
+
+public List<AttachedFile> getAttachedFiles() {
+	return attachedFiles;
+}
+
+public void setAttachedFiles(List<AttachedFile> attachedFiles) {
+	this.attachedFiles = attachedFiles;
+}
+
+
 
 
 }
