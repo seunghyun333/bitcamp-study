@@ -471,3 +471,7 @@ gradle-app.setting
 # End of https://www.toptal.com/developers/gitignore/api/java,c++,windows,eclipse,intellij,visualstudiocode,gradle,maven,node
 # Ignore Gradle build output directory
 build
+
+*.exe
+node.modules/
+temp/

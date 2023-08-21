@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS dia_member RESTRICT;
 DROP TABLE IF EXISTS dia_comment RESTRICT;
 
 -- 대표사진
-DROP TABLE IF EXISTS dia_pic RESTRICT;
+DROP TABLE IF EXISTS dia_content_file RESTRICT;
 
 -- 공지사항
 DROP TABLE IF EXISTS dia_notice RESTRICT;
@@ -35,12 +35,13 @@ ALTER TABLE dia_diary
 
 -- 회원
 CREATE TABLE dia_member (
-  mno    INTEGER     NOT NULL COMMENT '회원번호', -- 회원번호
-  name   VARCHAR(50) NOT NULL COMMENT '이름', -- 이름
-  email  VARCHAR(40) NOT NULL COMMENT '이메일', -- 이메일
-  pw     VARCHAR(50) NOT NULL COMMENT '암호', -- 암호
-  tel    VARCHAR(30) NOT NULL COMMENT '전화번호', -- 전화번호
-  w_date DATETIME    NOT NULL DEFAULT now() COMMENT '등록일' -- 등록일
+  mno    INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
+  name   VARCHAR(50)  NOT NULL COMMENT '이름', -- 이름
+  email  VARCHAR(40)  NOT NULL COMMENT '이메일', -- 이메일
+  pw     VARCHAR(50)  NOT NULL COMMENT '암호', -- 암호
+  tel    VARCHAR(30)  NOT NULL COMMENT '전화번호', -- 전화번호
+  w_date DATETIME     NOT NULL DEFAULT now() COMMENT '등록일', -- 등록일
+  photo  VARCHAR(255) NULL     COMMENT '사진' -- 사진
 )
 COMMENT '회원';
 
@@ -103,22 +104,22 @@ ALTER TABLE dia_comment
   MODIFY COLUMN cmno INTEGER NOT NULL AUTO_INCREMENT COMMENT '댓글번호';
 
 -- 대표사진
-CREATE TABLE dia_pic (
-  pno      INTEGER      NOT NULL COMMENT '사진번호', -- 사진번호
-  cno      INTEGER      NOT NULL COMMENT '콘텐트번호', -- 콘텐트번호
-  pic_file VARCHAR(255) NULL     COMMENT '사진파일이름' -- 사진파일이름
+CREATE TABLE dia_content_file (
+  content_file_no INTEGER      NOT NULL COMMENT '사진번호', -- 사진번호
+  filepath        VARCHAR(255) NOT NULL COMMENT '사진파일이름', -- 사진파일이름
+  cno             INTEGER      NOT NULL COMMENT '콘텐트번호' -- 콘텐트번호
 )
 COMMENT '대표사진';
 
 -- 대표사진
-ALTER TABLE dia_pic
-  ADD CONSTRAINT PK_dia_pic -- 대표사진 기본키
+ALTER TABLE dia_content_file
+  ADD CONSTRAINT PK_dia_content_file -- 대표사진 기본키
   PRIMARY KEY (
-  pno -- 사진번호
+  content_file_no -- 사진번호
   );
 
-ALTER TABLE dia_pic
-  MODIFY COLUMN pno INTEGER NOT NULL AUTO_INCREMENT COMMENT '사진번호';
+ALTER TABLE dia_content_file
+  MODIFY COLUMN content_file_no INTEGER NOT NULL AUTO_INCREMENT COMMENT '사진번호';
 
 -- 공지사항
 CREATE TABLE dia_notice (
@@ -221,8 +222,8 @@ ALTER TABLE dia_comment
   );
 
 -- 대표사진
-ALTER TABLE dia_pic
-  ADD CONSTRAINT FK_dia_content_TO_dia_pic -- 콘텐트 -> 대표사진
+ALTER TABLE dia_content_file
+  ADD CONSTRAINT FK_dia_content_TO_dia_content_file -- 콘텐트 -> 대표사진
   FOREIGN KEY (
   cno -- 콘텐트번호
   )
