@@ -19,8 +19,8 @@
 </resultMap>
 
   <resultMap type="attachedFile" id="attachedFileMap">
-    <id     column="content_file_no"  property="no"/>
-    <result column="filepath"       property="filePath"/>
+    <id     column="pno"  property="no"/>
+    <result column="pic_file"       property="filePath"/>
     <result column="cno"       property="contentNo"/>
   </resultMap>
 
@@ -54,11 +54,11 @@
      c.secret,
      m.mno, 
      m.name,
-     f.content_file_no,
-     f.filepath
+     f.pno,
+     f.pic_file
    from
      dia_content c inner join dia_member m on c.mno=m.mno
-     left outer join dia_content_file f on c.cno=f.board_no
+     left outer join dia_pic f on c.cno=f.cno
    where 
    	c.cno=#{cno}
   </select>
@@ -87,7 +87,7 @@
   
   
   <insert id="insertFiles" parameterType="board">
-    insert into dia_content_file(filepath, board_no) 
+    insert into dia_pic(pic_file, board_no) 
     values 
     <foreach collection="attachedFiles" item="file" separator=",">(#{file.filePath}, #{no})</foreach>
   </insert>
@@ -96,18 +96,18 @@
   <select id="findFileBy" parameterType="int" resultMap="attachedFileMap">
     select
       board_file_no,
-      filepath,
+      pic_file,
       cno
     from
-      dia_content_file
+      dia_pic
     where
-      content_file_no=#{no}
+      pno=#{no}
   </select>
   
   <delete id="deleteFile" parameterType="int">
-    delete from dia_content_file
+    delete from dia_pic
     where 
-      content_file_no=#{no}
+      pno=#{no}
   </delete>
 
 </mapper>
