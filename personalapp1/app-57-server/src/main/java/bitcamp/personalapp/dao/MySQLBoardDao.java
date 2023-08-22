@@ -3,7 +3,6 @@ package bitcamp.personalapp.dao;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-
 import bitcamp.personalapp.vo.AttachedFile;
 import bitcamp.personalapp.vo.Board;
 
@@ -59,19 +58,19 @@ public class MySQLBoardDao implements BoardDao {
   @Override
   public int insertFiles(Board board) {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
-    return sqlSession.insert("bitcamp.myapp.dao.BoardDao.insertFiles", board);
+    return sqlSession.insert("bitcamp.personalapp.dao.BoardDao.insertFiles", board);
   }
 
   @Override
   public AttachedFile findFileBy(int no) {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
-    return sqlSession.selectOne("bitcamp.myapp.dao.BoardDao.findFileBy", no);
+    return sqlSession.selectOne("bitcamp.personalapp.dao.BoardDao.findFileBy", no);
   }
 
   @Override
   public int deleteFile(int no) {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
-    return sqlSession.delete("bitcamp.myapp.dao.BoardDao.deleteFile", no);
+    return sqlSession.delete("bitcamp.personalapp.dao.BoardDao.deleteFile", no);
   }
 
 }

@@ -16,6 +16,12 @@
     <result column="name" property="name"/>
   </association>
   
+
+  <collection property="attachedFiles" ofType="attachedFile">
+    <id     column="content_file_no"  property="no"/>
+    <result column="filepath"       property="filePath"/>
+  </collection>
+  
 </resultMap>
 
   <resultMap type="attachedFile" id="attachedFileMap">

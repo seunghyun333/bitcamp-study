@@ -2,13 +2,11 @@ package bitcamp.personalapp.handler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import bitcamp.personalapp.vo.AttachedFile;
 import bitcamp.personalapp.vo.Board;
 
@@ -20,9 +18,9 @@ public class BoardDetailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-	  
-	int no = Integer.parseInt(request.getParameter("no"));
-	  
+
+    int no = Integer.parseInt(request.getParameter("no"));
+
     Board board = InitServlet.boardDao.findBy(no);
 
     response.setContentType("text/html;charset=UTF-8");
@@ -59,11 +57,14 @@ public class BoardDetailServlet extends HttpServlet {
       out.printf("<tr><th>등록일</th> <td>%tY-%1$tm-%1$td</td></tr>\n", board.getW_date());
       out.println("<tr><th>첨부파일</th><td>");
 
-      for (AttachedFile file : board.getAttachedFiles()) {
-        out.printf("<a href='/upload/board/%s'>%1$s</a>"
-            + " [<a href='/board/file/delete?no=%d'>삭제</a>]"
-            + "<br>\n", file.getFilePath(), file.getNo());
+      if (board.getAttachedFiles() != null) {
+        for (AttachedFile file : board.getAttachedFiles()) {
+          out.printf("<a href='/upload/board/%s'>%1$s</a>"
+              + " [<a href='/board/file/delete?no=%d'>삭제</a>]" + "<br>\n", file.getFilePath(),
+              file.getNo());
+        }
       }
+
 
       out.println("<input type='file' name='files' multiple>");
 
@@ -73,8 +74,8 @@ public class BoardDetailServlet extends HttpServlet {
       out.println("<div>");
       out.println("<button>변경</button>");
       out.println("<button type='reset'>초기화</button>");
-      out.printf("<a href='/board/delete?&no=%d'>삭제</a>\n", board.getNo());
-      out.println("<a href='/board/list?'>목록</a>\n");
+      out.printf("<a href='/board/delete?no=%d'>삭제</a>\n", board.getNo());
+      out.println("<a href='/board/list'>목록</a>\n");
       out.println("</div>");
       out.println("</form>");
 

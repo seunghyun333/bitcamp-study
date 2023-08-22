@@ -17,12 +17,12 @@ public class Board implements Serializable {
   private boolean secret;
   private List<AttachedFile> attachedFiles;
 
-  
+
   @Override
   public String toString() {
     return "Board [no=" + no + ", title=" + title + ", content=" + content + ", mno=" + mno
-        + ", w_date=" + w_date + ", v_count=" + v_count + ", secret=" + secret
-        + ", attachedFiles=" + attachedFiles + "]";
+        + ", w_date=" + w_date + ", v_count=" + v_count + ", secret=" + secret + ", attachedFiles="
+        + attachedFiles + "]";
   }
 
   @Override
@@ -100,14 +100,13 @@ public class Board implements Serializable {
     this.secret = secret;
   }
 
-public List<AttachedFile> getAttachedFiles() {
-	return attachedFiles;
-}
+  public List<AttachedFile> getAttachedFiles() {
+    return attachedFiles;
+  }
 
-public void setAttachedFiles(List<AttachedFile> attachedFiles) {
-	this.attachedFiles = attachedFiles;
-}
-
+  public void setAttachedFiles(List<AttachedFile> attachedFiles) {
+    this.attachedFiles = attachedFiles;
+  }
 
 
 
