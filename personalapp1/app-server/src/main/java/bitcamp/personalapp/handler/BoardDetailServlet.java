@@ -57,10 +57,12 @@ public class BoardDetailServlet extends HttpServlet {
       out.printf("<tr><th>등록일</th> <td>%tY-%1$tm-%1$td</td></tr>\n", board.getW_date());
       out.println("<tr><th>첨부파일</th><td>");
 
-      for (AttachedFile file : board.getAttachedFiles()) {
-        out.printf("<a href='/upload/board/%s'>%1$s</a>"
-            + " [<a href='/board/file/delete?no=%d'>삭제</a>]" + "<br>\n", file.getFilePath(),
-            file.getNo());
+      if (board.getAttachedFiles() != null) {
+        for (AttachedFile file : board.getAttachedFiles()) {
+          out.printf("<a href='/upload/board/%s'>%1$s</a>"
+              + " [<a href='/board/file/delete?no=%d'>삭제</a>]" + "<br>\n", file.getFilePath(),
+              file.getNo());
+        }
       }
 
 
