@@ -45,8 +45,9 @@ public class ErrorServlet extends HttpServlet {
     if (request.getAttribute("message") != null) {
       out.printf("<p>%s</p>\n", request.getAttribute("message"));
     }
-    out.println("<p>등록 실패입니다!</p>");
+
     request.getRequestDispatcher("/footer").include(request, response);
+
     out.println("</body>");
     out.println("</html>");
 
