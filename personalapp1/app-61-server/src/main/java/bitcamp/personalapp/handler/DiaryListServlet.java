@@ -2,20 +2,18 @@ package bitcamp.personalapp.handler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import bitcamp.personalapp.vo.Member;
+import bitcamp.personalapp.vo.Diary;
 
-@WebServlet("/member/list")
-public class MemberListServlet extends HttpServlet {
+@WebServlet("/diary/list")
+public class DiaryListServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
-  SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -23,29 +21,31 @@ public class MemberListServlet extends HttpServlet {
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
+
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    out.println("<title>회원</title>");
+    out.println("<title>일기</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원 목록</h1>");
+    out.println("<h1>일기 목록</h1>");
     out.println("<div style='margin:5px;'>");
-    out.println("<a href='/member/form.html'>회원가입</a>");
+    out.println("<a href='/diary/form.html'>새 글</a>\n");
     out.println("</div>");
     out.println("<table border='1'>");
     out.println("<thead>");
-    out.println("  <tr><th>회원번호</th> <th>이름</th> <th>이메일</th></tr>");
+    out.println("  <tr><th>번호</th> <th>날짜</th> <th>날씨</th> <th>제목</th></tr>");
     out.println("</thead>");
 
-    List<Member> list = InitServlet.memberDao.findAll();
-    for (Member member : list) {
-      out.printf("<tr>" + " <td>%d</td>" + " <td>"
-          + "<img src='http://rilqiqaqfxro19010722.cdn.ntruss.com/member/%s?type=f&w=30&h=40&faceopt=true&ttype=jpg'>"
-          + "<a href='/member/detail?no=%d'>%s</a></td>" + "<td>%s</td></tr>\n", member.getNo(),
-          member.getPhoto(), member.getNo(), member.getName(), member.getEmail());
 
+    List<Diary> list = InitServlet.diaryDao.findAll();
+    for (Diary diary : list) {
+      out.printf(
+          "<tr><td>%d</td>, " + "<td>%s</td>, " + "<td>%s</td>, "
+              + "<td><a href='/diary/detail?no=%d'>%s</a></td>\n",
+          diary.getNo(), diary.getDate(), diary.getWeather(), diary.getNo(),
+          diary.getTitle().length() > 0 ? diary.getTitle() : "제목없음");
     }
     out.println("</tbody>");
     out.println("</table>");
@@ -53,6 +53,9 @@ public class MemberListServlet extends HttpServlet {
     out.println("</body>");
     out.println("</html>");
   }
+
+
+
 }
 
 

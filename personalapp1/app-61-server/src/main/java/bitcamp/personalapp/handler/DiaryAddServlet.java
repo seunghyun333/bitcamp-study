@@ -3,17 +3,14 @@ package bitcamp.personalapp.handler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import bitcamp.personalapp.vo.Member;
+import bitcamp.personalapp.vo.Diary;
 
-@WebServlet("/member/add")
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-public class MemberAddServlet extends HttpServlet {
+@WebServlet("/diary/add")
+public class DiaryAddServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -21,21 +18,12 @@ public class MemberAddServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    Member m = new Member();
-    m.setName(request.getParameter("name"));
-    m.setEmail(request.getParameter("email"));
-    m.setPw(request.getParameter("pw"));
-    m.setTel(request.getParameter("tel"));
-
-    // member.setName(request.getParameter("이름을 적어주세요 ♡"));
-    // prompt.printf("%s아~ 고마워♡\n", member.getName());
-
-    Part photoPart = request.getPart("photo");
-    if (photoPart.getSize() > 0) {
-      String uploadFileUrl = InitServlet.ncpObjectStorageService.uploadFile("bitcamp-nc7-bucket-07",
-          "member/", photoPart);
-      m.setPhoto(uploadFileUrl);
-    }
+    Diary diary = new Diary();
+    diary.setDate(request.getParameter("date"));
+    diary.setWeather(request.getParameter("weather"));
+    diary.setTitle(request.getParameter("title"));
+    diary.setContent(request.getParameter("content"));
+    diary.setCoffee(request.getParameter("coffee").charAt(0));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -43,26 +31,25 @@ public class MemberAddServlet extends HttpServlet {
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    out.println("<meta http-equiv='refresh' content='1;url=/member/list'>");
-    out.println("<title>방문자</title>");
+    out.println("<meta http-equiv='refresh' content='1;url=/diary/list'>");
+    out.println("<title>일기</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>방문자 등록</h1>");
+    out.println("<h1>일기 등록</h1>");
 
     try {
-      InitServlet.memberDao.insert(m);
+      InitServlet.diaryDao.insert(diary);
       InitServlet.sqlSessionFactory.openSession(false).commit();
       out.println("<p>등록 성공입니다!</p>");
-      out.printf("%s님 환영합니다♡\n", m.getName());
+
     } catch (Exception e) {
       InitServlet.sqlSessionFactory.openSession(false).rollback();
       out.println("<p>등록 실패입니다!</p>");
       e.printStackTrace();
     }
+
     out.println("</body>");
     out.println("</html>");
   }
 
 }
-
-

@@ -9,10 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import bitcamp.personalapp.vo.Member;
+import bitcamp.personalapp.vo.Board;
 
-@WebServlet("/member/list")
-public class MemberListServlet extends HttpServlet {
+@WebServlet("/board/list")
+public class BoardListServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
   SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -21,31 +21,36 @@ public class MemberListServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     out.println("<!DOCTYPE html>");
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    out.println("<title>회원</title>");
+    out.println("<title>게시글</title>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>회원 목록</h1>");
-    out.println("<div style='margin:5px;'>");
-    out.println("<a href='/member/form.html'>회원가입</a>");
+    out.println("<h1>게시글 목록</h1>");
+    out.println("<div sytle='margin:5px;'>");
+    out.println("<a href='/board/form'>새 글</a>");
     out.println("</div>");
     out.println("<table border='1'>");
     out.println("<thead>");
-    out.println("  <tr><th>회원번호</th> <th>이름</th> <th>이메일</th></tr>");
+    out.println("  <tr><th>번호</th> <th>제목</th> <th>작성자</th> <th>조회수</th> <th>등록일</th></tr>");
     out.println("</thead>");
 
-    List<Member> list = InitServlet.memberDao.findAll();
-    for (Member member : list) {
-      out.printf("<tr>" + " <td>%d</td>" + " <td>"
-          + "<img src='http://rilqiqaqfxro19010722.cdn.ntruss.com/member/%s?type=f&w=30&h=40&faceopt=true&ttype=jpg'>"
-          + "<a href='/member/detail?no=%d'>%s</a></td>" + "<td>%s</td></tr>\n", member.getNo(),
-          member.getPhoto(), member.getNo(), member.getName(), member.getEmail());
 
+    List<Board> list = InitServlet.boardDao.findAll();
+
+    out.println("<tbody>");
+
+    for (Board board : list) {
+      out.printf(
+          "<tr>" + "<td>%d</td>" + " <td><a href='/board/detail?no=%d'>%s</a></td>" + " <td>%s</td>"
+              + "<td>%d</td> " + "<td>%s</td></tr>\n",
+          board.getNo(), board.getNo(), board.getTitle(), board.getMno().getName(), board.getV_count(),
+          dateFormatter.format(board.getW_date()));
     }
     out.println("</tbody>");
     out.println("</table>");
@@ -53,6 +58,7 @@ public class MemberListServlet extends HttpServlet {
     out.println("</body>");
     out.println("</html>");
   }
+
 }
 
 
