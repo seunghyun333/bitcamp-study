@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.personalapp.dao.MemberDao">
+
+<resultMap type="member" id="memberMap">
+  <id column="mno" property="no"/>
+  <result column="name" property="name"/>
+  <result column="w_date"   property="w_date"/>
+  <result column="photo" property="photo"/>
+</resultMap>
+
+  <insert id="insert" parameterType="member">
+    insert into dia_member(name,email,pw,tel,photo) values(#{name},#{email},sha1(#{pw}),#{tel},#{photo})
+  </insert>
+  
+  <select id="findAll" resultMap="memberMap">
+   select 
+   	mno,
+   	email, 
+   	name, 
+   	w_date,
+   	photo
+	 from 
+	   dia_member 
+	 order by 
+	   mno
+  </select>
+  
+  <select id="findByIdAndPassword" parameterType="member" resultMap="memberMap">
+    select
+      mno,
+      name,
+      w_date, 
+      email,
+      pw,
+      tel,
+      photo 
+    from 
+      dia_member 
+    where 
+      email=#{email}
+      and pw=sha1(#{pw})
+  </select>
+  
+  <update id="update" parameterType="member">
+    update dia_member set
+      name=#{name}
+      ,email=#{email}
+      ,pw=sha1(#{pw})
+    <if test="photo != null">
+      ,photo=#{photo}
+    </if>
+    where 
+      mno=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+  delete from dia_member 
+  where 
+    mno=#{no}
+  </delete>
+
+  <select id="findBy" parameterType="int" resultMap="memberMap">
+  select 
+    mno, 
+    name, 
+    email,
+    w_date,
+    photo
+  from 
+    dia_member
+  where 
+    mno=#{no}
+  </select>
+  
+</mapper>

@@ -1,9 +1,7 @@
 package bitcamp.personalapp.handler;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +13,10 @@ import bitcamp.personalapp.vo.AttachedFile;
 import bitcamp.personalapp.vo.Board;
 import bitcamp.personalapp.vo.Member;
 
-@WebServlet("/board/update")
+
+@WebServlet("/board/add")
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-public class BoardUpdateServlet extends HttpServlet {
+public class BoardAddServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -31,22 +30,22 @@ public class BoardUpdateServlet extends HttpServlet {
       return;
     }
 
-
     try {
       Board board = new Board();
       board.setMno(loginUser);
-      board.setNo(Integer.parseInt(request.getParameter("no")));
       board.setTitle(request.getParameter("title"));
       board.setContent(request.getParameter("content"));
-      String secretParam = request.getParameter("secret");
-      boolean isSecret = Boolean.parseBoolean(secretParam);
-      board.setSecret(isSecret);
+      board.setSecret(Boolean.parseBoolean(request.getParameter("secret")));
+
+
 
       ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
 
       for (Part part : request.getParts()) {
+        // System.out.println(part.getName());
         if (part.getName().equals("files") && part.getSize() > 0) {
-          String uploadFileUrl = InitServlet.ncpObjectStorageService.uploadFile("bitcamp-nc7-bucket-07", "/board", part);
+          String uploadFileUrl = InitServlet.ncpObjectStorageService
+              .uploadFile("bitcamp-nc7-bucket-07", "board/", part);
           AttachedFile attachedFile = new AttachedFile();
           attachedFile.setFilePath(uploadFileUrl);
           attachedFiles.add(attachedFile);
@@ -55,29 +54,27 @@ public class BoardUpdateServlet extends HttpServlet {
       board.setAttachedFiles(attachedFiles);
 
 
-      if (InitServlet.boardDao.update(board) == 0) {
-        throw new Exception("게시글이 없거나 변경 권한이 없습니다.");
-      } else {
-        if (attachedFiles.size() > 0) {
-          // 게시글을 정상적으로 변경했으면, 그 게시글의 첨부파일을 추가한다.
-          int count = InitServlet.boardDao.insertFiles(board);
-          System.out.println(count);
-        }
+      InitServlet.boardDao.insert(board);
 
-        InitServlet.sqlSessionFactory.openSession(false).commit();
-        response.sendRedirect("list");
+
+
+      if (attachedFiles.size() > 0) {
+        InitServlet.boardDao.insertFiles(board);
       }
+      InitServlet.sqlSessionFactory.openSession(false).commit();
+      response.sendRedirect("list");
 
     } catch (Exception e) {
       InitServlet.sqlSessionFactory.openSession(false).rollback();
-      
-      request.setAttribute("error", e);
-      request.setAttribute("message", e.getMessage());
-      request.setAttribute("refresh", "2;url=list");
-      
-      request.getRequestDispatcher("/error").forward(request, response);
-    }
 
+      request.setAttribute("error", e);
+      request.setAttribute("message", "게시글 등록오류");
+      request.setAttribute("refresh", "2,url=list");
+
+      request.getRequestDispatcher("/error").forward(request, response);
+
+
+    }
   }
 }
 

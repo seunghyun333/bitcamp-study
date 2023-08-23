@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/member/delete")
-public class MemberDeleteServlet extends HttpServlet {
+@WebServlet("/diary/delete")
+public class DiaryDeleteServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -18,21 +18,17 @@ public class MemberDeleteServlet extends HttpServlet {
       throws ServletException, IOException {
 
     try {
-      if (InitServlet.memberDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
-        throw new Exception("해당 번호의 회원이 없습니다!! ");
+      if (InitServlet.diaryDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
+        throw new Exception("해당 번호의 일기가 없습니다!! ");
       } else {
-    	 InitServlet.sqlSessionFactory.openSession(false).commit();
-        response.sendRedirect("/member/list");
+        response.sendRedirect("/diary/list");
       }
+      InitServlet.sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
       InitServlet.sqlSessionFactory.openSession(false).rollback();
-      
-      request.setAttribute("error", e);
-      request.setAttribute("message", e.getMessage());
-      request.setAttribute("refresh", "2;url=list");
+      throw new RuntimeException(e);
 
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }

@@ -8,18 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/error")
-public class ErrorServlet extends HttpServlet {
+
+@WebServlet("/member/form")
+public class MemberFormServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-	  
-    if (request.getAttribute("refresh") != null) {
-      response.setHeader("Refresh", (String) request.getAttribute("refresh"));
-    }
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -27,22 +24,37 @@ public class ErrorServlet extends HttpServlet {
     out.println("<html>");
     out.println("<head>");
     out.println("<meta charset='UTF-8'>");
-    out.println("<title>게시글</title>");
+    out.println("<title>비트캠프</title>");
     out.println("</head>");
     out.println("<body>");
 
     request.getRequestDispatcher("/header").include(request, response);
 
-    out.println("<h1>실행 오류!</h1>");
 
-    if (request.getAttribute("message") != null) {
-      out.printf("<p>%s</p>\n", request.getAttribute("message"));
-    }
+    out.println("<h1>회원목록</h1>");
+    out.println("<form action='/member/add' method='post' enctype='multipart/form-data'>");
+    out.println("<table border='1'>");
+    out.println("<tr>");
+    out.println("<th>이름</th> <td style='width:200px;'><input type='text' name='name'></td>");
+    out.println("<th>이메일</th> <td style='width:200px;'><input type='email' name='email'></td>");
+    out.println("<th>비밀번호</th> <td style='width:200px;'><input type='password' name='pw'></td>");
+    out.println("<th>전화번호</th> <td style='width:200px;'><input type='number' name='tel'></td>");
+    out.println("</tr>");
+    out.println("<tr>");
+    out.println("<th>사진</th> <td><input type='file' name='photo'></td>");
+    out.println("</tr>");
+
+    out.println("</table>");
+    out.println("<button>등록</button>");
+    out.println("</form>");
+
 
     request.getRequestDispatcher("/footer").include(request, response);
 
     out.println("</body>");
     out.println("</html>");
   }
+
 }
+
 

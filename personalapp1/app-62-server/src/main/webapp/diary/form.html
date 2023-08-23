@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>비트캠프</title>
+</head>
+<body>
+<h1>일기</h1>
+<form action='/diary/add' method="post">
+<table border="1">
+  <tr>
+  <th>비밀번호</th> <td><input type='password' name='password'></td>
+</tr>
+<tr>
+  <th>날짜</th> <td style="width:200px;"><input type='text' name='date'></td>
+</tr>
+<tr>
+  <th>날씨</th> <td><input type='text' name='weather'></td>
+</tr>
+<tr>
+  <th>제목</th> <td><input type='text' name='title'></td>
+</tr>
+<tr>
+  <th>내용</th> <td style="width:500px; height: 500px;">
+  <textarea style="width:500px; height: 500px;" name='content'></textarea>
+  </td>
+</tr>
+<tr>
+  <th>커피</th> 
+  <td>
+    <select name="coffee">
+      <option value="O">마심</option>
+      <option value="X">안 마심</option>
+    </select>  
+  </td>
+</tr>
+</table>
+<button>등록</button>
+</form>
+</body>
+</html>
