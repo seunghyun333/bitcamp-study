@@ -30,6 +30,9 @@ public class BoardListServlet extends HttpServlet {
     out.println("<meta charset='UTF-8'>");
     out.println("<title>게시글</title>");
     out.println("</head>");
+
+    request.getRequestDispatcher("/header").include(request, response);
+
     out.println("<body>");
     out.println("<h1>게시글 목록</h1>");
     out.println("<div sytle='margin:5px;'>");
@@ -49,12 +52,15 @@ public class BoardListServlet extends HttpServlet {
       out.printf(
           "<tr>" + "<td>%d</td>" + " <td><a href='/board/detail?no=%d'>%s</a></td>" + " <td>%s</td>"
               + "<td>%d</td> " + "<td>%s</td></tr>\n",
-          board.getNo(), board.getNo(), board.getTitle(), board.getMno().getName(), board.getV_count(),
-          dateFormatter.format(board.getW_date()));
+          board.getNo(), board.getNo(), board.getTitle(), board.getMno().getName(),
+          board.getV_count(), dateFormatter.format(board.getW_date()));
     }
     out.println("</tbody>");
     out.println("</table>");
     out.println("<a href='/'>메인</a>");
+
+    request.getRequestDispatcher("/footer").include(request, response);
+
     out.println("</body>");
     out.println("</html>");
   }

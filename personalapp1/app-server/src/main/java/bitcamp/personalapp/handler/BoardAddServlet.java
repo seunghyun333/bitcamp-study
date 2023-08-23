@@ -1,7 +1,6 @@
 package bitcamp.personalapp.handler;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -54,38 +53,27 @@ public class BoardAddServlet extends HttpServlet {
       }
       board.setAttachedFiles(attachedFiles);
 
-      response.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = response.getWriter();
-      out.println("<!DOCTYPE html>");
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<meta charset='UTF-8'>");
-      out.println("<meta http-equiv='refresh' content='1;url=/board/list'>");
-      out.println("<title>게시글</title>");
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<h1>게시글 등록</h1>");
 
-      try {
-        InitServlet.boardDao.insert(board);
+      InitServlet.boardDao.insert(board);
 
-        if (attachedFiles.size() > 0) {
-          int count = InitServlet.boardDao.insertFiles(board);
-          System.out.println(count);
-        }
-        InitServlet.sqlSessionFactory.openSession(false).commit();
-        out.println("<p>등록 성공입니다!</p>");
 
-      } catch (Exception e) {
-        InitServlet.sqlSessionFactory.openSession(false).rollback();
-        out.println("<p>등록 실패입니다!</p>");
-        e.printStackTrace();
+
+      if (attachedFiles.size() > 0) {
+        InitServlet.boardDao.insertFiles(board);
       }
-      out.println("</body>");
-      out.println("</html>");
+      InitServlet.sqlSessionFactory.openSession(false).commit();
+      response.sendRedirect("list");
 
     } catch (Exception e) {
-      throw new ServletException(e);
+      InitServlet.sqlSessionFactory.openSession(false).rollback();
+
+      request.setAttribute("error", e);
+      request.setAttribute("message", "게시글 등록오류");
+      request.setAttribute("refresh", "2,url=list");
+
+      request.getRequestDispatcher("/error").forward(request, response);
+
+
     }
   }
 }

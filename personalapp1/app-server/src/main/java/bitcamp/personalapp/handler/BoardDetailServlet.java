@@ -32,6 +32,9 @@ public class BoardDetailServlet extends HttpServlet {
     out.println("<title>게시글</title>");
     out.println("</head>");
     out.println("<body>");
+
+    request.getRequestDispatcher("/header").include(request, response);
+
     out.println("<h1>게시글</h1>");
 
 
@@ -88,6 +91,7 @@ public class BoardDetailServlet extends HttpServlet {
         InitServlet.sqlSessionFactory.openSession(false).rollback();
       }
     }
+    request.getRequestDispatcher("/footer").include(request, response);
     out.println("</body>");
     out.println("</html>");
   }
