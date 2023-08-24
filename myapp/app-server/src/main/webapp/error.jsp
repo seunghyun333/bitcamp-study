@@ -3,8 +3,12 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
     isErrorPage="true"%>
+<%@ page import="org.apache.ibatis.session.SqlSessionFactory"%>
 
 <%
+    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
+    sqlSessionFactory.openSession(false).commit();
+
     if (request.getAttribute("refresh") != null) {
       response.setHeader("Refresh", (String) request.getAttribute("refresh"));
     }
@@ -19,12 +23,10 @@
 <body>
 
 <jsp:include page="header.jsp"/>
+
 <h1>실행 오류</h1>
 
-
-
 <p><%=exception%></p>
-
 
 <jsp:include page="footer.jsp"/>
 
