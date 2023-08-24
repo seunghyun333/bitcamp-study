@@ -64,7 +64,7 @@ public class BoardAddServlet extends HttpServlet {
       }
 
       sqlSessionFactory.openSession(false).commit();
-      response.sendRedirect("list?category=" + board.getCategory());
+      response.sendRedirect("list.jsp?category=" + board.getCategory());
 
     } catch (Exception e) {
       sqlSessionFactory.openSession(false).rollback();
