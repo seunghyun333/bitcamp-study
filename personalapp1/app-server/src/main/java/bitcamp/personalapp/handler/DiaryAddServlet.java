@@ -2,12 +2,18 @@ package bitcamp.personalapp.handler;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import bitcamp.personalapp.dao.DiaryDao;
 import bitcamp.personalapp.vo.Diary;
+import bitcamp.util.NcpObjectStorageService;
 
 @WebServlet("/diary/add")
 public class DiaryAddServlet extends HttpServlet {
@@ -17,6 +23,10 @@ public class DiaryAddServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+	  
+	  DiaryDao diaryDao = (DiaryDao) this.getServletContext().getAttribute("diaryDao");
+	  SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
+
 
     Diary diary = new Diary();
     diary.setDate(request.getParameter("date"));
@@ -38,12 +48,12 @@ public class DiaryAddServlet extends HttpServlet {
     out.println("<h1>일기 등록</h1>");
 
     try {
-      InitServlet.diaryDao.insert(diary);
-      InitServlet.sqlSessionFactory.openSession(false).commit();
+      diaryDao.insert(diary);
+      sqlSessionFactory.openSession(false).commit();
       out.println("<p>등록 성공입니다!</p>");
 
     } catch (Exception e) {
-      InitServlet.sqlSessionFactory.openSession(false).rollback();
+      sqlSessionFactory.openSession(false).rollback();
       out.println("<p>등록 실패입니다!</p>");
       e.printStackTrace();
     }

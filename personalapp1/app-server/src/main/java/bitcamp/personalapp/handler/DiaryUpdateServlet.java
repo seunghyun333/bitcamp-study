@@ -7,6 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import bitcamp.personalapp.dao.DiaryDao;
 import bitcamp.personalapp.vo.Diary;
 
 @WebServlet("/diary/update")
@@ -18,6 +22,10 @@ public class DiaryUpdateServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+	  
+	  DiaryDao diaryDao = (DiaryDao) this.getServletContext().getAttribute("diaryDao");
+	  SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
+
 
 
     Diary diary = new Diary();
@@ -42,14 +50,14 @@ public class DiaryUpdateServlet extends HttpServlet {
 
 
     try {
-      if (InitServlet.diaryDao.update(diary) == 0) {
+      if (diaryDao.update(diary) == 0) {
         out.println("<p>해당 번호의 일기가 없습니다.</p>");
       } else {
-        InitServlet.sqlSessionFactory.openSession(false).commit();
+        sqlSessionFactory.openSession(false).commit();
         out.println("<p>변경했습니다!</p>");
       }
     } catch (Exception e) {
-      InitServlet.sqlSessionFactory.openSession(false).rollback();
+      sqlSessionFactory.openSession(false).rollback();
       out.println("<p>변경 실패입니다!</p>");
       e.printStackTrace();
     }

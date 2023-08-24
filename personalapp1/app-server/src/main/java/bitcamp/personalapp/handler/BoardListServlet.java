@@ -9,7 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.vo.Board;
+import bitcamp.util.NcpObjectStorageService;
 
 @WebServlet("/board/list")
 public class BoardListServlet extends HttpServlet {
@@ -20,6 +25,9 @@ public class BoardListServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+	
+	  BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+
 
 
     response.setContentType("text/html;charset=UTF-8");
@@ -44,7 +52,7 @@ public class BoardListServlet extends HttpServlet {
     out.println("</thead>");
 
 
-    List<Board> list = InitServlet.boardDao.findAll();
+    List<Board> list = boardDao.findAll();
 
     out.println("<tbody>");
 

@@ -1,6 +1,7 @@
 package bitcamp.personalapp.handler;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import bitcamp.personalapp.dao.MemberDao;
 import bitcamp.personalapp.vo.Member;
+import bitcamp.util.NcpObjectStorageService;
 
 @WebServlet("/member/update")
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
@@ -19,6 +25,11 @@ public class MemberUpdateServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+	  
+	  MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
+	  SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
+	  NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
+
 
     Member member = new Member();
     member.setNo(Integer.parseInt(request.getParameter("no")));
@@ -29,20 +40,20 @@ public class MemberUpdateServlet extends HttpServlet {
 
     Part photoPart = request.getPart("photo");
     if (photoPart.getSize() > 0) {
-      String uploadFileUrl = InitServlet.ncpObjectStorageService.uploadFile("bitcamp-nc7-bucket-07",
+      String uploadFileUrl = ncpObjectStorageService.uploadFile("bitcamp-nc7-bucket-07",
           "member/", photoPart);
       member.setPhoto(uploadFileUrl);
     }
 
     try {
-      if (InitServlet.memberDao.update(member) == 0) {
+      if (memberDao.update(member) == 0) {
         throw new Exception("<p>회원이 없습니다.</p>");
       } else {
-        InitServlet.sqlSessionFactory.openSession(false).commit();
+        sqlSessionFactory.openSession(false).commit();
         response.sendRedirect("list");
       }
     } catch (Exception e) {
-      InitServlet.sqlSessionFactory.openSession(false).rollback();
+      sqlSessionFactory.openSession(false).rollback();
       
       request.setAttribute("error", e);
       request.setAttribute("message", e.getMessage());

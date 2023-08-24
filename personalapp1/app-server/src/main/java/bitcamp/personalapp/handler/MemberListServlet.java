@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.personalapp.dao.MemberDao;
 import bitcamp.personalapp.vo.Member;
 
 @WebServlet("/member/list")
@@ -20,6 +23,8 @@ public class MemberListServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+	  
+	MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -40,9 +45,8 @@ public class MemberListServlet extends HttpServlet {
     out.println("<table border='1'>");
     out.println("<thead>");
     out.println("  <tr><th>회원번호</th> <th>이름</th> <th>이메일</th></tr>");
-    out.println("</thead>");
 
-    List<Member> list = InitServlet.memberDao.findAll();
+    List<Member> list = memberDao.findAll();
     for (Member member : list) {
       out.printf("<tr>" + " <td>%d</td>" + " <td>"
           + "<img src='http://rilqiqaqfxro19010722.cdn.ntruss.com/member/%s?type=f&w=30&h=40&faceopt=true&ttype=jpg'>"

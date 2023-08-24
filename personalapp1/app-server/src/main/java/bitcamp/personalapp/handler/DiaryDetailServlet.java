@@ -7,7 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import bitcamp.personalapp.dao.DiaryDao;
 import bitcamp.personalapp.vo.Diary;
+import bitcamp.util.NcpObjectStorageService;
 
 @WebServlet("/diary/detail")
 public class DiaryDetailServlet extends HttpServlet {
@@ -17,7 +22,11 @@ public class DiaryDetailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    Diary diary = InitServlet.diaryDao.findBy(Integer.parseInt(request.getParameter("no")));
+	  
+	  DiaryDao diaryDao = (DiaryDao) this.getServletContext().getAttribute("diaryDao");
+
+	  
+    Diary diary = diaryDao.findBy(Integer.parseInt(request.getParameter("no")));
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();

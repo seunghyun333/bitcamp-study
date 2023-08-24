@@ -1,12 +1,15 @@
 package bitcamp.personalapp.handler;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.personalapp.dao.MemberDao;
 import bitcamp.personalapp.vo.Member;
 
 @WebServlet("/auth/login")
@@ -32,8 +35,8 @@ public class LoginServlet extends HttpServlet {
     }
 
 
-
-    Member loginUser = InitServlet.memberDao.findByIdAndPassword(m);
+    MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
+    Member loginUser = memberDao.findByIdAndPassword(m);
     if (loginUser != null) {
       request.getSession().setAttribute("loginUser", loginUser);
       response.sendRedirect("/");

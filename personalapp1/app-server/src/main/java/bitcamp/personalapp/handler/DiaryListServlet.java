@@ -8,6 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import bitcamp.personalapp.dao.DiaryDao;
 import bitcamp.personalapp.vo.Diary;
 
 @WebServlet("/diary/list")
@@ -18,6 +22,9 @@ public class DiaryListServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+	  
+	  DiaryDao diaryDao = (DiaryDao) this.getServletContext().getAttribute("diaryDao");
+
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -39,7 +46,7 @@ public class DiaryListServlet extends HttpServlet {
     out.println("</thead>");
 
 
-    List<Diary> list = InitServlet.diaryDao.findAll();
+    List<Diary> list = diaryDao.findAll();
     for (Diary diary : list) {
       out.printf(
           "<tr><td>%d</td>, " + "<td>%s</td>, " + "<td>%s</td>, "

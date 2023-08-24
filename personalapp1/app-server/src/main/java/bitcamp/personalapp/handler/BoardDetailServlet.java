@@ -7,6 +7,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.vo.AttachedFile;
 import bitcamp.personalapp.vo.Board;
 
@@ -18,10 +22,14 @@ public class BoardDetailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+	  
+	BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+	SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
+
 
     int no = Integer.parseInt(request.getParameter("no"));
 
-    Board board = InitServlet.boardDao.findBy(no);
+    Board board = boardDao.findBy(no);
 
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
@@ -84,11 +92,11 @@ public class BoardDetailServlet extends HttpServlet {
 
       try {
         board.setV_count(board.getV_count() + 1);
-        InitServlet.boardDao.updateCount(board);
-        InitServlet.sqlSessionFactory.openSession(false).commit();
+        boardDao.updateCount(board);
+        sqlSessionFactory.openSession(false).commit();
 
       } catch (Exception e) {
-        InitServlet.sqlSessionFactory.openSession(false).rollback();
+        sqlSessionFactory.openSession(false).rollback();
       }
     }
     request.getRequestDispatcher("/footer").include(request, response);

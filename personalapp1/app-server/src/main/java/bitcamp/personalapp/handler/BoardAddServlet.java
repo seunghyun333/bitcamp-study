@@ -2,6 +2,7 @@ package bitcamp.personalapp.handler;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.vo.AttachedFile;
 import bitcamp.personalapp.vo.Board;
 import bitcamp.personalapp.vo.Member;
+import bitcamp.util.NcpObjectStorageService;
 
 
 @WebServlet("/board/add")
@@ -23,6 +29,11 @@ public class BoardAddServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+	  
+  BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
+  SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
+  NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
+
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
@@ -44,7 +55,7 @@ public class BoardAddServlet extends HttpServlet {
       for (Part part : request.getParts()) {
         // System.out.println(part.getName());
         if (part.getName().equals("files") && part.getSize() > 0) {
-          String uploadFileUrl = InitServlet.ncpObjectStorageService
+          String uploadFileUrl = ncpObjectStorageService
               .uploadFile("bitcamp-nc7-bucket-07", "board/", part);
           AttachedFile attachedFile = new AttachedFile();
           attachedFile.setFilePath(uploadFileUrl);
@@ -54,18 +65,18 @@ public class BoardAddServlet extends HttpServlet {
       board.setAttachedFiles(attachedFiles);
 
 
-      InitServlet.boardDao.insert(board);
+      boardDao.insert(board);
 
 
 
       if (attachedFiles.size() > 0) {
-        InitServlet.boardDao.insertFiles(board);
+        boardDao.insertFiles(board);
       }
-      InitServlet.sqlSessionFactory.openSession(false).commit();
+      sqlSessionFactory.openSession(false).commit();
       response.sendRedirect("list");
 
     } catch (Exception e) {
-      InitServlet.sqlSessionFactory.openSession(false).rollback();
+      sqlSessionFactory.openSession(false).rollback();
 
       request.setAttribute("error", e);
       request.setAttribute("message", "게시글 등록오류");
