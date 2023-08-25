@@ -20,7 +20,9 @@ dependencies {
     
     //Mybatis 라이브러리
     implementation 'org.mybatis:mybatis:3.5.13'
-    
+
+    //jstl 라이브러리
+    implementation 'jstl:jstl:1.2'
    
     
     //서블릿 api

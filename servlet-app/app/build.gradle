@@ -25,6 +25,8 @@ dependencies {
     // thumbnail 이미지 생성기
     implementation 'net.coobird:thumbnailator:0.4.20'
 
+    //jstl 라이브러리
+    implementation 'jstl:jstl:1.2'
         //임베디드 tomcat 서버
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.79'
 
