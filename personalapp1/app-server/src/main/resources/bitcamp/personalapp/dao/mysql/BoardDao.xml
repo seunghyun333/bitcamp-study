@@ -116,6 +116,12 @@
     where 
       content_file_no=#{no}
   </delete>
+  
+  <delete id="deleteFiles" parameterType="int">
+    delete from dia_content_file
+    where 
+      content_file_no=#{no}
+  </delete>
 
 </mapper>
 

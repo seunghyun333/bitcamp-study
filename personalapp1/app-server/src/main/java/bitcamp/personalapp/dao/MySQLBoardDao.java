@@ -72,5 +72,11 @@ public class MySQLBoardDao implements BoardDao {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.delete("bitcamp.personalapp.dao.BoardDao.deleteFile", no);
   }
+  
+  @Override
+  public int deleteFiles(int boardNo) {
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.delete("bitcamp.personalapp.dao.BoardDao.deleteFiles", boardNo);
+  }
 
 }

@@ -1,5 +1,7 @@
 package bitcamp.personalapp.listener;
 
+import java.text.SimpleDateFormat;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -42,6 +44,7 @@ public class ContextLoaderListener implements ServletContextListener{
 			ctx.setAttribute("memberDao", memberDao);
 			ctx.setAttribute("diaryDao", diaryDao);
 			ctx.setAttribute("ncpObjectStorageService", ncpObjectStorageService);
+			ctx.setAttribute("simpleDateFormatter", new SimpleDateFormat("yyy-MM-dd"));
 			
 			System.out.println("ContextLoaderListener.contextInitialized() - 공통 객체 준비 완료");
 			
