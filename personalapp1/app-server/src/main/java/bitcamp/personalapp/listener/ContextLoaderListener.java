@@ -12,9 +12,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import bitcamp.personalapp.dao.BoardDao;
+import bitcamp.personalapp.dao.CommentDao;
 import bitcamp.personalapp.dao.DiaryDao;
 import bitcamp.personalapp.dao.MemberDao;
 import bitcamp.personalapp.dao.MySQLBoardDao;
+import bitcamp.personalapp.dao.MySQLCommentDao;
 import bitcamp.personalapp.dao.MySQLDiaryDao;
 import bitcamp.personalapp.dao.MySQLMemberDao;
 import bitcamp.util.NcpConfig;
@@ -37,12 +39,14 @@ public class ContextLoaderListener implements ServletContextListener{
 			BoardDao boardDao = new MySQLBoardDao(sqlSessionFactory);
 			MemberDao memberDao = new MySQLMemberDao(sqlSessionFactory);
 			DiaryDao diaryDao = new MySQLDiaryDao(sqlSessionFactory);
+			CommentDao commentDao = new MySQLCommentDao(sqlSessionFactory);
 			NcpObjectStorageService ncpObjectStorageService = new NcpObjectStorageService(new NcpConfig());
 			
 			ctx.setAttribute("sqlSessionFactory", sqlSessionFactory);
 			ctx.setAttribute("boardDao", boardDao);
 			ctx.setAttribute("memberDao", memberDao);
 			ctx.setAttribute("diaryDao", diaryDao);
+			ctx.setAttribute("commentDao", commentDao);
 			ctx.setAttribute("ncpObjectStorageService", ncpObjectStorageService);
 			ctx.setAttribute("simpleDateFormatter", new SimpleDateFormat("yyyy-MM-dd"));
 			

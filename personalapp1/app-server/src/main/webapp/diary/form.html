@@ -1,41 +1,50 @@
+<%@ page
+    language="java"
+    pageEncoding="UTF-8"
+    contentType="text/html;charset=UTF-8"
+    trimDirectiveWhitespaces="true" 
+    errorPage="/error.jsp" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset='UTF-8'>
 <title>비트캠프</title>
+<style>
+  .custom-textarea {
+  	display: block;
+    height: 150px; 
+    width: 60%; 
+  }
+  .label {
+    margin-bottom: 5px; 
+  }
+</style>
 </head>
 <body>
-<h1>일기</h1>
-<form action='/diary/add' method="post">
-<table border="1">
-  <tr>
-  <th>비밀번호</th> <td><input type='password' name='password'></td>
-</tr>
-<tr>
-  <th>날짜</th> <td style="width:200px;"><input type='text' name='date'></td>
-</tr>
-<tr>
-  <th>날씨</th> <td><input type='text' name='weather'></td>
-</tr>
-<tr>
-  <th>제목</th> <td><input type='text' name='title'></td>
-</tr>
-<tr>
-  <th>내용</th> <td style="width:500px; height: 500px;">
-  <textarea style="width:500px; height: 500px;" name='content'></textarea>
-  </td>
-</tr>
-<tr>
-  <th>커피</th> 
-  <td>
-    <select name="coffee">
-      <option value="O">마심</option>
-      <option value="X">안 마심</option>
-    </select>  
-  </td>
-</tr>
-</table>
-<button>등록</button>
+
+<jsp:include page="../header.jsp"/>
+
+
+<h1>게시글</h1>
+<form action='/board/add.jsp' method='post' enctype='multipart/form-data'>
+제목 <input type="text" name='title'><br><br>
+<label for="content" class="label">내용 </label> <textarea name="content" class="custom-textarea"></textarea><br>
+비밀여부 <label>
+  <input type="radio" name="secret" value="0"> (비밀 아님) 
+  </label>
+  <label>
+  <input type="radio" name="secret" value="1"> (비밀)
+  </label><br><br>
+파일 <input type='file' name='files' multiple><br> <br>
+<button>등록</button> <br><br>
+
 </form>
+
+<jsp:include page="../footer.jsp"/>
+
 </body>
 </html>
+
+

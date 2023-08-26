@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.personalapp.dao.CommentDao">
+
+<resultMap type="comment" id="commentMap">
+  <id column="cmno" property="no"/>
+  <result column="content" property="content"/>
+  <result column="w_date"   property="w_date"/>
+  
+    <association property="mno" javaType="member">
+    <id column="mno" property="no"/>
+    <result column="name" property="name"/>
+  </association>
+  
+  <association property="cno" javaType="board">
+    <id column="cno" property="no"/>
+  </association>
+  
+</resultMap>
+
+
+  <insert id="insert" parameterType="comment">
+    insert into dia_comment(cno,mno,content) values(#{cno.no},#{mno.no},#{content})
+  </insert>
+  
+  <select id="findAll" resultMap="commentMap">
+   select 
+   	c.cmno,
+   	c.cno, 
+   	m.mno, 
+   	c.w_date,
+   	c.content,
+   	m.name
+	 from
+        dia_comment c 
+        inner join dia_member m on c.mno=m.mno
+        inner join dia_content d on c.cno=d.cno
+	 order by 
+	   w_date desc
+  </select>
+  
+  
+  <update id="update" parameterType="comment">
+    update dia_comment set
+      content={content},
+      modified_at=NOW(), -- 수정 시간 추가
+      content=CONCAT(content, ' (수정)') 
+    where 
+      cmno=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+  delete from dia_comment
+  where 
+    cmno=#{no}
+  </delete>
+
+  
+</mapper>

@@ -69,6 +69,7 @@
 		<url-pattern>/member/update.jsp</url-pattern>
 	</servlet-mapping>
 	
+	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>index.html</welcome-file>

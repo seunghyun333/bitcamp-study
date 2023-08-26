@@ -6,8 +6,6 @@ import javax.servlet.annotation.WebListener;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import bitcamp.personalapp.dao.DiaryDao;
-
 import bitcamp.util.SqlSessionFactoryProxy;
 
 @WebListener

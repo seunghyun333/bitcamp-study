@@ -1,20 +1,24 @@
 package bitcamp.personalapp.vo;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+
 import java.util.Objects;
 
-public class Diary implements Serializable {
+public class Comment implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private int no;
+  private Member mno;
   private Board cno;
-  private String weather;
-
+  private String content;
+  private Timestamp w_date;
 
 
   @Override
   public String toString() {
-    return "Diray [no=" + no + ", cno=" + cno + ", weather=" + weather + "]";
+    return "Comment [no=" + no + ", cno=" + cno + ", content=" + content + ", mno=" + mno
+        + ", w_date=" + w_date + "]";
   }
 
   @Override
@@ -30,7 +34,7 @@ public class Diary implements Serializable {
       return false;
     if (this.getClass() != obj.getClass())
       return false;
-    Diary other = (Diary) obj;
+    Comment other = (Comment) obj;
     return no == other.no;
   }
 
@@ -42,6 +46,14 @@ public void setNo(int no) {
 	this.no = no;
 }
 
+public Member getMno() {
+	return mno;
+}
+
+public void setMno(Member mno) {
+	this.mno = mno;
+}
+
 public Board getCno() {
 	return cno;
 }
@@ -50,14 +62,21 @@ public void setCno(Board cno) {
 	this.cno = cno;
 }
 
-public String getWeather() {
-	return weather;
+public String getContent() {
+	return content;
 }
 
-public void setWeather(String weather) {
-	this.weather = weather;
+public void setContent(String content) {
+	this.content = content;
 }
 
+public Timestamp getW_date() {
+	return w_date;
+}
+
+public void setW_date(Timestamp w_date) {
+	this.w_date = w_date;
+}
 
   
 

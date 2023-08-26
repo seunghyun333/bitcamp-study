@@ -7,6 +7,7 @@
 <%@ page import="java.text.SimpleDateFormat"%> 
 <%@ page import="java.util.List"%>
 <%@ page import="bitcamp.personalapp.vo.Board" %>
+<%@ page import="bitcamp.personalapp.vo.Comment" %>
 
 
 <% 
@@ -18,7 +19,7 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>게시글</title>
+<title>댓글</title>
 
 <style>
   .center-table {
@@ -34,11 +35,9 @@
 </head>
 <body>
 
-<jsp:include page="../header.jsp"/>
 
-<h1 style='margin:5px; text-align:center'>게시글 목록</h1>
+<h1 style='margin:5px; text-align:center'>댓글</h1>
 <div style='margin:5px; text-align:center'>
-<a href='/board/form.jsp'>새 글</a>
 </div>
 
 
@@ -47,40 +46,35 @@
 <table class="center-table">
 
 <thead>
-  <tr><th>번호</th> <th>제목</th> <th>작성자</th> <th>조회수</th> <th>등록일</th></tr>
+  <tr><th>번호</th> <th>작성자</th> <th>내용</th> <th>등록일</th> </tr>
 </thead>
 
-<jsp:useBean id="boardDao" type="bitcamp.personalapp.dao.BoardDao" scope="application"/>
+<jsp:useBean id="commentDao" type="bitcamp.personalapp.dao.CommentDao" scope="application"/>
+
 
 <%
-    List<Board> list = boardDao.findAll();
+    List<Comment> list = commentDao.findAll();
 %>
 <tbody>
 
 <%
-  for (Board board : list) {
-    pageContext.setAttribute("board", board);
+  for (Comment comment : list) {
+    pageContext.setAttribute("comment", comment);
+
 %>
    	
 	<tr style='margin:5px; text-align:center'>
-	<td>${board.no}</td> 
-	<td><a href='/board/detail.jsp?no=${board.no}'>
-	${board.title.length() > 0 ? board.title : "제목없음"}
-	</a></td>
-	<td>${board.mno.name}</td> 
-	<td>${board.v_count}</td> 
-	<td>${simpleDateFormatter.format(board.w_date)}</td>
+	<td>${comment.no}</td> 
+	<td>${comment.mno.name}</td> 
+	<td>${comment.content}</td> 
+	<td>${simpleDateFormatter.format(comment.w_date)}</td>
 	</tr>
 <%
     }
 %>	
 	</tbody>
     </table>
-    <a href='/'>메인</a>
-    
 
-
-    <jsp:include page="../footer.jsp"/>
 
 </body>
 </html>
