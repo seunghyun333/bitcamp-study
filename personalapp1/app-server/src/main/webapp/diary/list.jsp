@@ -7,6 +7,7 @@
 <%@ page import="java.text.SimpleDateFormat"%> 
 <%@ page import="java.util.List"%>
 <%@ page import="bitcamp.personalapp.vo.Board" %>
+<%@ page import="bitcamp.personalapp.vo.Member" %>
 
 
 <% 
@@ -24,7 +25,7 @@
 
 <jsp:include page="../header.jsp"/>
 
-<h1>게시글 목록</h1>
+<h1>내가 쓴 글</h1>
 <div style='margin:5px;'>
 <a href='/board/form.jsp'>새 글</a>
 </div>
@@ -35,15 +36,20 @@
 
 <jsp:useBean id="boardDao" type="bitcamp.personalapp.dao.BoardDao" scope="application"/>
 
+
 <%
     List<Board> list = boardDao.findAll();
+	SimpleDateFormat simpleDateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 날짜 포맷터 초기화
 %>
 <tbody>
 
 <%
-  for (Board board : list) {
-    pageContext.setAttribute("board", board);
+	Member loginUserMember = (Member) session.getAttribute("loginUser");
+	String loginUser = loginUserMember.getName();
+  	for (Board board : list) {
+    	if (board.getMno() != null && board.getMno().getName().equals(loginUser)) {
 %>
+
    	
 	<tr>
 	<td>${board.no}</td> 
@@ -52,9 +58,10 @@
 	</a></td>
 	<td>${board.mno.name}</td> 
 	<td>${board.v_count}</td> 
-	<td>${simpleDateFormatter.format(board.w_date)}</td>
+	<td><%= board.getW_date() != null ? simpleDateFormatter.format(board.getW_date()) : "" %></td>
 	</tr>
 <%
+    }
     }
 %>	
 	</tbody>

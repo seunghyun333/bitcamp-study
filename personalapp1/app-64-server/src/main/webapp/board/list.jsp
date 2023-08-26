@@ -2,16 +2,15 @@
     language="java"
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
-    trimDirectiveWhitespaces="true
-    errorPage="/error.jsp"%>
-<%@ page import="java.text.SimpleDateFormat"%>   
+    trimDirectiveWhitespaces="true"
+    errorPage="/error.jsp" %>
+<%@ page import="java.text.SimpleDateFormat"%> 
 <%@ page import="java.util.List"%>
 <%@ page import="bitcamp.personalapp.vo.Board" %>
 
 
 <% 
-   request.setAttribute("refresh", "2;url=list.jsp?category=" + request.getParameter("category"));
-   int category = Integer.parseInt(request.getParameter("category"));
+   request.setAttribute("refresh", "2;url=list.jsp" );
 %>
 
 
@@ -21,10 +20,10 @@
 <meta charset='UTF-8'>
 <title>게시글</title>
 </head>
+<body>
 
 <jsp:include page="../header.jsp"/>
 
-<body>
 <h1>게시글 목록</h1>
 <div style='margin:5px;'>
 <a href='/board/form.jsp'>새 글</a>
@@ -47,8 +46,14 @@
 %>
    	
 	<tr>
-	<td>${board.no}</td> <td><a href='/board/detail?no=${board.no}'>${board.title}</a>
-	</td><td>${board.mno.name}</td> <td>${board.v_count}</td> <td>${simpleDateFormmater.format(board.w_date}</td></tr>
+	<td>${board.no}</td> 
+	<td><a href='/board/detail.jsp?no=${board.no}'>
+	${board.title.length() > 0 ? board.title : "제목없음"}
+	</a></td>
+	<td>${board.mno.name}</td> 
+	<td>${board.v_count}</td> 
+	<td>${simpleDateFormatter.format(board.w_date)}</td>
+	</tr>
 <%
     }
 %>	

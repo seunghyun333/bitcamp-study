@@ -1,7 +1,6 @@
 package bitcamp.personalapp.handler;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import bitcamp.personalapp.dao.MemberDao;
+import bitcamp.personalapp.dao.DiaryDao;
 
-@WebServlet("/member/delete")
-public class MemberDeleteServlet extends HttpServlet {
+@WebServlet("/diary/delete")
+public class DiaryDeleteServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -22,26 +21,22 @@ public class MemberDeleteServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 	  
-	  MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
+	  DiaryDao diaryDao = (DiaryDao) this.getServletContext().getAttribute("diaryDao");
 	  SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
 
 
     try {
-      if (memberDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
-        throw new Exception("해당 번호의 회원이 없습니다!! ");
+      if (diaryDao.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
+        throw new Exception("해당 번호의 일기가 없습니다!! ");
       } else {
-    	 sqlSessionFactory.openSession(false).commit();
-        response.sendRedirect("/member/list");
+        response.sendRedirect("/diary/list");
       }
+      sqlSessionFactory.openSession(false).commit();
 
     } catch (Exception e) {
       sqlSessionFactory.openSession(false).rollback();
-      
-      request.setAttribute("error", e);
-      request.setAttribute("message", e.getMessage());
-      request.setAttribute("refresh", "2;url=list");
+      throw new RuntimeException(e);
 
-      request.getRequestDispatcher("/error").forward(request, response);
     }
   }
 }
