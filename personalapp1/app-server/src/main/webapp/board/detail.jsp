@@ -75,6 +75,7 @@
 <br>
 <%
         }
+session.setAttribute("currentBoard", board);
 %>
 
 
@@ -105,7 +106,9 @@
 %>
 
 <jsp:include page="../comment/list.jsp"/>
+
 <jsp:include page="../comment/form.jsp"/>
+
 
 </body>
 </html>

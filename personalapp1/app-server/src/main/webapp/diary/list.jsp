@@ -45,7 +45,7 @@
 
 <jsp:include page="../header.jsp"/>
 
-<h1 style='margin:5px; text-align:center'>게시글 목록</h1>
+<h1 style='margin:5px; text-align:center'>☆ my diary ☆</h1>
 <div style='margin:5px; text-align:center'>
 <a href='/board/form.jsp'>새 글</a>
 </div>

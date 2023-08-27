@@ -21,7 +21,7 @@
      if (loginUser.getPhoto() == null) { %>
           <img style='height:40px' src='/images/avatar.png'> 
 <% } else { %>
-         <img src='http://rilqiqaqfxro19010722.cdn.ntruss.com/member/${loginUser.photo}?type=f&w=30&h=40&faceopt=true&ttype=jpg'>
+         <img src='http://rilqiqaqfxro19010722.cdn.ntruss.com/member/${loginUser.photo}?type=f&w=60&h=80&faceopt=true&ttype=jpg'>
    <% } %>      
       ${loginUser.name} <a href='/auth/logout.jsp'>로그아웃</a>
 <% } %>    

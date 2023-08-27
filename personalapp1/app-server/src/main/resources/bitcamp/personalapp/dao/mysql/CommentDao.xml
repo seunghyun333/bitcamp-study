@@ -21,8 +21,10 @@
 </resultMap>
 
 
-  <insert id="insert" parameterType="comment">
-    insert into dia_comment(cno,mno,content) values(#{cno.no},#{mno.no},#{content})
+  <insert id="insert" parameterType="comment"
+  	useGeneratedKeys="true" keyColumn="cmno" keyProperty="no">
+    insert into dia_comment(cno,mno,content) 
+    values(#{cno.no}, #{mno.no}, #{content})
   </insert>
   
   <select id="findAll" resultMap="commentMap">
