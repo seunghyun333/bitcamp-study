@@ -1,5 +1,3 @@
-
-
 <%@ page
     language="java"
     pageEncoding="UTF-8"
@@ -10,10 +8,12 @@
 <%@ page import="java.util.List"%>
 <%@ page import="bitcamp.personalapp.vo.Board" %>
 <%@ page import="bitcamp.personalapp.vo.Comment" %>
-
+<jsp:useBean id="boardDao" type="bitcamp.personalapp.dao.BoardDao" scope="application"/>
+<jsp:useBean id="commentDao" type="bitcamp.personalapp.dao.CommentDao" scope="application"/>
 
 <% 
    request.setAttribute("refresh", "2;url=list.jsp" );
+
 %>
 
 
@@ -44,29 +44,22 @@
 
 
 
-
 <table class="center-table">
 
 <thead>
   <tr><th>번호</th> <th>작성자</th> <th>내용</th> <th>등록일</th> </tr>
 </thead>
 
-<jsp:useBean id="commentDao" type="bitcamp.personalapp.dao.CommentDao" scope="application"/>
-
 
 <%
-    List<Comment> list = commentDao.findAll();
-
-
+Board currentBoard = (Board) session.getAttribute("currentBoard");
+List<Comment> list = commentDao.findAllByCno(currentBoard.getNo());
 %>
 <tbody>
 
 <%
   for (Comment comment : list) {
     pageContext.setAttribute("comment", comment);
-    
-
-
 %>
     
   <tr style='margin:5px; text-align:center'>

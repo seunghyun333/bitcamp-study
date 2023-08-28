@@ -43,6 +43,24 @@
      w_date desc
   </select>
   
+  <select id="findAllByCno" resultMap="commentMap">
+     select 
+    c.cmno,
+    c.cno, 
+    m.mno, 
+    c.w_date,
+    c.content,
+    m.name
+  from
+    dia_comment c 
+    inner join dia_member m on c.mno = m.mno
+    inner join dia_content d on c.cno = d.cno
+  where
+    c.cno = #{cno}
+  order by 
+    c.w_date
+  </select>
+  
   
   <update id="update" parameterType="comment">
     update dia_comment set

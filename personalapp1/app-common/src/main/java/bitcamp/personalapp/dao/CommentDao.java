@@ -1,7 +1,6 @@
 package bitcamp.personalapp.dao;
 
 import java.util.List;
-
 import bitcamp.personalapp.vo.Comment;
 
 
@@ -12,8 +11,9 @@ public interface CommentDao {
   int update(Comment comment);
 
   int delete(int no);
+
   List<Comment> findAll();
 
-
+  List<Comment> findAllByCno(int cno);
 
 }

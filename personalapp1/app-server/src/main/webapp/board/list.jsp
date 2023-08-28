@@ -4,15 +4,9 @@
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
     errorPage="/error.jsp" %>
-<%@ page import="java.text.SimpleDateFormat"%> 
-<%@ page import="java.util.List"%>
-<%@ page import="bitcamp.personalapp.vo.Board" %>
-
-
-<% 
-   request.setAttribute("refresh", "2;url=list.jsp" );
-%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="refresh" value="2;url=list.jsp" scope="request"/>
 
 <!DOCTYPE html>
 <html>
@@ -42,9 +36,6 @@
 <a href='/board/form.jsp'>새 글</a>
 </div>
 
-
-
-
 <table class="center-table">
 
 <thead>
@@ -52,17 +43,10 @@
 </thead>
 
 <jsp:useBean id="boardDao" type="bitcamp.personalapp.dao.BoardDao" scope="application"/>
+<c:set var="list" value="${boardDao.findAll()}" scope="page"/>
 
-<%
-    List<Board> list = boardDao.findAll();
-%>
 <tbody>
-
-<%
-  for (Board board : list) {
-    pageContext.setAttribute("board", board);
-%>
-   	
+<c:forEach items="${list}" var="board">
 	<tr style='margin:5px; text-align:center'>
 	<td>${board.no}</td> 
 	<td><a href='/board/detail.jsp?no=${board.no}'>
@@ -70,17 +54,13 @@
 	</a></td>
 	<td>${board.mno.name}</td> 
 	<td>${board.v_count}</td> 
-	<td>${simpleDateFormatter.format(board.w_date)}</td>
+	<td><fmt:formatDate value="${board.w_date}" pattern="yyyy-MM-dd"/></td>
 	</tr>
-<%
-    }
-%>	
+</c:forEach>
 	</tbody>
     </table>
     <a href='/'>메인</a>
     
-
-
     <jsp:include page="../footer.jsp"/>
 
 </body>

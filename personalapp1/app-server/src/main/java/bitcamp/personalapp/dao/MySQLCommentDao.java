@@ -1,13 +1,9 @@
 package bitcamp.personalapp.dao;
 
 import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-
-
 import bitcamp.personalapp.vo.Comment;
-
 
 
 
@@ -40,12 +36,16 @@ public class MySQLCommentDao implements CommentDao {
     return sqlSession.delete("bitcamp.personalapp.dao.CommentDao.delete", no);
   }
 
-@Override
-public List<Comment> findAll() {
+  @Override
+  public List<Comment> findAll() {
     SqlSession sqlSession = sqlSessionFactory.openSession(false);
     return sqlSession.selectList("bitcamp.personalapp.dao.CommentDao.findAll");
   }
 
-
+  @Override
+  public List<Comment> findAllByCno(int cno) {
+    SqlSession sqlSession = sqlSessionFactory.openSession(false);
+    return sqlSession.selectList("bitcamp.personalapp.dao.CommentDao.findAllByCno", cno);
+  }
 
 }
