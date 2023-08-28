@@ -67,7 +67,7 @@
 <button>변경</button>
 <button type='reset'>초기화</button>
 <a href='/member/delete?no=${member.no}'>삭제</a>
-<a href='/member/list'>목록</a>
+<a href='/member/list.jsp'>목록</a>
 </div>
 </form>
 <%

@@ -1,9 +1,8 @@
 package bitcamp.personalapp.dao;
 
 import java.util.List;
-
 import bitcamp.personalapp.vo.AttachedFile;
-import bitcamp.personalapp.vo.Board;
+
 
 public interface DiaryDao {
   void insert(DiaryDao diary);
@@ -17,11 +16,14 @@ public interface DiaryDao {
   int updateCount(DiaryDao diary);
 
   int delete(DiaryDao diary);
-  
+
   int insertFiles(DiaryDao diary);
+
   AttachedFile findFileBy(int no);
+
   int deleteFile(int fileNo);
+
   int deleteFiles(int diaryNo);
-  
+
 
 }

@@ -108,8 +108,9 @@ session.setAttribute("currentBoard", board);
 <jsp:include page="../comment/list.jsp"/>
 
 <jsp:include page="../comment/form.jsp"/>
-
-
+<br>
+<br>
+<jsp:include page="../footer.jsp"/>
 </body>
 </html>
 

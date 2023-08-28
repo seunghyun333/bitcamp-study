@@ -19,7 +19,7 @@
       return;
     }
 
-request.setAttribute("refresh", "2;url=list.jsp");
+	request.setAttribute("refresh", "2;url=list.jsp");
 
 
       Board board = new Board();
@@ -54,10 +54,9 @@ request.setAttribute("refresh", "2;url=list.jsp");
 
    
         sqlSessionFactory.openSession(false).commit();
-      sqlSessionFactory.openSession(false).rollback();
+        response.sendRedirect("list.jsp");
 
     }
 
 %>
-
 

@@ -16,10 +16,10 @@
 
 
 <%
-    if (loginUser == null) {
-      response.sendRedirect("/auth/form.jsp");
-      return;
-    }
+if (loginUser.getNo() == 0) {
+    response.sendRedirect("/auth/form.jsp");
+    return;
+  }
 
     // 오류가 발생했을 때 refresh 할 URL을 미리 지정한다.
     request.setAttribute("refresh", "2;url=list.jsp");

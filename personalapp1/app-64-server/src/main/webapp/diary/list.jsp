@@ -6,12 +6,20 @@
     errorPage="/error.jsp" %>
 <%@ page import="java.text.SimpleDateFormat"%> 
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ page import="bitcamp.personalapp.vo.Board" %>
-<%@ page import="bitcamp.personalapp.vo.Member" %>
+
+<jsp:useBean id="loginUser" class="bitcamp.personalapp.vo.Member" scope="session"/>
+<jsp:useBean id="boardDao" type="bitcamp.personalapp.dao.BoardDao" scope="application"/>
 
 
 <% 
    request.setAttribute("refresh", "2;url=list.jsp" );
+	if (loginUser.getNo() == 0) {
+    response.sendRedirect("/auth/form.jsp");
+    return;
+  }
+
 %>
 
 
@@ -20,54 +28,77 @@
 <head>
 <meta charset='UTF-8'>
 <title>게시글</title>
+
+<style>
+  .center-table {
+    margin: 0 auto;
+    border-collapse: collapse;
+  }
+  .center-table th, .center-table td {
+    border: 1px solid black;
+    padding: 5px;
+  }
+</style>
+
 </head>
 <body>
 
 <jsp:include page="../header.jsp"/>
 
-<h1>내가 쓴 글</h1>
-<div style='margin:5px;'>
+<h1 style='margin:5px; text-align:center'>☆ my diary ☆</h1>
+<div style='margin:5px; text-align:center'>
 <a href='/board/form.jsp'>새 글</a>
 </div>
-<table border='1'>
+
+
+
+
+<table class="center-table">
+
 <thead>
   <tr><th>번호</th> <th>제목</th> <th>작성자</th> <th>조회수</th> <th>등록일</th></tr>
 </thead>
 
-<jsp:useBean id="boardDao" type="bitcamp.personalapp.dao.BoardDao" scope="application"/>
 
 
 <%
     List<Board> list = boardDao.findAll();
-	SimpleDateFormat simpleDateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // 날짜 포맷터 초기화
+	List<Board> allList = boardDao.findAll();
+	List<Board> filteredList = new ArrayList<>();
+	
+	int loggedInUserNo = loginUser.getNo();
+	
+	for (Board board : allList) {
+	    if (board.getMno().getNo() == loggedInUserNo) {
+	        filteredList.add(board);
+	    }
+	}	
 %>
 <tbody>
 
 <%
-	Member loginUserMember = (Member) session.getAttribute("loginUser");
-	String loginUser = loginUserMember.getName();
-  	for (Board board : list) {
-    	if (board.getMno() != null && board.getMno().getName().equals(loginUser)) {
+  for (Board board : filteredList) {
+    pageContext.setAttribute("board", board);
 %>
-
    	
-	<tr>
+	<tr style='margin:5px; text-align:center'>
 	<td>${board.no}</td> 
 	<td><a href='/board/detail.jsp?no=${board.no}'>
 	${board.title.length() > 0 ? board.title : "제목없음"}
 	</a></td>
 	<td>${board.mno.name}</td> 
 	<td>${board.v_count}</td> 
-	<td><%= board.getW_date() != null ? simpleDateFormatter.format(board.getW_date()) : "" %></td>
+	<td>${simpleDateFormatter.format(board.w_date)}</td>
 	</tr>
 <%
-    }
     }
 %>	
 	</tbody>
     </table>
     <a href='/'>메인</a>
     
+
+
     <jsp:include page="../footer.jsp"/>
 
 </body>

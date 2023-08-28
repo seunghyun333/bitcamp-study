@@ -23,12 +23,25 @@
 <head>
 <meta charset='UTF-8'>
 <title>게시글</title>
+<style>
+  .center-table {
+    margin: 0 auto;
+    border-collapse: collapse;
+  }
+  .center-table th, .center-table td {
+    border: 1px solid black;
+    padding: 5px;
+  }
+</style>
+
 </head>
 <body>
 
 <jsp:include page="../header.jsp"/>
 
-<h1>게시글</h1>
+<h1 style='margin:5px; text-align:center'>게시글</h1>
+
+
 
 <% 
     if (board == null) {
@@ -38,13 +51,13 @@
     } else {
 %>   	
 <form action='/board/update.jsp' method='post' enctype='multipart/form-data'>
-<table border='1'>
+<table class="center-table">
 <tr><th style='width:120px;'>번호</th>
            <td style='width:300px;'><input type='text' name='no' value='${board.no}' readonly></td></tr>
-<tr><th>제목</th> <td><input type='text' name='title' value='${board.title}'></td></tr>
-
+<tr><th>제목</th> 
+	<td><input type='text' name='title' value='${board.title}'></td></tr>
 <tr><th>내용</th>
-           <td><textarea name='content' style='height:300px; width:500px;'>${board.content}</textarea></td></tr>
+     <td><textarea name='content' style='height:300px; width:500px;'>${board.content}</textarea></td></tr>
 
 
 <tr><th>작성자</th> <td>${board.mno.name}</td></tr>
@@ -58,10 +71,11 @@
          pageContext.setAttribute("file", file);
 %>      		  
 <a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-07/board/${file.filePath}'>${file.filePath}</a>
-[<a href='/board/file/delete?no=${file.no}'>삭제</a>]
+[<a href='/board/fileDelete.jsp?no=${file.no}'>삭제</a>]
 <br>
 <%
         }
+session.setAttribute("currentBoard", board);
 %>
 
 
@@ -69,10 +83,12 @@
 
 </td></tr>
 </table>
-<div>
+
+<div style='margin: 5px auto; text-align: center; margin-right: -450px;'>
 <button>변경</button>
 <button type='reset'>초기화</button>
-<a href='/board/delete?no=${board.no}'>삭제</a>
+
+<a href='/board/delete.jsp?no=${board.no}'>삭제</a>
 <a href='/board/list.jsp'>목록</a>
 </div>
 </form>
@@ -88,6 +104,12 @@
       }
     }
 %>
+
+<jsp:include page="../comment/list.jsp"/>
+
+<jsp:include page="../comment/form.jsp"/>
+<br>
+<br>
 <jsp:include page="../footer.jsp"/>
 </body>
 </html>
