@@ -7,11 +7,11 @@
 <%@ page import="java.text.SimpleDateFormat"%>   
 <%@ page import="java.util.List"%>
 <%@ page import="bitcamp.personalapp.vo.Member" %>
-<jsp:useBean id="memberDao" type="bitcamp.personalapp.dao.MemberDao" scope="application"/>
 
-<% 
-   request.setAttribute("refresh", "2;url=list.jsp" );
-%>
+
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="refresh" value="2;url=list.jsp" scope="request"/>
 
 <!DOCTYPE html>
 <html>
@@ -32,22 +32,16 @@
 <thead>
   <tr><th>회원번호</th> <th>이름</th> <th>이메일</th></tr>
 </thead>
-
-<%
-    List<Member> list = memberDao.findAll();
-    for (Member member : list) {
-      pageContext.setAttribute("member", member);
-%>	
+<tbody>
+<c:set var="list" value="${memberDao.findAll()}" scope="page"/> 
+<c:forEach items="${list}" var="member">
 	<tr>
 	 <td>${member.no}</td>
 	  <td>
 	 <img src='http://rilqiqaqfxro19010722.cdn.ntruss.com/member/${member.photo}?type=f&w=30&h=40&faceopt=true&ttype=jpg'>
-       <a href='/member/detail.jsp?no=${member.no}'>${member.name}</a></td> <td>${member.email}</td></tr>
-
-<% 
-    }
-%>
-    
+       <a href='/member/detail.jsp?no=${member.no}'>${member.name}</a></td> 
+       <td>${member.email}</td></tr>
+</c:forEach>
 </tbody>
 </table>
 <a href='/'>메인</a>

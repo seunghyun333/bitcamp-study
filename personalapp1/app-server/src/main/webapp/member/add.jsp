@@ -34,8 +34,7 @@
       sqlSessionFactory.openSession(false).commit();
       response.sendRedirect("list.jsp");
 %>
-<p>등록 성공입니다!</p>
-<p>${member.name}님 환영합니다♡</p>
+
   
 
 

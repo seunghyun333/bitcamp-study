@@ -7,10 +7,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="refresh" value="2;url=list.jsp" scope="request"/>
+
 <jsp:useBean id="boardDao" type="bitcamp.personalapp.dao.BoardDao" scope="application"/>
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 <c:set var="board" value="${boardDao.findBy(param.no)}"/>
-<c:set var="currentBoard" value="${boardDao.findBy(board)}" />
+
 
 <!DOCTYPE html>
 <html>
@@ -60,12 +61,11 @@
 	<br>
 	</c:forEach>
 	
-	<--%
-	session.setAttribute("currentBoard", board);
-	%-->
+<jsp:useBean id="currentBoard" class="bitcamp.personalapp.vo.Board" scope="session"/>
+<jsp:setProperty name="currentBoard" property="no" value="${board.no}" />
 	
 	<c:set var="currentBoardNo" value="${param.no}" scope="page" />
-<c:set var="currentBoard" value="${boardDao.findBy(currentBoardNo)}" scope="page" />
+	<c:set var="currentBoard" value="${boardDao.findBy(currentBoardNo)}" scope="page" />
 	
 	
 	<input type='file' name='files' multiple>
