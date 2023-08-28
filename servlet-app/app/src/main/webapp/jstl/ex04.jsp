@@ -27,7 +27,6 @@ application.setAttribute("name", "김구");
 4: ${applicationScope.name}<br>
 
 <hr>
-
 <c:remove var="name" scope="page"/>
 1: ${pageScope.name}<br>
 2: ${requestScope.name}<br>

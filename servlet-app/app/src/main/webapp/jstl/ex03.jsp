@@ -41,7 +41,7 @@ scope을 생략하면 기본이 PageContext 이다.
 3: ${name3}<br>
 
 <h2>객체의 프로퍼티 값 설정하기</h2>
-<jsp:useBean id="m1" class="com.eomcs.web.vo.Member"/>
+<jsp:useBean id="m1" class="eomcs.vo.Member"/>
 <%--
 Member m1 = (Member) pageContext.getAttribute("m1");
 if (m1 == null) {
@@ -51,7 +51,7 @@ if (m1 == null) {
  --%>
 <jsp:setProperty name="m1" property="no" value="100"/>
 <%-- 
-m1.setNo(100);
+m1.setNo(100); **
 --%>
 
 <c:set target="${pageScope.m1}" property="email" value="hong@test.com"/>
