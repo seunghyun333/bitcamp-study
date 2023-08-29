@@ -4,9 +4,6 @@
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:useBean id="memberDao" type="bitcamp.myapp.dao.MemberDao" scope="application"/>
-<c:set var="member" value="${memberDao.findBy(param.no)}"/>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +58,7 @@
 <button>변경</button>
 <button type='reset'>초기화</button>
     <a href='/member/delete.jsp?no=${member.no}'>삭제</a>
-<a href='/member/list.jsp'>목록</a>
+<a href='/member/list'>목록</a>
 </div>
 </form>
 

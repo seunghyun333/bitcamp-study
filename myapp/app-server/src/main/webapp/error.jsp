@@ -3,10 +3,9 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
     isErrorPage="true"%>
-<jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
+<c:set var="refresh" value="2;url=list.jsp?category=${param.category}" scope="request"/>
 
 <%
-    sqlSessionFactory.openSession(false).rollback();
     if (request.getAttribute("refresh") != null) {
       response.setHeader("Refresh", (String) request.getAttribute("refresh"));
     }
@@ -24,7 +23,13 @@
 
 <h1>실행 오류</h1>
 
+<c:if test="${message}">
+    <p>${message}</p>
+</c:if>
+
+<hr>
 <p><%=exception%></p>
+
 
 <jsp:include page="footer.jsp"/>
 

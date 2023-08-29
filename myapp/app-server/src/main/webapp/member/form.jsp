@@ -41,7 +41,7 @@
 <button>등록</button>
 </form>
 
-<jsp include pate="../footer.jsp"/>
+<jsp include page="../footer.jsp"/>
 
 </body>
 </html>
