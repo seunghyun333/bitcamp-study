@@ -32,7 +32,7 @@
   
       memberDao.insert(m);
       sqlSessionFactory.openSession(false).commit();
-      response.sendRedirect("list.jsp");
+      response.sendRedirect("/member/list.jsp");
 %>
 
   

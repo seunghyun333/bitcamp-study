@@ -28,7 +28,7 @@
 
 
 <h1>게시글</h1>
-<form action='/board/add.jsp' method='post' enctype='multipart/form-data'>
+<form action='/board/add' method='post' enctype='multipart/form-data'>
 제목 <input type="text" name='title'><br><br>
 <label for="content" class="label">내용 </label> <textarea name="content" class="custom-textarea"></textarea><br>
 비밀여부 <label>

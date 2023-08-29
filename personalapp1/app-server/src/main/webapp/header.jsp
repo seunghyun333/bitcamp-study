@@ -15,7 +15,7 @@
 <div style="text-align: right; margin-right: 80px;">
 <c:choose>
   <c:when test="${empty sessionScope.loginUser}">
-  <a href='/auth/form.jsp'>로그인</a>
+  <a href='/auth/login'>로그인</a>
   </c:when>
   <c:otherwise>
     <c:if test="${empty sessionScope.loginUser.photo}">
@@ -24,7 +24,7 @@
     <c:if test="${not empty sessionScope.loginUser.photo}">
       <img src='http://rilqiqaqfxro19010722.cdn.ntruss.com/member/${loginUser.photo}?type=f&w=60&h=80&faceopt=true&ttype=jpg'>
     </c:if>
-     ${loginUser.name} <a href='/auth/logout.jsp'>로그아웃</a>
+     ${loginUser.name} <a href='/auth/logout'>로그아웃</a>
   </c:otherwise>
 </c:choose>
 <br>
@@ -34,9 +34,9 @@
  
 <br>
 <br>
-	<a href='/diary/list.jsp'>일기</a>
-	<a href='/board/list.jsp'>자유게시판</a>
-	<a href='/member/list.jsp'>회원</a>
+	<a href='/diary/list'>일기</a>
+	<a href='/board/list'>자유게시판</a>
+	<a href='/member/list'>회원</a>
 
 </div>
 

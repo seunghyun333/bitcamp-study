@@ -28,7 +28,7 @@
 
 <h1 style='margin:5px; text-align:center'>로그인</h1>
     
-<form action='/auth/login.jsp' method='post'>
+<form action='/auth/login' method='post'>
 <table border='1' class="center-table">
 <tr>
  <th>email</th> <td><input type='email' name='email' value='${cookie.email.value}'></td>
