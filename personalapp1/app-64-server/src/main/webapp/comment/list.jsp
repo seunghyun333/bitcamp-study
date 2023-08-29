@@ -6,6 +6,7 @@
     errorPage="/error.jsp" %>
 <%@ page import="java.text.SimpleDateFormat"%> 
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ page import="bitcamp.personalapp.vo.Board" %>
 <%@ page import="bitcamp.personalapp.vo.Comment" %>
 <jsp:useBean id="boardDao" type="bitcamp.personalapp.dao.BoardDao" scope="application"/>
@@ -52,8 +53,13 @@
 
 
 <%
+
 Board currentBoard = (Board) session.getAttribute("currentBoard");
-List<Comment> list = commentDao.findAllByCno(currentBoard.getNo());
+List<Comment> list = new ArrayList<>();  // 빈 리스트를 초기화
+
+if (currentBoard != null) {
+    list = commentDao.findAllByCno(currentBoard.getNo());
+}
 %>
 <tbody>
 
