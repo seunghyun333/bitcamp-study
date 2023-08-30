@@ -20,7 +20,7 @@ public class LoginController extends HttpServlet {
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/auth/form.jsp").include(request, response);
+    request.getRequestDispatcher("/WEB-INF/jsp/auth/form.jsp").include(request, response);
 
   }
 

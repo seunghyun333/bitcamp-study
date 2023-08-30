@@ -24,7 +24,7 @@ public class BoardListController extends HttpServlet {
       request.setAttribute("list", boardDao.findAll());
 
       response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/board/list.jsp").include(request, response);
+      request.getRequestDispatcher("/WEB-INF/jsp/board/list.jsp").include(request, response);
 
     } catch (Exception e) {
       request.setAttribute("refresh", "1;url=/");

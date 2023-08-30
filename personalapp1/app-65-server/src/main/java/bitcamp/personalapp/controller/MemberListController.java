@@ -22,7 +22,7 @@ public class MemberListController extends HttpServlet {
     request.setAttribute("list", memberDao.findAll());
 
     response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/member/list.jsp").include(request, response);
+    request.getRequestDispatcher("/WEB-INF/jsp/member/list.jsp").include(request, response);
 
   }
 }

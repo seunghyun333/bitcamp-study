@@ -32,7 +32,7 @@
 <h1 style='margin:5px; text-align:center'>☆전체 게시글 목록☆</h1>
 <div style='margin: 5px auto; text-align: center; margin-right: -300px;'>
 <br>
-<a href='/board/form.jsp'>새 글</a>
+<a href='/board/add'>새 글</a>
 </div>
 
 <table class="center-table">

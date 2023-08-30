@@ -34,7 +34,7 @@ public class BoardUpdateController extends HttpServlet {
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
-      response.sendRedirect("/auth/form.html");
+      response.sendRedirect("/auth/login");
       return;
     }
 

@@ -20,6 +20,13 @@ public class MemberAddController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    response.setContentType("text/html;charset=UTF-8");
+    request.getRequestDispatcher("/WEB-INF/jsp/member/form.jsp").include(request, response);
+  }
+
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 

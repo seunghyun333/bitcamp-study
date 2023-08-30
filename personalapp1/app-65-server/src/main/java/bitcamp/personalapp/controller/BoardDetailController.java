@@ -39,7 +39,7 @@ public class BoardDetailController extends HttpServlet {
       response.setContentType("text/html;charset=UTF-8");
       HttpSession session = request.getSession();
       session.setAttribute("currentBoard", board);
-      request.getRequestDispatcher("/board/detail.jsp").include(request, response);
+      request.getRequestDispatcher("/WEB-INF/jsp/board/detail.jsp").include(request, response);
 
 
     } catch (Exception e) {
