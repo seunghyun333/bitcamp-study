@@ -1,47 +1,42 @@
 package bitcamp.myapp.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-
 import bitcamp.myapp.dao.BoardDao;
+import bitcamp.myapp.service.NcpObjectStorageService;
 import bitcamp.myapp.vo.AttachedFile;
 import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
-import bitcamp.util.NcpObjectStorageService;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Component;
 
-@WebServlet("/board/add")
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-public class BoardAddController extends HttpServlet {
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.util.ArrayList;
 
-  private static final long serialVersionUID = 1L;
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    request.getRequestDispatcher("/board/form.jsp").include(request, response);
+@Component("/board/add")
+public class BoardAddController implements PageController {
+
+  BoardDao boardDao;
+  SqlSessionFactory sqlSessionFactory;
+  NcpObjectStorageService ncpObjectStorageService;
+
+  public BoardAddController(BoardDao boardDao, SqlSessionFactory sqlSessionFactory, NcpObjectStorageService ncpObjectStorageService) {
+    this.boardDao = boardDao;
+    this.sqlSessionFactory = sqlSessionFactory;
+    this.ncpObjectStorageService = ncpObjectStorageService;
   }
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    if (request.getMethod().equals("GET")) {  // get요청이 아니면 밑에 내용 실행한다
+    return "/WEB-INF/jsp/board/form.jsp";
+  }
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
-      response.sendRedirect("/auth/login");
-      return;
+      request.getParts();
+      return  "redirect:../auth/login";
     }
-
-    BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
-    SqlSessionFactory sqlSessionFactory = (SqlSessionFactory) this.getServletContext().getAttribute("sqlSessionFactory");
-    NcpObjectStorageService ncpObjectStorageService = (NcpObjectStorageService) this.getServletContext().getAttribute("ncpObjectStorageService");
 
     try {
       Board board = new Board();
@@ -68,13 +63,13 @@ public class BoardAddController extends HttpServlet {
       }
 
       sqlSessionFactory.openSession(false).commit();
-      response.sendRedirect("list?category=" + request.getParameter("category"));
+      return "redirect:list?category=" + request.getParameter("category");
 
     } catch (Exception e) {
       sqlSessionFactory.openSession(false).rollback();
       request.setAttribute("message", "게시글 등록 오류!");
       request.setAttribute("refresh", "2;url=list?category=" + request.getParameter("category"));
-      throw new ServletException(e);
+      throw e;
     }
   }
 }

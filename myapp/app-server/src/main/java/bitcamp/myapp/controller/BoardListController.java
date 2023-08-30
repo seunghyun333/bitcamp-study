@@ -1,38 +1,30 @@
 package bitcamp.myapp.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import bitcamp.myapp.dao.BoardDao;
+import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.myapp.dao.BoardDao;
-import bitcamp.myapp.vo.Board;
+@Component("/board/list")
+public class BoardListController implements PageController {
 
-@WebServlet("/board/list")
-public class BoardListController extends HttpServlet {
+  BoardDao boardDao;
 
-  private static final long serialVersionUID = 1L;
-
+  public BoardListController(BoardDao boardDao) {
+    this.boardDao = boardDao;
+  }
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
     try {
-      BoardDao boardDao = (BoardDao) this.getServletContext().getAttribute("boardDao");
-      request.setAttribute("list", boardDao.findAll(Integer.parseInt(request.getParameter("category"))));
 
-      response.setContentType("text/html;charset=UTF-8");
-      request.getRequestDispatcher("/board/list.jsp").include(request, response);
+      request.setAttribute("list", boardDao.findAll(Integer.parseInt(request.getParameter("category"))));
+      return "/WEB-INF/jsp/board/list.jsp";
 
     } catch (Exception e) {
       request.setAttribute("refresh", "1;url=/");
-      throw new ServletException(e); //서블릿 컨테이너가 포워딩해서 에러페이지로 날라감
+      throw e;
     }
   }
 

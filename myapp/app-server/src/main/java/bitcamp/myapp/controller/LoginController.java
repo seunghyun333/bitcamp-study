@@ -1,37 +1,27 @@
 package bitcamp.myapp.controller;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import bitcamp.myapp.dao.MemberDao;
+import bitcamp.myapp.vo.Member;
+import org.springframework.stereotype.Component;
+
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bitcamp.myapp.dao.MemberDao;
-import bitcamp.myapp.vo.Member;
+@Component("/auth/login")
+public class LoginController implements PageController {
 
-@WebServlet("/auth/login")
-public class LoginController extends HttpServlet {
+  MemberDao memberDao;
 
-  private static final long serialVersionUID = 1L;
-
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
-
-    // including 하는 경우
-    // 여기서 컨텐트 타입을 미리 설정해야한다.
-    response.setContentType("text/html;charset=UTF-8");
-
-    // view 컴포넌트를 including 한다.
-    request.getRequestDispatcher("/auth/form.jsp").include(request, response);
-
+  public LoginController(MemberDao memberDao) {
+    this.memberDao = memberDao;
   }
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    if (request.getMethod().equals("GET")) {  // get요청이 아니면 밑에 내용 실행한다.
+      return "/WEB-INF/jsp/auth/form.jsp";
+    }
 
     Member m = new Member();
     m.setEmail(request.getParameter("email"));
@@ -46,16 +36,12 @@ public class LoginController extends HttpServlet {
       response.addCookie(cookie);
     }
 
-    MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
     Member loginUser = memberDao.findByEmailAndPassword(m);
-    if (loginUser != null) {
-      // 로그인 정보를 다른 요청에서도 사용할 있도록 세션 보관소에 담아 둔다.
-      request.getSession().setAttribute("loginUser", loginUser);
-      response.sendRedirect("/");
-      return;
+    if (loginUser == null) {
+      request.setAttribute("refresh", "2;url=/app/auth/login");
+      new Exception("회원 정보가 일치하지 않습니다.");
     }
-
-    request.setAttribute("refresh", "2;url=/auth/login");
-    throw new ServletException("회원 정보가 일치하지 않습니다.");
+    request.getSession().setAttribute("loginUser", loginUser);
+    return "redirect:/";
   }
 }
