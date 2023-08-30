@@ -1,8 +1,12 @@
-package bitcamp.util;
+package bitcamp.personalapp.service;
 
 import java.io.InputStream;
 import java.util.UUID;
+
 import javax.servlet.http.Part;
+
+import org.springframework.stereotype.Component;
+
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
@@ -12,10 +16,14 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
+import bitcamp.personalapp.config.NcpConfig;
+
+@Component
 public class NcpObjectStorageService {
   final AmazonS3 s3;
 
   public NcpObjectStorageService(NcpConfig ncpConfig) {
+	  System.out.println("NcpObjectStorageService() 호출됨!");
     s3 = AmazonS3ClientBuilder.standard()
         .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
             ncpConfig.getEndPoint(), ncpConfig.getRegionName()))

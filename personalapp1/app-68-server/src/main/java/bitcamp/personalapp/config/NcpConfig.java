@@ -1,4 +1,4 @@
-package bitcamp.util;
+package bitcamp.personalapp.config;
 
 public class NcpConfig {
   private String endPoint = "https://kr.object.ncloudstorage.com";
