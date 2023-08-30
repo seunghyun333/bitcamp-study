@@ -1,25 +1,22 @@
 package bitcamp.personalapp.controller;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import bitcamp.personalapp.dao.MemberDao;
 
-@WebServlet("/member/detail")
-public class MemberDetailController extends HttpServlet {
 
-  private static final long serialVersionUID = 1L;
+public class MemberDetailController implements PageController {
+  MemberDao memberDao;
+
+  public MemberDetailController(MemberDao memberDao) {
+    this.memberDao = memberDao;
+  }
 
   @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    MemberDao memberDao = (MemberDao) this.getServletContext().getAttribute("memberDao");
     request.setAttribute("member", memberDao.findBy(Integer.parseInt(request.getParameter("no"))));
-    request.setAttribute("viewUrl", "/WEB-INF/jsp/member/detail.jsp");
+    return "/WEB-INF/jsp/member/detail.jsp";
 
 
   }

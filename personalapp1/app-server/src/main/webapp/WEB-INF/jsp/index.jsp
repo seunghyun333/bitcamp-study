@@ -17,7 +17,7 @@
   h1 {
     color: pink;
   }
-	.image-grid img {
+  .image-grid img {
     max-width: 100%;
     height: auto;
   }
@@ -27,7 +27,7 @@
 <jsp:include page="header.jsp"/>
 <h1 style='text-align:center' >My-Diary♥</h1>
 <div style="text-align:center;">
-    <a href='/app/board/add'>오늘의 기분을 공유하기</a>
+    <a href='/board/form.jsp'>오늘의 기분을 공유하기</a>
 <div class="image-grid">
 <%
     if (board != null) {
