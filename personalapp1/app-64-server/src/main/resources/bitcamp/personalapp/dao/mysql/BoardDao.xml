@@ -120,7 +120,7 @@
   <delete id="deleteFiles" parameterType="int">
     delete from dia_content_file
     where 
-      cno=#{no}
+      content_file_no=#{no}
   </delete>
 
 </mapper>

@@ -6,6 +6,7 @@
     errorPage="/error.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="refresh" value="2;url=list.jsp" scope="request"/>
 
 <!DOCTYPE html>
 <html>
@@ -41,11 +42,14 @@
   <tr><th>번호</th> <th>제목</th> <th>작성자</th> <th>조회수</th> <th>등록일</th></tr>
 </thead>
 
+<jsp:useBean id="boardDao" type="bitcamp.personalapp.dao.BoardDao" scope="application"/>
+<c:set var="list" value="${boardDao.findAll()}" scope="page"/>
+
 <tbody>
 <c:forEach items="${list}" var="board">
 	<tr style='margin:5px; text-align:center'>
 	<td>${board.no}</td> 
-	<td><a href='/board/detail?no=${board.no}'>
+	<td><a href='/board/detail.jsp?no=${board.no}'>
 	${board.title.length() > 0 ? board.title : "제목없음"}
 	</a></td>
 	<td>${board.mno.name}</td> 
