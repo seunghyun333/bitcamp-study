@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b9b3feb2-04f5-4cfc-a5e3-63a3d47678ac" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../app-server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/config/NcpConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/config/NcpConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/controller/BoardDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/controller/BoardDetailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/controller/PageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/dao/MySQLBoardDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/dao/MySQLBoardDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/listener/ContextLoaderListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/listener/ContextLoaderListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/listener/MyServletRequestListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/listener/MyServletRequestListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/service/NcpObjectStorageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/service/NcpObjectStorageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/servlet/DistpatcherServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/personalapp/servlet/DispatcherServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/util/SqlSessionFactoryProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/java/bitcamp/util/SqlSessionFactoryProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/resources/bitcamp/personalapp/config/ncloud/mybatis-config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/resources/bitcamp/personalapp/config/mybatis-config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/resources/bitcamp/personalapp/dao/mysql/BoardDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/resources/bitcamp/personalapp/dao/mysql/BoardDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/auth/form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/auth/form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/board/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/board/detail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/board/form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/board/form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/board/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/board/list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/comment/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/comment/list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/error.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/member/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/jsp/member/detail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app-server/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/board.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/board.data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/board.data2" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2Und9OHxoKMdAcUms5UoydqFflX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "android.gradle.sync.needed": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/bit/git/bitcamp-study/personalapp1/app-common/build.gradle"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b9b3feb2-04f5-4cfc-a5e3-63a3d47678ac" name="Changes" comment="" />
+      <created>1693579125746</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1693579125746</updated>
+    </task>
+    <servers />
+  </component>
+</project>

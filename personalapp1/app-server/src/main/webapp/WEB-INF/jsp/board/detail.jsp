@@ -3,16 +3,16 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
-    errorPage="/error.jsp" %>
-    
+    errorPage="/error.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="refresh" value="2;url=list.jsp" scope="request"/>
+<c:set var="refresh" value="2;url=list" scope="request"/>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset='UTF-8'>
 <title>게시글</title>
+<!--  
 <style>
   .center-table {
     margin: 0 auto;
@@ -23,6 +23,7 @@
     padding: 5px;
   }
 </style>
+-->
 </head>
 <body>
 
@@ -32,18 +33,18 @@
 
 
 <c:if test="${empty board}">
-	<p>해당 번호의 게시글이 없습니다!</p>
+    <p>해당 번호의 게시글이 없습니다!</p>
 </c:if>
 
 <c:if test="${not empty board}">
 	<form action='update' method='post' enctype='multipart/form-data'>
-	<table class="center-table">
+	<table>
 	<tr><th style='width:120px;'>번호</th>
-	           <td style='width:300px;'><input type='text' name='no' value='${board.no}' readonly></td></tr>
+	<td style='width:300px;'><input type='text' name='no' value='${board.no}' readonly></td></tr>
 	<tr><th>제목</th> 
-		<td><input type='text' name='title' value='${board.title}'></td></tr>
+	<td><input type='text' name='title' value='${board.title}'></td></tr>
 	<tr><th>내용</th>
-	     <td><textarea name='content' style='height:300px; width:500px;'>${board.content}</textarea></td></tr>
+	<td><textarea name='content' style='height:300px; width:500px;'>${board.content}</textarea></td></tr>
 	
 	<tr><th>작성자</th> <td>${board.mno.name}</td></tr>
 	<tr><th>비밀여부</th> <td>${board.secret}</td></tr>
@@ -67,11 +68,12 @@
 	</div>
 	</form>
 </c:if>
-
+<!-- 
 <jsp:include page="../comment/list.jsp"/>
 <jsp:include page="../comment/form.jsp"/>
 <br>
 <br>
+ -->
 <jsp:include page="../footer.jsp"/>
 </body>
 </html>

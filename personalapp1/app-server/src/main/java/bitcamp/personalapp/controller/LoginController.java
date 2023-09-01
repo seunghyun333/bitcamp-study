@@ -24,12 +24,12 @@ public class LoginController implements PageController {
       return "/WEB-INF/jsp/auth/form.jsp";
     }
 
-    Member m = new Member();
-    m.setEmail(request.getParameter("email"));
-    m.setPw(request.getParameter("pw"));
+  
+    String email = request.getParameter("email");
+    String pw = request.getParameter("pw");
 
     if (request.getParameter("saveEmail") != null) {
-      Cookie cookie = new Cookie("email", m.getEmail());
+      Cookie cookie = new Cookie("email", email);
       response.addCookie(cookie);
     } else {
       Cookie cookie = new Cookie("email", "no");
@@ -38,7 +38,8 @@ public class LoginController implements PageController {
     }
 
 
-    Member loginUser = memberDao.findByIdAndPassword(m);
+    Member loginUser = memberDao.findByIdAndPassword(email, pw);
+    
     if (loginUser == null) {
       request.setAttribute("refresh", "2;url=/app/auth/login");
       throw new Exception("회원 정보가 일치하지 않습니다.");

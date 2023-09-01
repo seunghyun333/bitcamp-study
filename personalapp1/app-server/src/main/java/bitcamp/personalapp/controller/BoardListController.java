@@ -19,8 +19,6 @@ public class BoardListController implements PageController {
 
  @Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-
     try {
       request.setAttribute("list", boardDao.findAll());
       return "/WEB-INF/jsp/board/list.jsp";

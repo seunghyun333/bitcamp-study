@@ -16,8 +16,16 @@ public class Member implements Serializable {
   private Timestamp w_date;
   private String photo;
 
+  
 
   @Override
+public String toString() {
+	return "Member [no=" + no + ", name=" + name + ", email=" + email + ", pw=" + pw + ", tel=" + tel + ", w_date="
+			+ w_date + ", photo=" + photo + "]";
+}
+
+
+@Override
   public int hashCode() {
     return Objects.hash(no);
   }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<!-- <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -65,7 +65,7 @@
   <update id="update" parameterType="comment">
     update dia_comment set
       content={content},
-      modified_at=NOW(), -- 수정 시간 추가
+      modified_at=NOW(),
       content=CONCAT(content, ' (수정)') 
     where 
       cmno=#{no}
@@ -78,4 +78,4 @@
   </delete>
 
   
-</mapper>
+</mapper> -->

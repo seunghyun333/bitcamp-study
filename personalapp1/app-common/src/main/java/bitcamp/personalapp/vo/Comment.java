@@ -15,13 +15,14 @@ public class Comment implements Serializable {
   private Timestamp w_date;
 
 
-  @Override
-  public String toString() {
-    return "Comment [no=" + no + ", cno=" + cno + ", content=" + content + ", mno=" + mno
-        + ", w_date=" + w_date + "]";
-  }
+
 
   @Override
+public String toString() {
+	return "Comment [no=" + no + ", mno=" + mno + ", cno=" + cno + ", content=" + content + ", w_date=" + w_date + "]";
+}
+
+@Override
   public int hashCode() {
     return Objects.hash(no);
   }
