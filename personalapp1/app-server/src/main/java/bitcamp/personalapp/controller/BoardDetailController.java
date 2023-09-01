@@ -40,7 +40,7 @@ public class BoardDetailController implements PageController {
 
     } catch (Exception e) {
       sqlSessionFactory.openSession(false).rollback();
-      request.setAttribute("refresh", "5;url=/board/list");
+      request.setAttribute("refresh", "5;url=list");
       throw e;
     }
   }

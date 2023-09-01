@@ -13,9 +13,10 @@ import bitcamp.personalapp.config.AppConfig;
 import bitcamp.personalapp.config.NcpConfig;
 import bitcamp.personalapp.controller.PageController;
 
+
 @WebServlet(value = "/app/*", loadOnStartup = 1)
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
-public class DistpatcherServlet extends HttpServlet {
+public class DispatcherServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   AnnotationConfigApplicationContext iocContainer;
@@ -33,14 +34,16 @@ public class DistpatcherServlet extends HttpServlet {
   protected void service(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     String pageControllerPath = request.getPathInfo();
+    System.out.println(pageControllerPath);
 
     response.setContentType("text/html;charset=UTF-8");
 
     PageController pageController = (PageController) iocContainer.getBean(pageControllerPath);
-
+    System.out.println(pageController);
     // 페이지 컨트롤러를 실행한다.
     try {
       String viewUrl = pageController.execute(request, response);
+      System.out.println(viewUrl);
       if (viewUrl.startsWith("redirect:")) {
         response.sendRedirect(viewUrl.substring(9)); // 예) redirect:/app/board/list
       } else {

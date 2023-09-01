@@ -19,16 +19,15 @@ public class LoginController implements PageController {
 
   @Override
   public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    if (request.getMethod().equals("GET")) {  // get요청이 아니면 밑에 내용 실행한다.
+    if (request.getMethod().equals("GET")) {
       return "/WEB-INF/jsp/auth/form.jsp";
     }
 
-    Member m = new Member();
-    m.setEmail(request.getParameter("email"));
-    m.setPassword(request.getParameter("password"));
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
 
     if (request.getParameter("saveEmail") != null) {
-      Cookie cookie = new Cookie("email", m.getEmail());
+      Cookie cookie = new Cookie("email", email);
       response.addCookie(cookie);
     } else {
       Cookie cookie = new Cookie("email", "no");
@@ -36,11 +35,12 @@ public class LoginController implements PageController {
       response.addCookie(cookie);
     }
 
-    Member loginUser = memberDao.findByEmailAndPassword(m);
+    Member loginUser = memberDao.findByEmailAndPassword(email, password);
     if (loginUser == null) {
       request.setAttribute("refresh", "2;url=/app/auth/login");
-      new Exception("회원 정보가 일치하지 않습니다.");
+      throw new Exception("회원 정보가 일치하지 않습니다.");
     }
+
     request.getSession().setAttribute("loginUser", loginUser);
     return "redirect:/";
   }

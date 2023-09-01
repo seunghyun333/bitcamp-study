@@ -34,9 +34,11 @@
 
 <div style="display: flex; flex-direction: column; align-items: center;">
 <br>
-
+<%
+Board board = (Board) request.getAttribute("board");
+%>
 <label for="content" class="label"> 내용 </label> <textarea name="content" class="custom-textarea">댓글을 입력하세요</textarea>
-게시글 번호<input type="number" name='cno' value='<%= currentBoard.getNo() %>'><br>
+게시글 번호<input type="number" name='cno' value='<%= board.getNo() %>'><br>
 회원 번호<input type="number" name='mno' value='${loginUser.no}'><br>
   
   <button>등록</button>

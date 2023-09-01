@@ -11,19 +11,29 @@
 <head>
 <meta charset='UTF-8'>
 <title>회원</title>
+<style>
+      .center-table {
+        margin: 0 auto;
+        border-collapse: collapse;
+      }
+      .center-table th, .center-table td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+    </style>
 </head>
 <body>
 
 <jsp:include page="../header.jsp"/>
     
-<h1>회원</h1>
+<h1 style='margin:5px; text-align:center'>회원</h1>
 
 <c:if test="${empty member}">
 <p>해당 번호의 회원이 없습니다!</p>
 </c:if>
 <c:if test="${not empty member}">
 	<form action='update' method='post' enctype='multipart/form-data'>
-	<table border='1'>
+	<table class="center-table">
 	<tr>
 		<th style='width:120px;'>사진</th>
 		<td style='width:300px;'>
@@ -46,7 +56,7 @@
 	<tr><th>등록일</th> <td>${simpleDateFormatter.format(member.w_date)}</td></tr>
 	</table>
 	
-	<div>
+	<div style='margin: 5px auto; text-align: center; margin-right: -250px;'>
 	<button>변경</button>
 	<button type='reset'>초기화</button>
 		<a href='delete?no=${member.no}'>삭제</a>

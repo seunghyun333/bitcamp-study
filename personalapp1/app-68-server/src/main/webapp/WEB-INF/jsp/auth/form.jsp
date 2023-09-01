@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
-    errorPage="/error.jsp" %>
+    %>
 
 
 <!DOCTYPE html>
@@ -39,7 +39,7 @@
 </table> 
 <div style='margin: 5px auto; text-align: center; '>
 <button>로그인</button>
- <input type='checkbox' name='saveEmail'> 이메일 저장
+  <input type='checkbox' name='saveEmail' ${cookie.email != null ? "checked" : ""}> 이메일 저장
  </div>
   </form>
     
