@@ -47,7 +47,7 @@
  </select>
 
  
-  <select id="findByEmailAndPassword" parameterType="member" resultMap="memberMap">   
+  <select id="findByEmailAndPassword" resultMap="memberMap">
    select 
     member_no,
     name,   

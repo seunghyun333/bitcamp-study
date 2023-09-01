@@ -10,7 +10,7 @@
 	
 	<context-param>
 		<param-name>mybatis-config</param-name>
-		<param-value>bitcamp/personalapp/config/ncloud/mybatis-config.xml</param-value>
+		<param-value>bitcamp/personalapp/config/mybatis-config.xml</param-value>
 	</context-param>
 	
 		<servlet>

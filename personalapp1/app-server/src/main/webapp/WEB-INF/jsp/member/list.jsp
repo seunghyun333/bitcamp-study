@@ -12,17 +12,27 @@
 <head>
 <meta charset='UTF-8'>
 <title>회원</title>
+<style>
+      .center-table {
+        margin: 0 auto;
+        border-collapse: collapse;
+      }
+      .center-table th, .center-table td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+    </style>
 </head>
 <body>
     
 <jsp:include page="../header.jsp"></jsp:include>    
 
 
-<h1>회원 목록</h1>
-<div style='margin:5px;'>
+<h1 style='margin:5px; text-align:center'>회원 목록</h1>
+<div style='margin: 5px auto; text-align: center; margin-right: -250px;'>
 <a href='add'>회원가입</a>
 </div>
-<table border='1'>
+<table class="center-table">
 <thead>
   <tr><th>회원번호</th> <th>이름</th> <th>이메일</th></tr>
 </thead>
@@ -37,7 +47,10 @@
 </c:forEach>
 </tbody>
 </table>
+
+<div style='margin: 5px auto; text-align: center; margin-right: -250px;'>
 <a href='/'>메인</a>
+</div>
 
 <jsp:include page="../footer.jsp"/>
 </body>

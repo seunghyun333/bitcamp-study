@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
-    errorPage="/error.jsp" %>
+    errorPage="../error.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -46,8 +46,9 @@
 	<tr style='margin:5px; text-align:center'>
 	<td>${board.no}</td> 
 	<td><a href='detail?no=${board.no}'>
-	${board.title.length() > 0 ? board.title : "제목없음"}
-	</a></td>
+	     ${board.title.length() > 0 ? board.title : "제목없음"}
+	     </a>
+	 </td>
 	<td>${board.mno.name}</td> 
 	<td>${board.v_count}</td> 
 	<td><fmt:formatDate value="${board.w_date}" pattern="yyyy-MM-dd"/></td>

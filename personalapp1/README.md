@@ -409,11 +409,20 @@
 
 - Front Controller 디자인 패턴의 효과 및 적용 방법
 - 프론트 컨트롤러와 페이지 컨트롤러의 역할 이해
-- 페이지 컨트롤러를 POJO로 전환하기
-  POJO? Plain Old Java Object (그냥 일반 자바 문법으로 만든 클래스)
 
-## 67. Spring IoC 컨테이너를 이용하여 페이지 컨트롤러를 관리하기
+## 67. 페이지 컨트롤러를 POJO로 전환하기
+
+- 페이지 컨트롤러를 POJO 클래스로 변경
+  POJO? Plain Old Java Object (그냥 일반 자바 문법으로 만든 클래스)
+- 의존 객체 주입하기
+
+## 68. Spring IoC 컨테이너를 이용하여 페이지 컨트롤러를 관리하기
 
 - Spring IoC 컨테이너를 이용하여 객체를 자동 생성하는 방법
 - 의존 객체를 자동으로 주입하는 방법
 - Spring IoC 컨테이너에 들어 있는 객체를 꺼내 사용하는 방법
+
+## 69. Mybatis + Spring IoC 컨테이너 = DAO 구현체 자동 생성
+
+- Mybatis의 Spring 연동 플러그인을 사용하여 DAO를 자동 생성하는 방법
+- Mybatis의 Log4j 활성화 하기

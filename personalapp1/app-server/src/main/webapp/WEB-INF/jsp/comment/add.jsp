@@ -13,7 +13,7 @@
 <jsp:useBean id="commentDao" type="bitcamp.personalapp.dao.CommentDao" scope="application"/>
 <jsp:useBean id="sqlSessionFactory" type="org.apache.ibatis.session.SqlSessionFactory" scope="application"/>
 <jsp:useBean id="loginUser" class="bitcamp.personalapp.vo.Member" scope="session"/>
-<jsp:useBean id="currentBoard" class="bitcamp.personalapp.vo.Board" scope="session"/>
+<!-- <jsp:useBean id="currentBoard" class="bitcamp.personalapp.vo.Board" scope="session"/>-->
 
 
 
@@ -35,8 +35,10 @@
       
       commentDao.insert(comment);
 
+      Board board = (Board) request.getAttribute("board");
+      
       sqlSessionFactory.openSession(false).commit();
-      response.sendRedirect("../board/detail.jsp?no=" + currentBoard.getNo());
+      response.sendRedirect("../board/detail.jsp?no=" + board.getNo());
       
       
 

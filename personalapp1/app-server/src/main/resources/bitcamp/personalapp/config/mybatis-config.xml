@@ -3,11 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <properties resource="bitcamp/myapp/config/ncloud/jdbc.properties">
+  <properties resource="bitcamp/personalapp/config/ncloud/jdbc.properties"></properties>
   
-  </properties>
   <typeAliases>
-   <package name = "bitcamp.myapp.vo"/>
+    <package name="bitcamp.personalapp.vo"/>
   </typeAliases>
   
   <environments default="development">
@@ -21,8 +20,12 @@
       </dataSource>
     </environment>
   </environments>
+  
   <mappers>
-    <mapper resource="bitcamp/myapp/dao/mysql/BoardDao.xml"/>
-    <mapper resource="bitcamp/myapp/dao/mysql/MemberDao.xml"/>
+    <mapper resource="bitcamp/personalapp/dao/mysql/BoardDao.xml"/>
+    <mapper resource="bitcamp/personalapp/dao/mysql/MemberDao.xml"/>
+    <mapper resource="bitcamp/personalapp/dao/mysql/CommentDao.xml"/>
+   <!--  <mapper resource="bitcamp/personalapp/dao/mysql/DiaryDao.xml"/>-->
+  
   </mappers>
 </configuration>
