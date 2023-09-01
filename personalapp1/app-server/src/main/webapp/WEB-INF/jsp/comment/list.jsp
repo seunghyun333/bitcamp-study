@@ -53,12 +53,12 @@
 
 
 <%
-
-Board currentBoard = (Board) session.getAttribute("currentBoard");
+Board board = (Board) request.getAttribute("board");
+//Board currentBoard = (Board) session.getAttribute("currentBoard");
 List<Comment> list = new ArrayList<>();  // 빈 리스트를 초기화
 
-if (currentBoard != null) {
-    list = commentDao.findAllByCno(currentBoard.getNo());
+if (board != null) {
+    list = commentDao.findAllByCno(board.getNo());
 }
 %>
 <tbody>

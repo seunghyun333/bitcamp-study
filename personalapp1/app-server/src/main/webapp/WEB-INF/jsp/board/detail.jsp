@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
-    errorPage="/error.jsp" %>
+    errorPage="/error.jsp"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="refresh" value="2;url=list.jsp" scope="request"/>
@@ -67,9 +67,10 @@
 	</div>
 	</form>
 </c:if>
-
+<!--  
 <jsp:include page="../comment/list.jsp"/>
-<jsp:include page="../comment/form.jsp"/>
+<jsp:include page="../comment/form.jsp"/>  
+-->
 <br>
 <br>
 <jsp:include page="../footer.jsp"/>
