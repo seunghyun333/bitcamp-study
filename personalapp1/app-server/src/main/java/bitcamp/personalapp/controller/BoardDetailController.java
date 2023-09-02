@@ -1,16 +1,16 @@
 package bitcamp.personalapp.controller;
 
-<<<<<<< HEAD
-=======
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Component;
->>>>>>> b3bba5088185532d3ec7440c22cbd82ba5729fb1
+
 import bitcamp.personalapp.dao.BoardDao;
 import bitcamp.personalapp.vo.Board;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,12 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 public class BoardDetailController implements PageController {
 
   BoardDao boardDao;
-  SqlSessionFactory sqlSessionFactory;
-<<<<<<< HEAD
+  PlatformTransactionManager txManager;
 
-  public BoardDetailController(BoardDao boardDao, SqlSessionFactory sqlSessionFactory) {
+
+  public BoardDetailController(BoardDao boardDao,   PlatformTransactionManager txManager) {
     this.boardDao = boardDao;
-    this.sqlSessionFactory = sqlSessionFactory;
+    this.txManager = txManager;
   }
 
   @Override

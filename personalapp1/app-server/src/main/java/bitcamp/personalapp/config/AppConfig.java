@@ -2,14 +2,16 @@ package bitcamp.personalapp.config;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-<<<<<<< HEAD
+
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -28,24 +30,7 @@ public class AppConfig {
 public AppConfig() {
  System.out.println("AppConfig() 호출됨!");
 }
-=======
-import bitcamp.util.SqlSessionFactoryProxy;
 
-@ComponentScan(basePackages = {"bitcamp.personalapp.dao", "bitcamp.personalapp.controller",
-    "bitcamp.personalapp.service"})
-public class AppConfig {
-
-  public AppConfig() {
-    System.out.println("AppConfig() 호출됨!");
-  }
-
-  @Bean
-  public SqlSessionFactory sqlSessionFactory() throws Exception {
-    System.out.println("AppConfig.sqlSessionFactory() 호출됨!");
-    return new SqlSessionFactoryProxy(new SqlSessionFactoryBuilder()
-        .build(Resources.getResourceAsStream("bitcamp/personalapp/config/mybatis-config.xml")));
-  }
->>>>>>> b3bba5088185532d3ec7440c22cbd82ba5729fb1
 
 @Bean
 public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ApplicationContext appCtx) throws Exception {
