@@ -1,15 +1,11 @@
 <%@ page
     language="java"
     pageEncoding="UTF-8"
-<<<<<<< HEAD
-    contentType="text/html;charset=UTF-8"%>
-=======
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
     %>
 
 
->>>>>>> b3bba5088185532d3ec7440c22cbd82ba5729fb1
 <!DOCTYPE html>
 <html>
 <head>

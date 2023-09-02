@@ -23,10 +23,10 @@ public class LoginController implements PageController {
     if (request.getMethod().equals("GET")) {
       return "/WEB-INF/jsp/auth/form.jsp";
     }
-
-  
+    
     String email = request.getParameter("email");
     String pw = request.getParameter("pw");
+
 
     if (request.getParameter("saveEmail") != null) {
       Cookie cookie = new Cookie("email", email);
@@ -38,8 +38,7 @@ public class LoginController implements PageController {
     }
 
 
-    Member loginUser = memberDao.findByIdAndPassword(email, pw);
-    
+    Member loginUser = memberDao.findByIdAndPassword(email,pw);
     if (loginUser == null) {
       request.setAttribute("refresh", "2;url=/app/auth/login");
       throw new Exception("회원 정보가 일치하지 않습니다.");

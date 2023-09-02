@@ -53,13 +53,8 @@
 
 
 <%
-<<<<<<< HEAD
-
-Board board = (Board) request.getAttribute("board");
-=======
 Board board = (Board) request.getAttribute("board");
 //Board currentBoard = (Board) session.getAttribute("currentBoard");
->>>>>>> b3bba5088185532d3ec7440c22cbd82ba5729fb1
 List<Comment> list = new ArrayList<>();  // 빈 리스트를 초기화
 
 if (board != null) {

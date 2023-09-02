@@ -3,13 +3,10 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
-<<<<<<< HEAD
-    errorPage="/error.jsp"%>
-=======
     errorPage="../error.jsp" %>
->>>>>>> b3bba5088185532d3ec7440c22cbd82ba5729fb1
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>

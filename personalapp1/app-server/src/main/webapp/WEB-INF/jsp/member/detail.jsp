@@ -52,7 +52,7 @@
 	<tr><th>이름</th> <td><input type='text' name='name' value='${member.name}'></td></tr>
 	<tr><th>이메일</th> <td><input type='email' name='email' value='${member.email}'></td></tr>
 	<tr><th>암호</th> <td><input type='password' name='pw'></td></tr>
-
+	
 	<tr><th>등록일</th> <td>${simpleDateFormatter.format(member.w_date)}</td></tr>
 	</table>
 	

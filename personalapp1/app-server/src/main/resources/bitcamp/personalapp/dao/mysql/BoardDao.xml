@@ -51,7 +51,7 @@
        cno desc
   </select>
 
-  <select id="findBy" resultMap="boardMap">
+  <select id="findBy" parameterType="int" resultMap="boardMap">
   select
     c.cno,
      c.title, 
