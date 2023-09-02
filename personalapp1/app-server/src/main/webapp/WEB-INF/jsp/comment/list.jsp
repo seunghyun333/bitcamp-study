@@ -10,7 +10,7 @@
 <%@ page import="bitcamp.personalapp.vo.Board" %>
 <%@ page import="bitcamp.personalapp.vo.Comment" %>
 <jsp:useBean id="boardDao" type="bitcamp.personalapp.dao.BoardDao" scope="application"/>
-<jsp:useBean id="commentDao" type="bitcamp.personalapp.dao.CommentDao" scope="application"/>
+<%-- <jsp:useBean id="commentDao" type="bitcamp.personalapp.dao.CommentDao" scope="application"/> --%>
 
 <% 
    request.setAttribute("refresh", "2;url=list.jsp" );
@@ -57,9 +57,9 @@ Board board = (Board) request.getAttribute("board");
 //Board currentBoard = (Board) session.getAttribute("currentBoard");
 List<Comment> list = new ArrayList<>();  // 빈 리스트를 초기화
 
-if (board != null) {
+/* if (board != null) {
     list = commentDao.findAllByCno(board.getNo());
-}
+} */
 %>
 <tbody>
 

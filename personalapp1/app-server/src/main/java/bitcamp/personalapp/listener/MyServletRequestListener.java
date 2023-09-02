@@ -4,7 +4,6 @@ import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebListener;
 
-import bitcamp.util.SqlSessionFactoryProxy;
 
 @WebListener
 public class MyServletRequestListener implements ServletRequestListener {

@@ -23,12 +23,12 @@ public class NcpObjectStorageService {
   final AmazonS3 s3;
 
   public NcpObjectStorageService(NcpConfig ncpConfig) {
-	  System.out.println("NcpObjectStorageService() 호출됨!");
+    System.out.println("NcpObjectStorageService() 호출됨!");
     s3 = AmazonS3ClientBuilder.standard()
         .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
             ncpConfig.getEndPoint(), ncpConfig.getRegionName()))
-        .withCredentials(new AWSStaticCredentialsProvider(
-            new BasicAWSCredentials(ncpConfig.getAccessKey(), ncpConfig.getSecretKey())))
+        .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(
+            ncpConfig.getAccessKey(), ncpConfig.getSecretKey())))
         .build();
   }
 
@@ -43,13 +43,15 @@ public class NcpObjectStorageService {
       ObjectMetadata objectMetadata = new ObjectMetadata();
       objectMetadata.setContentType(part.getContentType());
 
-      PutObjectRequest objectRequest =
-          new PutObjectRequest(bucketName, dirPath + filename, fileIn, objectMetadata)
-              .withCannedAcl(CannedAccessControlList.PublicRead);
+      PutObjectRequest objectRequest = new PutObjectRequest(
+          bucketName,
+          dirPath + filename,
+          fileIn,
+          objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead);
 
       s3.putObject(objectRequest);
 
-      // return s3.getUrl(bucketName, dirPath + filename).toString();
+      //return s3.getUrl(bucketName, dirPath + filename).toString();
       return filename;
 
     } catch (Exception e) {
