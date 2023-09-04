@@ -1,12 +1,11 @@
 package bitcamp.personalapp.dao;
 
 import java.util.List;
-
 import bitcamp.personalapp.vo.AttachedFile;
 import bitcamp.personalapp.vo.Board;
 
 public interface BoardDao {
-  void insert(Board board);
+  int insert(Board board);
 
   List<Board> findAll();
 
@@ -14,14 +13,17 @@ public interface BoardDao {
 
   int update(Board board);
 
-  int updateCount(Board board);
+  int updateCount(int no);
 
-  int delete(Board board);
-  
+  int delete(int no);
+
   int insertFiles(Board board);
+
   AttachedFile findFileBy(int no);
+
   int deleteFile(int fileNo);
+
   int deleteFiles(int boardNo);
-  
+
 
 }

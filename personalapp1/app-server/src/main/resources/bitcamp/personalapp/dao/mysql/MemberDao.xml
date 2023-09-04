@@ -28,7 +28,7 @@
 	   mno
   </select>
   
-  <select id="findByIdAndPassword" parameterType="member" resultMap="memberMap">
+  <select id="findByIdAndPassword"  resultMap="memberMap">
     select
       mno,
       name,

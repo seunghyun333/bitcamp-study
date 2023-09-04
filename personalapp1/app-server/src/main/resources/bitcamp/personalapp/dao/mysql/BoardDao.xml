@@ -72,24 +72,23 @@
 
   <update id="update" parameterType="board">
   update 
-  dia_content set
-  title=#{title},
-  content=#{content}
-   where cno=#{no}
-   and mno=#{mno.no}
+	  dia_content set
+	  title=#{title},
+	  content=#{content}
+   where 
+    cno=#{no}
   </update>
 
-  <update id="updateCount" parameterType="board">
+  <update id="updateCount" parameterType="int">
     update dia_content set
-      v_count=#{v_count}
+      v_count=v_count+1
     where
       cno=#{no}
   </update>
 
-  <delete id="delete" parameterType="board">
+  <delete id="delete" parameterType="int">
   delete from dia_content
   where cno=#{no} 
-  and mno=#{mno.no}
   </delete>
   
   

@@ -1,7 +1,6 @@
 package bitcamp.personalapp.config;
 
 import javax.sql.DataSource;
-
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -15,10 +14,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 // Application을 실행하는데 필요한 객체를 설정하는 일을 한다.
-@ComponentScan(basePackages = {
-        "bitcamp.personalapp.dao",
-        "bitcamp.personalapp.controller",
-        "bitcamp.personalapp.service"})
+@ComponentScan(basePackages = {"bitcamp.personalapp.dao", "bitcamp.personalapp.controller",
+    "bitcamp.personalapp.service"})
 @PropertySource({"classpath:bitcamp/personalapp/config/ncloud/jdbc.properties"})
 @MapperScan("bitcamp.personalapp.dao") // Mybatis가 자동으로 생성할 DAO 객체의 인터페이스 패키지 지정
 public class AppConfig {
@@ -28,7 +25,8 @@ public class AppConfig {
   }
 
   @Bean
-  public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ApplicationContext appCtx) throws Exception {
+  public SqlSessionFactory sqlSessionFactory(DataSource dataSource, ApplicationContext appCtx)
+      throws Exception {
     System.out.println("AppConfig.sqlSessionFactory() 호출됨!");
 
     // Mybatis에서 Log4j 2.x 버전을 사용하도록 활성화시킨다.
@@ -38,17 +36,16 @@ public class AppConfig {
     SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
     factoryBean.setDataSource(dataSource);
     factoryBean.setTypeAliasesPackage("bitcamp.personalapp.vo");
-    factoryBean.setMapperLocations(appCtx.getResources("classpath:bitcamp/personalapp/dao/mysql/*Dao.xml"));
+    factoryBean.setMapperLocations(
+        appCtx.getResources("classpath:bitcamp/personalapp/dao/mysql/*Dao.xml"));
 
     return factoryBean.getObject();
   }
 
   @Bean
-  public DataSource dataSource(
-          @Value("${jdbc.driver}") String driver,
-          @Value("${jdbc.url}") String url,
-          @Value("${jdbc.username}") String username,
-          @Value("${jdbc.password}") String password) {
+  public DataSource dataSource(@Value("${jdbc.driver}") String driver,
+      @Value("${jdbc.url}") String url, @Value("${jdbc.username}") String username,
+      @Value("${jdbc.password}") String password) {
     System.out.println("AppConfig.dataSource() 호출됨!");
 
     DriverManagerDataSource ds = new DriverManagerDataSource();

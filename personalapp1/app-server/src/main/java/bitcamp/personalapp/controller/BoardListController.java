@@ -3,26 +3,22 @@ package bitcamp.personalapp.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import bitcamp.personalapp.service.BoardService;
 
-import org.springframework.stereotype.Component;
-
-import bitcamp.personalapp.dao.BoardDao;
-
-@Component("/board/list")
+@Controller("/board/list")
 public class BoardListController implements PageController {
-	
-	BoardDao boardDao;
-	
-	public BoardListController(BoardDao boardDao) {
-		this.boardDao = boardDao;
-	}
 
- @Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  @Autowired
+  BoardService boardService;
+
+  @Override
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 
     try {
-      request.setAttribute("list", boardDao.findAll());
+      request.setAttribute("list", boardService.list());
       return "/WEB-INF/jsp/board/list.jsp";
 
     } catch (Exception e) {

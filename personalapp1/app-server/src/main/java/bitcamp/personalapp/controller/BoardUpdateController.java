@@ -2,56 +2,36 @@ package bitcamp.personalapp.controller;
 
 
 import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
-
-import bitcamp.personalapp.dao.BoardDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import bitcamp.personalapp.service.BoardService;
 import bitcamp.personalapp.service.NcpObjectStorageService;
 import bitcamp.personalapp.vo.AttachedFile;
 import bitcamp.personalapp.vo.Board;
 import bitcamp.personalapp.vo.Member;
 
 
-@Component("/board/update")
+@Controller("/board/update")
 public class BoardUpdateController implements PageController {
 
-	BoardDao boardDao;
-	PlatformTransactionManager txManager;
-	NcpObjectStorageService ncpObjectStorageService;
-	
-	public BoardUpdateController(BoardDao boardDao,
-			PlatformTransactionManager txManager,
-	NcpObjectStorageService ncpObjectStorageService
-	) {
-		this.boardDao = boardDao;
-		this.txManager = txManager;
-		this.ncpObjectStorageService = ncpObjectStorageService;
-	}
-	
-	@Override
-		public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  @Autowired
+  BoardService boardService;
+
+  @Autowired
+  NcpObjectStorageService ncpObjectStorageService;
+
+  @Override
+  public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 
     Member loginUser = (Member) request.getSession().getAttribute("loginUser");
     if (loginUser == null) {
-    	request.getParts();
+      request.getParts();
       return "redirect:../auth/login";
     }
-    
-    DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-    def.setName("tx1");
-    def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-    TransactionStatus status = txManager.getTransaction(def);
-    
-
 
     try {
       Board board = new Board();
@@ -77,18 +57,10 @@ public class BoardUpdateController implements PageController {
       board.setAttachedFiles(attachedFiles);
 
 
-      if (boardDao.update(board) == 0) {
-        throw new Exception("게시글이 없거나 변경 권한이 없습니다.");
-      } else {
-        if (attachedFiles.size() > 0) {
-          boardDao.insertFiles(board);
-        }
-        txManager.commit(status);
-        return "redirect:list";
-      }
+      boardService.update(board);
+      return "redirect:list";
 
     } catch (Exception e) {
-      txManager.rollback(status);
       request.setAttribute("refresh", "2;url=list");
       throw e;
     }

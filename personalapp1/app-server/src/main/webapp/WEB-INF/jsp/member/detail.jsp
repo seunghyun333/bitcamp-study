@@ -5,6 +5,7 @@
     trimDirectiveWhitespaces="true"
     errorPage="/error.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -53,7 +54,7 @@
 	<tr><th>이메일</th> <td><input type='email' name='email' value='${member.email}'></td></tr>
 	<tr><th>암호</th> <td><input type='password' name='pw'></td></tr>
 	
-	<tr><th>등록일</th> <td>${simpleDateFormatter.format(member.w_date)}</td></tr>
+	<tr><th>등록일</th><td><fmt:formatDate value="${member.w_date}" pattern="yyyy-MM-dd"/></td></tr>
 	</table>
 	
 	<div style='margin: 5px auto; text-align: center; margin-right: -250px;'>
