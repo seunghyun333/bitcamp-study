@@ -12,10 +12,9 @@ public interface BoardDao {
   int update(Board board);
   int updateCount(int no);
   int delete(int no);
+
   int insertFiles(Board board);
   AttachedFile findFileBy(int no);
   int deleteFile(int fileNo);
   int deleteFiles(int boardNo);
-
-
 }

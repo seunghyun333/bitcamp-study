@@ -77,20 +77,18 @@
     update myapp_board set
       title=#{title},
       content=#{content}
-    where 
-      category=#{category}
-      and board_no=#{no}
-      and writer=#{writer.no}
+    where
+      board_no=#{no}
   </update>
   
-  <update id="updateCount" parameterType="board" parameterMap="int">
+  <update id="updateCount" parameterType="int">
     update myapp_board set
-      view_count= viewCount + 1
+      view_count= view_count + 1
     where
        board_no=#{no}
   </update>
   
-  <delete id="delete" parameterType="board" parameterMap="int">
+  <delete id="delete" parameterType="int">
     delete from myapp_board
     where
       board_no=#{no}
@@ -122,7 +120,7 @@
   <delete id="deleteFiles" parameterType="int">
     delete from myapp_board_file
     where
-    board_no=#{no}
+      board_no=#{no}
   </delete>
   
 </mapper>
