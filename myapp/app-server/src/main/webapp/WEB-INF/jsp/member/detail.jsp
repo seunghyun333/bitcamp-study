@@ -32,7 +32,7 @@
                 <img src='http://rilqiqaqfxro19010722.cdn.ntruss.com/member/%{member.photo}?type=f&w=60&h=80&faceopt=true&ttype=jpg'>
                 </a>
           </c:if>
-              <input type='file' name='photo'></td></tr>
+              <input type='file' name='photofile'></td></tr>
 
 <tr>
     <th style='width:120px;'>번호</th>
