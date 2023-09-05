@@ -31,7 +31,7 @@
   <th>전화번호</th> <td style="width:180px;"><input type='number' name='tel'></td>
 </tr>
 <tr>
-  <th>사진</th> <td><input type='file' name='photo'></td>
+  <th>사진</th> <td><input type='file' name='photofile'></td>
 </tr>
 
 </table>

@@ -1,7 +1,6 @@
 package bitcamp.personalapp.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,106 +16,96 @@ public class MemberController {
 
   @Autowired
   NcpObjectStorageService ncpObjectStorageService;
-
-
-  @RequestMapping("/member/add")
-  public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    if (request.getMethod().equals("GET")) {
+  
+  @RequestMapping("/member/form")
+  public String form() {
       return "/WEB-INF/jsp/member/form.jsp";
     }
 
+
+  @RequestMapping("/member/add")
+  public String add(
+		  Member member,
+		  @RequestParam("photofile") Part photofile,
+		  Map<String,Object> model) throws Exception {
+
     try {
-      Member m = new Member();
-      m.setName(request.getParameter("name"));
-      m.setEmail(request.getParameter("email"));
-      m.setPw(request.getParameter("pw"));
-      m.setTel(request.getParameter("tel"));
+      System.out.println(member);
 
-      // prompt.printf("%s아~ 고마워♡\n", member.getName());
-
-      Part photoPart = request.getPart("photo");
-      if (photoPart.getSize() > 0) {
+      if (photofile.getSize() > 0) {
         String uploadFileUrl =
-            ncpObjectStorageService.uploadFile("bitcamp-nc7-bucket-07", "member/", photoPart);
-        m.setPhoto(uploadFileUrl);
+            ncpObjectStorageService.uploadFile("bitcamp-nc7-bucket-07", "member/", photofile);
+        member.setPhoto(uploadFileUrl);
       }
 
-      memberService.add(m);
-
+      memberService.add(member);
       return "redirect:list";
 
     } catch (Exception e) {
-      request.setAttribute("message", "회원 등록 오류!");
-      request.setAttribute("refresh", "2;url=list");
+      model.put("message", "회원 등록 오류!");
+      model.put("refresh", "2;url=list");
       throw e;
     }
   }
 
 
   @RequestMapping("/member/delete")
-  public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String delete(@RequestParam("no") int no,
+		  Map<String,Object> model) throws Exception {
 
     try {
-      if (memberService.delete(Integer.parseInt(request.getParameter("no"))) == 0) {
+      if (memberService.delete(no) == 0) {
         throw new Exception("해당 번호의 회원이 없습니다!! ");
       } else {
         return "redirect:list";
       }
 
     } catch (Exception e) {
-      request.setAttribute("refresh", "2;url=list");
+      model.put("refresh", "2;url=list");
       throw e;
     }
   }
 
   @RequestMapping("/member/detail")
-  public String detail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String detail(@RequestParam("no") int no,
+		  Map<String,Object> model) throws Exception {
 
-    request.setAttribute("member", memberService.get(Integer.parseInt(request.getParameter("no"))));
+    model.put("member", memberService.get(no));
     return "/WEB-INF/jsp/member/detail.jsp";
   }
 
   @RequestMapping("/member/list")
-  public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    request.setAttribute("list", memberService.list());
+  public String list(Map<String,Object> model) throws Exception {
+    model.put("list", memberService.list());
     return "/WEB-INF/jsp/member/list.jsp";
 
   }
 
 
   @RequestMapping("/member/update")
-  public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    try {
-      Member member = new Member();
-      member.setNo(Integer.parseInt(request.getParameter("no")));
-      member.setName(request.getParameter("name"));
-      member.setEmail(request.getParameter("email"));
-      member.setPw(request.getParameter("pw"));
+  public String update(
+		  Member member,
+		  @RequestParam("photofile") Part photofile,
+		  Map<String,Object> model) throws Exception {
 
-
-      Part photoPart = request.getPart("photo");
-      if (photoPart.getSize() > 0) {
+	  try {
+      if (photofile.getSize() > 0) {
         String uploadFileUrl =
-            ncpObjectStorageService.uploadFile("bitcamp-nc7-bucket-07", "member/", photoPart);
+            ncpObjectStorageService.uploadFile("bitcamp-nc7-bucket-07", "member/", photofile);
         member.setPhoto(uploadFileUrl);
       }
-
 
       if (memberService.update(member) == 0) {
         throw new Exception("<p>회원이 없습니다.</p>");
       } else {
         return "redirect:list";
-
       }
 
     } catch (Exception e) {
-      request.setAttribute("refresh", "2;url=list");
+      model.put("refresh", "2;url=list");
       throw e;
     }
   }
-
-
-
 }
 
 

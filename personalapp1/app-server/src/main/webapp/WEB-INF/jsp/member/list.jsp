@@ -30,7 +30,7 @@
 
 <h1 style='margin:5px; text-align:center'>회원 목록</h1>
 <div style='margin: 5px auto; text-align: center; margin-right: -250px;'>
-<a href='add'>회원가입</a>
+<a href='form'>회원가입</a>
 </div>
 <table class="center-table">
 <thead>
