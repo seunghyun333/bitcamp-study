@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -19,17 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import bitcamp.personalapp.config.AppConfig;
 import bitcamp.personalapp.config.NcpConfig;
 import bitcamp.personalapp.controller.RequestMapping;
 import bitcamp.personalapp.controller.RequestParam;
 
 
-@WebServlet(value = "/app/*", 
-			loadOnStartup = 1)
+@WebServlet(value = "/app/*", loadOnStartup = 1)
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 public class DispatcherServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
@@ -68,9 +64,10 @@ public class DispatcherServlet extends HttpServlet {
 
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+      throws ServletException, IOException {
     String pageControllerPath = request.getPathInfo();
-    if (request.getContentType() != null && request.getContentType().toLowerCase().equals("multipart/form-data")) {
+    if (request.getContentType() != null
+        && request.getContentType().toLowerCase().equals("multipart/form-data")) {
       request.getParts(); // 일단 클라이언트가 보낸 파일을 읽는다. 그래야 응답 가능!
     }
 
@@ -86,12 +83,18 @@ public class DispatcherServlet extends HttpServlet {
 
     // request handler 호출하기
     try {
-      Object[] arguments = prepareArguments(requestHandlerMapping.handler, request, response, model);
+
+      // model 객체에 저장된 값을 ServeltRequest 보관소로 옮긴다.
+
+      Object[] arguments =
+          prepareArguments(requestHandlerMapping.handler, request, response, model);
 
       // request handler 호출
-      String viewUrl = (String) requestHandlerMapping.handler.invoke(requestHandlerMapping.controller, arguments);
+      String viewUrl = (String) requestHandlerMapping.handler
+          .invoke(requestHandlerMapping.controller, arguments);
 
       // model 객체에 저장된 값을 ServletRequest 보관소로 옮긴다.
+
       Set<Map.Entry<String, Object>> entrySet = model.entrySet();
       for (Map.Entry<String, Object> entry : entrySet) {
         request.setAttribute(entry.getKey(), entry.getValue());
@@ -113,14 +116,11 @@ public class DispatcherServlet extends HttpServlet {
 
       throw new ServletException("요청 처리 중 오류 발생!", e);
     }
-
   }
-  
-  private Object[] prepareArguments(
-          Method handler,
-          HttpServletRequest request,
-          HttpServletResponse response,
-          Map<String, Object> model) throws Exception {
+
+
+  private Object[] prepareArguments(Method handler, HttpServletRequest request,
+      HttpServletResponse response, Map<String, Object> model) throws Exception {
     Parameter[] params = handler.getParameters();
     ArrayList<Object> arguments = new ArrayList<>();
 
@@ -136,7 +136,8 @@ public class DispatcherServlet extends HttpServlet {
       } else if (p.getType() == String.class) {
         arguments.add(request.getParameter(p.getAnnotation(RequestParam.class).value()));
       } else if (p.getType() == int.class) {
-        arguments.add(Integer.parseInt(request.getParameter(p.getAnnotation(RequestParam.class).value())));
+        arguments.add(
+            Integer.parseInt(request.getParameter(p.getAnnotation(RequestParam.class).value())));
       } else if (p.getType() == char.class) {
         arguments.add(request.getParameter(p.getAnnotation(RequestParam.class).value()).charAt(0));
       } else if (p.getType() == Map.class) {
@@ -151,7 +152,7 @@ public class DispatcherServlet extends HttpServlet {
             parts.add(part);
           }
         }
-        arguments.add(parts.toArray(new Part[]{}));
+        arguments.add(parts.toArray(new Part[] {}));
       } else {
         arguments.add(getValueObject(p.getType(), request));
       }
@@ -160,57 +161,59 @@ public class DispatcherServlet extends HttpServlet {
 
     return arguments.toArray();
   }
-  
+
+
+
   private Object getValueObject(Class<?> clazz, HttpServletRequest request) throws Exception {
-	    // 클래스의 생성자를 알아낸다.
-	    Constructor<?> constructor = clazz.getConstructor();
+    // 클래스의 생성자를 알아낸다.
+    Constructor<?> constructor = clazz.getConstructor();
 
-	    // 생성자를 통해 인스턴스를 생성한다.
-	    Object obj = constructor.newInstance();
+    // 생성자를 통해 인스턴스를 생성한다.
+    Object obj = constructor.newInstance();
 
-	    // 클래스의 메서드 목록을 알아낸다.
-	    Method[] methods = clazz.getMethods();
+    // 클래스의 메서드 목록을 알아낸다.
+    Method[] methods = clazz.getMethods();
 
-	    // 셋터 메서드를 찾아 호출한다.
-	    for (Method m : methods) {
-	      if (!m.getName().startsWith("set")) {
-	        continue;
-	      }
+    // 셋터 메서드를 찾아 호출한다.
+    for (Method m : methods) {
+      if (!m.getName().startsWith("set")) {
+        continue;
+      }
 
-	      // 셋터 메서드의 이름을 이용하여 프로퍼티 이름을 알아낸다.
-	      StringBuilder strBuilder = new StringBuilder();
-	      strBuilder.append(m.getName().substring(3, 4).toLowerCase());
-	      strBuilder.append(m.getName().substring(4));
+      // 셋터 메서드의 이름을 이용하여 프로퍼티 이름을 알아낸다.
+      StringBuilder strBuilder = new StringBuilder();
+      strBuilder.append(m.getName().substring(3, 4).toLowerCase());
+      strBuilder.append(m.getName().substring(4));
 
-	      String propName = strBuilder.toString();
+      String propName = strBuilder.toString();
 
-	      // 프로퍼티 이름과 똑같은 이름으로 넘어온 요청 파라미터 값을 꺼낸다.
-	      String paramValue = request.getParameter(propName);
-	      if (paramValue == null) {
-	        continue;
-	      }
+      // 프로퍼티 이름과 똑같은 이름으로 넘어온 요청 파라미터 값을 꺼낸다.
+      String paramValue = request.getParameter(propName);
+      if (paramValue == null) {
+        continue;
+      }
 
-	      // 셋터 메서드를 호출하여 파라미터 값을 저장한다.
-	      m.invoke(obj, strToPrimitiveType(paramValue, m.getParameters()[0].getType()));
-	    }
+      // 셋터 메서드를 호출하여 파라미터 값을 저장한다.
+      m.invoke(obj, strToPrimitiveType(paramValue, m.getParameters()[0].getType()));
+    }
 
-	    return obj;
-	  }
+    return obj;
+  }
 
 
   private Object strToPrimitiveType(String value, Class<?> type) {
-	    if (type == String.class) {
-	      return value;
-	    } else if (type == int.class) {
-	      return Integer.parseInt(value);
-	    } else if (type == char.class) {
-	      return value.charAt(0);
-	    } else if (type == boolean.class) {
-	      return Boolean.valueOf(value);
-	    } else {
-	      return null;
-	    }
-	  }
+    if (type == String.class) {
+      return value;
+    } else if (type == int.class) {
+      return Integer.parseInt(value);
+    } else if (type == char.class) {
+      return value.charAt(0);
+    } else if (type == boolean.class) {
+      return Boolean.valueOf(value);
+    } else {
+      return null;
+    }
+  }
 
   static class RequestHandlerMapping {
     Object controller;

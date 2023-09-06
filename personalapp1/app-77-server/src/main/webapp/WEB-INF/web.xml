@@ -96,7 +96,7 @@
 		<servlet-name>/comment/update.jsp</servlet-name>
 		<url-pattern>/comment/update.jsp</url-pattern>
 	</servlet-mapping>
-	
+
 	
 	
 	<welcome-file-list>

@@ -1,11 +1,9 @@
 package bitcamp.personalapp.controller;
 
 import java.util.Map;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import bitcamp.personalapp.service.MemberService;
@@ -16,20 +14,16 @@ public class AuthController {
 
   @Autowired
   MemberService memberService;
-  
+
   @RequestMapping("/auth/form")
   public String form() {
-      return "/WEB-INF/jsp/auth/form.jsp";
-    }
+    return "/WEB-INF/jsp/auth/form.jsp";
+  }
 
   @RequestMapping("/auth/login")
-  public String login(
-		  @RequestParam("email") String email,
-		  @RequestParam("pw") String pw,
-		  @RequestParam("saveEmail") String saveEmail,
-		  HttpSession session,
-		  Map<String, Object> model,
-		  HttpServletResponse response) throws Exception {
+  public String login(@RequestParam("email") String email, @RequestParam("pw") String pw,
+      @RequestParam("saveEmail") String saveEmail, HttpSession session, Map<String, Object> model,
+      HttpServletResponse response) throws Exception {
 
     if (saveEmail != null) {
       Cookie cookie = new Cookie("email", email);
