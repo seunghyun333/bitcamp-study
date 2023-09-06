@@ -1,4 +1,4 @@
-package bitcamp.myapp.controller;
+package bitcamp.personalapp.controller;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -6,4 +6,5 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RequestMapping {
   String value() default "";
+
 }

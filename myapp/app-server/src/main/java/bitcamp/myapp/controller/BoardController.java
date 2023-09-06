@@ -7,6 +7,7 @@ import bitcamp.myapp.vo.Board;
 import bitcamp.myapp.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
@@ -29,9 +30,9 @@ public class BoardController {
 
   @RequestMapping("/board/add")
   public String add(Board board,
-                    @RequestParam("files") Part[] parts,
+                    Part[] files,
                     Map<String,Object> model,
-                    @RequestParam("category") int category,
+                    int category,
                     HttpSession session) throws Exception {
 
     Member loginUser = (Member) session.getAttribute("loginUser");
@@ -42,7 +43,7 @@ public class BoardController {
 
     try {
       ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
-      for (Part part : parts) {
+      for (Part part : files) {
         if (part.getSize() > 0) {
           String uploadFileUrl = ncpObjectStorageService.uploadFile(
                   "bitcamp-nc7-bucket-07", "board/", part);
@@ -54,7 +55,7 @@ public class BoardController {
       board.setAttachedFiles(attachedFiles);
 
       boardService.add(board);
-      return "redirect:list?category=" + board.getCategory();
+      return "redirect:list?category=" + category;
 
     } catch (Exception e) {
       model.put("message", "게시글 등록 오류!");
@@ -62,12 +63,11 @@ public class BoardController {
       throw e;
     }
   }
-
   @RequestMapping("/board/delete")
   public String delete(
-          @RequestParam("no") int no,
+          int no,
           Map<String,Object> model,
-          @RequestParam("category") int category,
+          int category,
           HttpSession session) throws Exception {
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
@@ -89,9 +89,8 @@ public class BoardController {
       throw e;
     }
   }
-
   @RequestMapping("/board/detail")
-  public String detail(@RequestParam("no") int no, @RequestParam("category") int category,
+  public String detail(int no, int category,
                        Map<String,Object> model) throws Exception {
 
     try {
@@ -103,14 +102,14 @@ public class BoardController {
       return "/WEB-INF/jsp/board/detail.jsp";
 
     } catch (Exception e) {
-      model.put("refresh", "5;url=/board/list?category="+ category);
+      model.put("refresh", "5;url=/board/detail?category="+ category + "&no=" + no);
       throw e;
     }
   }
 
   @RequestMapping("/board/list")
   public String list(
-          @RequestParam("category") int category,
+          int category,
           Map<String,Object> model) throws Exception {
     try {
 
@@ -126,7 +125,7 @@ public class BoardController {
   @RequestMapping("/board/update")
   public String update(
           Board board,
-          @RequestParam("files") Part[] parts,
+          Part[] files,
           HttpSession session,
           Map<String,Object> model) throws Exception {
 
@@ -142,7 +141,7 @@ public class BoardController {
       }
 
       ArrayList<AttachedFile> attachedFiles = new ArrayList<>();
-      for (Part part : parts) {
+      for (Part part : files) {
         if (part.getSize() > 0) {
           String uploadFileUrl = ncpObjectStorageService.uploadFile(
                   "bitcamp-nc7-bucket-07", "board/", part);
@@ -158,14 +157,14 @@ public class BoardController {
 
 
     } catch (Exception e) {
-      model.put("refresh", "2;url=detail?no=" + board.getNo());
+      model.put("refresh", "2;url=detail?category=" + board.getCategory()+ "&no=" + board.getNo());
       throw e;
     }
   }
 
   @RequestMapping("/board/fileDelete")
-  public String fileDelete(@RequestParam("no") int no,
-          Map<String, Object> model, HttpSession session) throws Exception {
+  public String fileDelete(int no,
+                           Map<String, Object> model, HttpSession session) throws Exception {
 
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
@@ -183,7 +182,7 @@ public class BoardController {
       if (boardService.deleteAttachedFile(no) == 0) {
         throw new Exception("해당 번호의 첨부파일이 없다.");
       } else {
-        return "redirect:detail??category=" +board.getCategory() +"&no=" + board.getNo();
+        return "redirect:detail?category=" +board.getCategory() +"&no=" + board.getNo();
       }
 
     } catch (Exception e) {
