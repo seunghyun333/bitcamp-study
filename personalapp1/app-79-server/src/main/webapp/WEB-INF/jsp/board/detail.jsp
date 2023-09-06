@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"
     contentType="text/html;charset=UTF-8"
     trimDirectiveWhitespaces="true"
-    errorPage="../error.jsp"%>
+    errorPage="/error.jsp"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -11,9 +11,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+  
     <meta charset='UTF-8'>
     <title>게시글</title>
-    <style>
+        <style>
       .center-table {
         margin: 0 auto;
         border-collapse: collapse;
@@ -29,7 +30,7 @@
     <jsp:include page="../header.jsp"/>
 
     <h1 style='margin:5px; text-align:center'>게시글</h1>
-
+ 
 
     <c:if test="${empty board}">
       <p>해당 번호의 게시글이 없습니다!</p>
@@ -67,10 +68,9 @@
       </div>
       </form>
     </c:if>
-    <!--  
-    <jsp:include page="../comment/list.jsp"/>
-    <jsp:include page="../comment/form.jsp"/>  
-    -->
+   
+
+  
     <br>
     <br>
     <jsp:include page="../footer.jsp"/>

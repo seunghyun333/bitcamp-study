@@ -7,33 +7,34 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 
-public class AdminWebApplicationInitializer
+public class AppWebApplicationInitializer
     extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-  public AdminWebApplicationInitializer() {
-    System.out.println("AdminWebApplicationInitializer 생성됨!");
+  public AppWebApplicationInitializer() {
+    System.out.println("AppWebApplicationInitializer 생성됨!");
   }
 
   @Override
   protected String getServletName() {
-    return "admin";
+    return "app";
   }
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return null;
+    // ContextLoaderListener의 IoC 컨테이너가 사용할 java config 클래스를 지정한다.
+    return new Class[] {RootConfig.class, DbConfig.class, MybatisConfig.class};
   }
 
   @Override
   protected Class<?>[] getServletConfigClasses() {
     // DispatcherServlet의 IoC 컨테이너가 사용할 java config 클래스를 지정한다.
-    return new Class[] {AdminConfig.class};
+    return new Class[] {AppConfig.class};
   }
 
   @Override
   protected String[] getServletMappings() {
     // DispatcherServlet의 URL을 지정한다.
-    return new String[] {"/admin/*"};
+    return new String[] {"/app/*"};
   }
 
   @Override
@@ -45,5 +46,4 @@ public class AdminWebApplicationInitializer
   protected Filter[] getServletFilters() {
     return new Filter[] {new CharacterEncodingFilter("UTF-8")};
   }
-
 }
