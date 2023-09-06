@@ -9,6 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 @Service
 public class DefaultBoardService implements BoardService{
+  {
+    System.out.println("DefaultBoardService 생성됨");
+  }
+  
 
   BoardDao boardDao;
 
