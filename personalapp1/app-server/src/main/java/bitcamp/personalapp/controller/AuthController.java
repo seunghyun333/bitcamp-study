@@ -11,17 +11,18 @@ import bitcamp.personalapp.service.MemberService;
 import bitcamp.personalapp.vo.Member;
 
 @Controller
+@RequestMapping("/auth")
 public class AuthController {
 
   @Autowired
   MemberService memberService;
 
-  @RequestMapping("/auth/form")
+  @RequestMapping("form")
   public String form() {
     return "/WEB-INF/jsp/auth/form.jsp";
   }
 
-  @RequestMapping("/auth/login")
+  @RequestMapping("login")
   public String login(String email, String pw, String saveEmail, HttpSession session,
       Map<String, Object> model, HttpServletResponse response) throws Exception {
 
@@ -45,7 +46,7 @@ public class AuthController {
     return "redirect:/";
   }
 
-  @RequestMapping("/auth/logout")
+  @RequestMapping("logout")
   public String logout(HttpSession session) throws Exception {
     session.invalidate();
     return "redirect:/";

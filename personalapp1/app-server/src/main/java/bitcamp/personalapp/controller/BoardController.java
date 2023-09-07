@@ -16,6 +16,7 @@ import bitcamp.personalapp.vo.Member;
 
 
 @Controller
+@RequestMapping("/board")
 public class BoardController {
 
   @Autowired
@@ -24,23 +25,20 @@ public class BoardController {
   @Autowired
   NcpObjectStorageService ncpObjectStorageService;
 
-  @RequestMapping("/board/form")
+  @RequestMapping("form")
   public String form() {
     return "/WEB-INF/jsp/board/form.jsp";
   }
 
-  @RequestMapping("/board/add")
-  public String add(
-		  Board board, 
-		  Part[] files, 
-		  Map<String, Object> model, 
-		  HttpSession session) throws Exception {
+  @RequestMapping("add")
+  public String add(Board board, Part[] files, Map<String, Object> model, HttpSession session)
+      throws Exception {
 
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
       return "redirect:../auth/form";
     }
-    
+
     board.setMno(loginUser);
 
     try {
@@ -67,7 +65,7 @@ public class BoardController {
   }
 
 
-  @RequestMapping("/board/delete")
+  @RequestMapping("delete")
   public String delete(int no, Map<String, Object> model, HttpSession session) throws Exception {
 
     Member loginUser = (Member) session.getAttribute("loginUser");
@@ -91,7 +89,7 @@ public class BoardController {
     }
   }
 
-  @RequestMapping("/board/detail")
+  @RequestMapping("detail")
   public String detail(int no, Map<String, Object> model) throws Exception {
 
     try {
@@ -116,7 +114,7 @@ public class BoardController {
   }
 
 
-  @RequestMapping("/board/list")
+  @RequestMapping("list")
   public String list(Map<String, Object> model) throws Exception {
 
 
@@ -131,7 +129,7 @@ public class BoardController {
   }
 
 
-  @RequestMapping("/board/update")
+  @RequestMapping("update")
   public String update(Board board, Part[] files, Map<String, Object> model, HttpSession session)
       throws Exception {
 
@@ -173,7 +171,7 @@ public class BoardController {
   }
 
 
-  @RequestMapping("/board/fileDelete")
+  @RequestMapping("fileDelete")
   public String fileDelete(int no, Map<String, Object> model, HttpSession session)
       throws Exception {
 

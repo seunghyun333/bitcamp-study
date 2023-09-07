@@ -10,6 +10,7 @@ import bitcamp.personalapp.service.NcpObjectStorageService;
 import bitcamp.personalapp.vo.Member;
 
 @Controller
+@RequestMapping("/member")
 public class MemberController {
 
   @Autowired
@@ -18,13 +19,13 @@ public class MemberController {
   @Autowired
   NcpObjectStorageService ncpObjectStorageService;
 
-  @RequestMapping("/member/form")
+  @RequestMapping("form")
   public String form() {
     return "/WEB-INF/jsp/member/form.jsp";
   }
 
 
-  @RequestMapping("/member/add")
+  @RequestMapping("add")
   public String add(Member member, Part photofile, Map<String, Object> model) throws Exception {
 
     try {
@@ -47,7 +48,7 @@ public class MemberController {
   }
 
 
-  @RequestMapping("/member/delete")
+  @RequestMapping("delete")
   public String delete(int no, Map<String, Object> model) throws Exception {
 
     try {
@@ -63,21 +64,21 @@ public class MemberController {
     }
   }
 
-  @RequestMapping("/member/detail")
+  @RequestMapping("detail")
   public String detail(int no, Map<String, Object> model) throws Exception {
 
     model.put("member", memberService.get(no));
     return "/WEB-INF/jsp/member/detail.jsp";
   }
 
-  @RequestMapping("/member/list")
+  @RequestMapping("list")
   public String list(Map<String, Object> model) throws Exception {
     model.put("list", memberService.list());
     return "/WEB-INF/jsp/member/list.jsp";
   }
 
 
-  @RequestMapping("/member/update")
+  @RequestMapping("update")
   public String update(Member member, Part photofile, Map<String, Object> model) throws Exception {
 
     try {
