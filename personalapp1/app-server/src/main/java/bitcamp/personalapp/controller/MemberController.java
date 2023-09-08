@@ -1,10 +1,13 @@
 package bitcamp.personalapp.controller;
 
-import java.util.Map;
-import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import bitcamp.personalapp.service.MemberService;
 import bitcamp.personalapp.service.NcpObjectStorageService;
 import bitcamp.personalapp.vo.Member;
@@ -13,20 +16,23 @@ import bitcamp.personalapp.vo.Member;
 @RequestMapping("/member")
 public class MemberController {
 
+  {
+    System.out.println("MemberController 생성됨!");
+  }
+
+
   @Autowired
   MemberService memberService;
 
   @Autowired
   NcpObjectStorageService ncpObjectStorageService;
 
-  @RequestMapping("form")
-  public String form() {
-    return "/WEB-INF/jsp/member/form.jsp";
-  }
+  @GetMapping("form")
+  public void form() {}
 
 
-  @RequestMapping("add")
-  public String add(Member member, Part photofile, Map<String, Object> model) throws Exception {
+  @PostMapping("add")
+  public String add(Member member, MultipartFile photofile, Model model) throws Exception {
 
     try {
       System.out.println(member);
@@ -41,15 +47,15 @@ public class MemberController {
       return "redirect:list";
 
     } catch (Exception e) {
-      model.put("message", "회원 등록 오류!");
-      model.put("refresh", "2;url=list");
+      model.addAttribute("message", "회원 등록 오류!");
+      model.addAttribute("refresh", "2;url=list");
       throw e;
     }
   }
 
 
-  @RequestMapping("delete")
-  public String delete(int no, Map<String, Object> model) throws Exception {
+  @GetMapping("delete")
+  public String delete(int no, Model model) throws Exception {
 
     try {
       if (memberService.delete(no) == 0) {
@@ -59,27 +65,27 @@ public class MemberController {
       }
 
     } catch (Exception e) {
-      model.put("refresh", "2;url=list");
+      model.addAttribute("refresh", "2;url=list");
       throw e;
     }
   }
 
-  @RequestMapping("detail")
-  public String detail(int no, Map<String, Object> model) throws Exception {
+  @GetMapping("{no}")
+  public String detail(@PathVariable int no, Model model) throws Exception {
 
-    model.put("member", memberService.get(no));
-    return "/WEB-INF/jsp/member/detail.jsp";
+    model.addAttribute("member", memberService.get(no));
+    return "member/detail";
   }
 
-  @RequestMapping("list")
-  public String list(Map<String, Object> model) throws Exception {
-    model.put("list", memberService.list());
-    return "/WEB-INF/jsp/member/list.jsp";
+  @GetMapping("list")
+  public void list(Model model) throws Exception {
+    model.addAttribute("list", memberService.list());
+
   }
 
 
-  @RequestMapping("update")
-  public String update(Member member, Part photofile, Map<String, Object> model) throws Exception {
+  @PostMapping("update")
+  public String update(Member member, MultipartFile photofile, Model model) throws Exception {
 
     try {
       if (photofile.getSize() > 0) {
@@ -95,7 +101,7 @@ public class MemberController {
       }
 
     } catch (Exception e) {
-      model.put("refresh", "2;url=list");
+      model.addAttribute("refresh", "2;url=list");
       throw e;
     }
   }

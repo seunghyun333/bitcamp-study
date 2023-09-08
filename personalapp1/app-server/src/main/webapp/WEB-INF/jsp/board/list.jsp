@@ -45,7 +45,7 @@
 <c:forEach items="${list}" var="board">
 	<tr style='margin:5px; text-align:center'>
 	<td>${board.no}</td> 
-	<td><a href='detail?no=${board.no}'>
+	<td><a href='detail/${board.no}'>
 	     ${board.title.length() > 0 ? board.title : "제목없음"}
 	     </a>
 	 </td>
