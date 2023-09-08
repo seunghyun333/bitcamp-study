@@ -17,13 +17,12 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
-
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 
   {
-    System.out.println("BoardController 생성됨");
+    System.out.println("BoardController 생성됨!");
   }
 
   @Autowired
@@ -35,7 +34,6 @@ public class BoardController {
   @GetMapping("form")
   public void form() {
   }
-
 
   @PostMapping("add")
   public String add(
@@ -77,9 +75,10 @@ public class BoardController {
   @GetMapping("delete")
   public String delete(
           int no,
-          Model model,
           int category,
+          Model model,
           HttpSession session) throws Exception {
+
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
       return "redirect:../auth/form";
@@ -100,23 +99,22 @@ public class BoardController {
       throw e;
     }
   }
+
   @GetMapping("detail/{category}/{no}")
   public String detail(
           @PathVariable int category,
           @PathVariable int no,
           Model model) throws Exception {
-
     try {
       Board board = boardService.get(no);
       if (board != null) {
         boardService.increaseViewCount(no);
         model.addAttribute("board", board);
       }
-
       return "board/detail";
 
     } catch (Exception e) {
-      model.addAttribute("refresh", "5;url=/board/detail?category="+ category + "&no=" + no);
+      model.addAttribute("refresh", "5;url=/board/list?category=" + category);
       throw e;
     }
   }
@@ -138,8 +136,7 @@ public class BoardController {
           Board board,
           MultipartFile[] files,
           Model model,
-          HttpSession session
-         ) throws Exception {
+          HttpSession session) throws Exception {
 
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
@@ -166,7 +163,6 @@ public class BoardController {
 
       boardService.update(board);
       return "redirect:list?category=" + b.getCategory();
-
 
     } catch (Exception e) {
       model.addAttribute("refresh", "2;url=detail?no=" + board.getNo());
@@ -205,6 +201,7 @@ public class BoardController {
     }
   }
 }
+
 
 
 
