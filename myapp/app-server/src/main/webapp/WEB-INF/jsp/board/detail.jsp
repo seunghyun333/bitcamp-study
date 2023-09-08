@@ -6,7 +6,7 @@
     errorPage="/error.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="refresh" value="2;url=list.jsp?category=${param.category}" scope="request"/>
+<c:set var="refresh" value="2;url=list?category=${param.category}" scope="request"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +18,7 @@
 <jsp:include page="../header.jsp"/>
 
 <h1>게시글</h1>
+
 <c:if test="${empty board}">
     <p>해당 번호의 게시글이 없습니다!</p>
 </c:if>
@@ -33,8 +34,7 @@
     <td><textarea name='content' style='height:200px; width:400px;'>${board.content}</textarea></td></tr>
     <tr><th>작성자</th> <td>${board.writer.name}</td></tr>
     <tr><th>조회수</th> <td>${board.viewCount}</td></tr>
-    <tr><th>등록일</th> <td><fmt:formatDate value="${board.createdDate}"
-                                       pattern="yyyy-MM-dd"/></td></tr>
+    <tr><th>등록일</th> <td><fmt:formatDate value="${board.createdDate}" pattern="yyyy-MM-dd"/></td></tr>
     <tr><th>첨부파일</th><td>
     <c:forEach items="${board.attachedFiles}" var="file">
         <a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-07/board/${file.filePath}'>${file.filePath}</a>
@@ -57,6 +57,16 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
 
