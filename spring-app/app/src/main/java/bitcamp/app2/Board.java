@@ -1,7 +1,9 @@
 package bitcamp.app2;
 
-import java.sql.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.sql.Date;
+
 
 public class Board {
   protected int no;

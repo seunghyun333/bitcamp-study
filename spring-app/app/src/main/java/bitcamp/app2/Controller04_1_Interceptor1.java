@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 // 인터셉터 만들기
 // => 프론트 컨트롤러와 페이지 컨트롤러 사이에 코드를 삽입하는 기술
@@ -37,4 +38,6 @@ public class Controller04_1_Interceptor1 implements HandlerInterceptor {
     // JSP를 실행한 후 이 메서드가 호출된다.
     System.out.println("Interceptor1.afterCompletion()");
   }
+
+
 }

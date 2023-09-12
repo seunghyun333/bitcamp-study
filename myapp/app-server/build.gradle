@@ -52,6 +52,9 @@ dependencies {
     //implementation 'org.mybatis:mybatis-spring:3.0.2' // Spring 6.x 버전 지원
     implementation 'org.mybatis:mybatis-spring:2.1.1'
 
+    // jackson
+    //    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
     // Log4j 2.x 라이브러리
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
 

@@ -4,7 +4,7 @@ package bitcamp.app1;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,8 +53,8 @@ public class Controller04_9 {
     out.println("<h1>결과</h1>");
     out.printf("<p>통데이터:%s</p>\n", jsonData);
 
-    Car car = new Gson().fromJson(jsonData, Car.class);
-    out.printf("<p>%s</p>\n", car.toString());
+   // Car car = new Gson().fromJson(jsonData, Car.class);
+   // out.printf("<p>%s</p>\n", car.toString());
 
     out.println("</body></html>");
     return out0.toString();

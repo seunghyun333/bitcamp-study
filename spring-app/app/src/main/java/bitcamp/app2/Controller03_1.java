@@ -21,6 +21,8 @@ public class Controller03_1 {
     //
     session.setAttribute("name", "홍길동");
     session.setAttribute("age", "20");
+//    session.setAttribute("name2", "임꺽정");
+//    session.setAttribute("age2", "50");
 
     return "세션에 값을 보관했음!";
   }
@@ -32,9 +34,13 @@ public class Controller03_1 {
   public String handler2(HttpSession session) {
     // HttpSession 객체를 사용하려면 아규먼트로 받아야 한다.
     //
-    return String.format("name=%s, age=%s",
-        session.getAttribute("name"),
-        session.getAttribute("age"));
+    return String.format("name=%s, age=%s,name2=%s, age2=%s, tel2=%s",
+
+            session.getAttribute("name"),
+            session.getAttribute("age"),
+            session.getAttribute("name2"),
+            session.getAttribute("age2"),
+            session.getAttribute("tel2"));
   }
 
   // 테스트:
@@ -46,7 +52,7 @@ public class Controller03_1 {
     //
 
     // 세션을 무효화시키기
-    session.invalidate();
+    session.invalidate(); // 기존 세션 무시하고 새로운 세션 생성함
 
     return "세션을 무효화시켰음!";
   }
