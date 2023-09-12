@@ -37,7 +37,7 @@
     </c:if>
 
     <c:if test="${not empty board}">
-      <form action='update' method='post' enctype='multipart/form-data'>
+      <form action='/app/board/update' method='post' enctype='multipart/form-data'>
       <table class="center-table">
       <tr><th style='width:120px;'>번호</th>
                 <td style='width:300px;'><input type='text' name='no' value='${board.no}' readonly></td></tr>
@@ -53,7 +53,7 @@
       <tr><th>첨부파일</th><td>
       <c:forEach items="${board.attachedFiles}" var="file">     
         <a href='https://kr.object.ncloudstorage.com/bitcamp-nc7-bucket-07/board/${file.filePath}'>${file.filePath}</a>
-        [<a href='fileDelete?no=${file.no}'>삭제</a>] <br>
+        [<a href='/app/board/fileDelete/fileNo=${file.no}'>삭제</a>] <br>
       </c:forEach>  
         <input type='file' name='files' multiple>
       </td></tr>
@@ -63,8 +63,8 @@
       <button>변경</button>
       <button type='reset'>초기화</button>
       
-      <a href='delete?no=${board.no}'>삭제</a>
-      <a href='list'>목록</a>
+      <a href='app/board/delete?no=${board.no}'>삭제</a>
+      <a href='/app/board/list'>목록</a>
       </div>
       </form>
     </c:if>
