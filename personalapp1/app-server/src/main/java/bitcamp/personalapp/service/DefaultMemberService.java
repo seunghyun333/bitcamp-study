@@ -1,15 +1,18 @@
 package bitcamp.personalapp.service;
 
-import java.util.List;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import bitcamp.personalapp.dao.MemberDao;
 import bitcamp.personalapp.vo.Member;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
 public class DefaultMemberService implements MemberService {
-
+  {
+    System.out.println("DefaultMemberService 생성됨!");
+  }
   MemberDao memberDao;
 
 
