@@ -1,13 +1,26 @@
 package bitcamp.myapp;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
+@PropertySource("ncp.properties")
+@ConfigurationProperties("ncp")
 public class NcpConfig {
-  private String endPoint = "https://kr.object.ncloudstorage.com";
-  private String regionName = "kr-standard";
-  private String accessKey = System.getProperty("accessKey");
-  private String secretKey = System.getProperty("secretKey");
+  //ncp.properties 파일의 속성 값을 직접 지정하기
+//  @Value("${ncp.end.point}") private String endPoint;
+//  @Value("${ncp.region.name}") private String regionName;
+//  @Value("${ncp.acess.key}") private String accessKey;
+//  @Value("${ncp.secret.key}") private String secretKey;
+
+  //ncp.properties 파일의 속성 값을 자동으로 지정하기
+  // => @ConfigurationProperties("접두사") 애노테이션을 사용하여 가져올 프로퍼티를 지정한다.
+  private String endPoint;
+  private String regionName;
+  private String accessKey;
+  private String secretKey;
+
 
   public NcpConfig() {
     System.out.println("NcpConfig() 호출됨!");
