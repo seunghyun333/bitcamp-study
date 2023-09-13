@@ -1,22 +1,19 @@
 package bitcamp.personalapp.controller;
 
 
-import java.util.ArrayList;
-import javax.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.MatrixVariable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 import bitcamp.personalapp.service.BoardService;
 import bitcamp.personalapp.service.NcpObjectStorageService;
 import bitcamp.personalapp.vo.AttachedFile;
 import bitcamp.personalapp.vo.Board;
 import bitcamp.personalapp.vo.Member;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 
 @Controller
@@ -42,7 +39,7 @@ public class BoardController {
 
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
-      return "redirect:../auth/form";
+      return "redirect:/auth/form";
     }
 
     board.setMno(loginUser);
@@ -76,7 +73,7 @@ public class BoardController {
 
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
-      return "redirect:../auth/form";
+      return "redirect:/auth/form";
     }
 
     try {
@@ -138,7 +135,7 @@ public class BoardController {
 
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
-      return "redirect:../auth/form";
+      return "redirect:/auth/form";
     }
 
     try {
@@ -169,34 +166,35 @@ public class BoardController {
   }
 
 
-  @GetMapping("fileDelete/{file}")
+  @GetMapping("fileDelete/{attachedfile}")
   public String fileDelete(
-		  @MatrixVariable(name = "fileNo", pathVar="file") int fileNo, Model model, HttpSession session) throws Exception {
+		  @MatrixVariable("no") int no,
+          Model model, HttpSession session) throws Exception {
 
 
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
-      return "redirect:../auth/form";
+      return "redirect:/auth/form";
     }
 
     Board board = null;
 
     try {
-      AttachedFile attachedFile = boardService.getAttachedFile(fileNo);
+      AttachedFile attachedFile = boardService.getAttachedFile(no);
       board = boardService.get(attachedFile.getBoardNo());
       if (board.getMno().getNo() != loginUser.getNo()) {
         throw new Exception("게시글 변경 권한이 없습니다!");
       }
 
 
-      if (boardService.deleteAttachedFile(fileNo) == 0) {
+      if (boardService.deleteAttachedFile(no) == 0) {
         throw new Exception("해당 번호의 첨부파일이 없거나 삭제 권한이 없습니다.");
       } else {
-        return "redirect:/app/board/detail/" + board.getNo();
+        return "redirect:/board/detail/" + board.getNo();
       }
 
     } catch (Exception e) {
-      model.addAttribute("refresh", "2;url=/app/board/detail/" + board.getNo());
+      model.addAttribute("refresh", "2;url=/board/detail/" + board.getNo());
       throw e;
     }
   }

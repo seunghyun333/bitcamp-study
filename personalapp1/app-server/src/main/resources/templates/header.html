@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>My-Diary♥</title>
+    <style>
+        h1 {
+          color: pink;
+        }
+        .image-grid img {
+          max-width: 100%;
+          height: auto;
+        }
+    </style>
+</head>
+<body>
+<div data-th-fragment="header" style='height:250px;background-color:pink;text-align:center; padding-top: 50px;'>
+<a href='/index.jsp'>
+	<img src='https://www.ncloud.com/public/img/logo-m.png' style='height:50px'>
+</a>
+	<br>
+<br>
+
+<div style="text-align: right; margin-right: 80px;">
+<c:choose>
+  <c:when test="${empty sessionScope.loginUser}">
+  <a href='/auth/form'>로그인</a>
+  </c:when>
+  <c:otherwise>
+    <c:if test="${empty sessionScope.loginUser.photo}">
+      <img style='height:40px' src='/images/avatar.png'>
+    </c:if>
+    <c:if test="${not empty sessionScope.loginUser.photo}">
+      <img src='http://rilqiqaqfxro19010722.cdn.ntruss.com/member/${loginUser.photo}?type=f&w=60&h=80&faceopt=true&ttype=jpg'>
+    </c:if>
+     ${loginUser.name} <a href='/auth/logout'>로그아웃</a>
+  </c:otherwise>
+</c:choose>
+<br>
+
+
+ </div>
+ 
+<br>
+<br>
+	<a href='/diary/list'>일기</a>
+	<a href='/board/list'>자유게시판</a>
+	<a href='/member/list'>회원</a>
+
+</div>
+
+</body>
+</html>
