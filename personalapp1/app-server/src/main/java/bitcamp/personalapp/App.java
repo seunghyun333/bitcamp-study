@@ -23,14 +23,14 @@ public class App implements WebMvcConfigurer{
 //  return new StandardServletMultipartResolver();
 //}
   
-  @Bean
-  public ViewResolver viewResolver() {
-    InternalResourceViewResolver vr = new InternalResourceViewResolver();
-    vr.setViewClass(JstlView.class);
-    vr.setPrefix("/WEB-INF/jsp/");
-    vr.setSuffix(".jsp");
-    return vr;
-  }
+//  @Bean
+//  public ViewResolver viewResolver() {
+//    InternalResourceViewResolver vr = new InternalResourceViewResolver();
+//    vr.setViewClass(JstlView.class);
+//    vr.setPrefix("/WEB-INF/jsp/");
+//    vr.setSuffix(".jsp");
+//    return vr;
+//  }
   
 
 //@Override
