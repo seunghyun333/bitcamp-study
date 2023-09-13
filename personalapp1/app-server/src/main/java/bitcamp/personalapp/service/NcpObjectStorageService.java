@@ -20,6 +20,7 @@ public class NcpObjectStorageService {
 
   public NcpObjectStorageService(NcpConfig ncpConfig) {
     System.out.println("NcpObjectStorageService() 호출됨!");
+
     s3 = AmazonS3ClientBuilder.standard()
         .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
             ncpConfig.getEndPoint(), ncpConfig.getRegionName()))
