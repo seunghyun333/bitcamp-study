@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>My-Diary♥</title>
+    <style>
+        h1 {
+          color: pink;
+        }
+        .image-grid img {
+          max-width: 100%;
+          height: auto;
+        }
+    </style>
+</head>
+<body>
+<div data-th-fragment="header" style='height:250px;background-color:pink;text-align:center; padding-top: 50px;'>
+
+<h1 style='margin:5px; text-align:center'>로그인</h1>
+    
+<form action='login' method='post'>
+<table border='1' class="center-table">
+<tr>
+ <th>email</th> <td><input type='email' name='email' value='${cookie.email.value}'></td>
+</tr>
+<tr>
+ <th>pw</th> <td><input type='password' name='pw'></td>
+</tr>
+</table> 
+<div style='margin: 5px auto; text-align: center; '>
+<button>로그인</button>
+  <input type='checkbox' name='saveEmail' ${cookie.email != null ? "checked" : ""}> 이메일 저장
+ </div>
+  </form>
+
+
+    <div data-th-replace="footer :: footer"></div>
+
+</body>
+</html>
+
