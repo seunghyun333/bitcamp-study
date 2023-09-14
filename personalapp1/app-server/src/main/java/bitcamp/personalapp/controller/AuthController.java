@@ -5,6 +5,7 @@ import bitcamp.personalapp.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,9 @@ public class AuthController {
   MemberService memberService;
 
   @GetMapping("form")
-  public void form() {}
+  public void form(@CookieValue(required = false) String email, Model model) {
+    model.addAttribute("email", email);
+  }
 
   @PostMapping("login")
   public String login(String email, String pw, String saveEmail, HttpSession session, Model model,
