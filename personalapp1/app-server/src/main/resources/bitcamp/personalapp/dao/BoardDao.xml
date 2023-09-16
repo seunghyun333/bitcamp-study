@@ -70,6 +70,8 @@
    	c.cno=#{cno}
   </select>
 
+
+
   <update id="update" parameterType="board">
   update 
 	  dia_content set

@@ -1,11 +1,10 @@
 package bitcamp.personalapp.dao;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-
 import bitcamp.personalapp.vo.AttachedFile;
 import bitcamp.personalapp.vo.Board;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface BoardDao {

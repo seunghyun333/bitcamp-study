@@ -40,6 +40,7 @@ public class DefaultBoardService implements BoardService {
     return boardDao.findBy(boardNo);
   }
 
+
   @Transactional
   @Override
   public int update(Board board) throws Exception {
