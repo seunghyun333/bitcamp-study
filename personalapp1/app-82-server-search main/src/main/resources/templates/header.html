@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>My-Diary♥</title>
+    <style>
+        h1 {
+          color: pink;
+        }
+        .image-grid img {
+          max-width: 100%;
+          height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+
+<div data-th-fragment="header" style='height:250px;background-color:pink;text-align:center; padding-top: 50px;'>
+    <a href='/'><img src='https://www.ncloud.com/public/img/logo-m.png' style='height:50px'></a>
+<br>
+<br>
+
+<div style="text-align: right; margin-right: 80px;">
+
+
+  <a data-th-if="${session.loginUser == null}" href='/auth/form'>로그인</a>
+
+
+  <div style="display:inline;" data-th-if="${session.loginUser != null}">
+      <img data-th-if="${session.loginUser.photo == null}" style='height:40px' src='/images/avatar.png'>
+      <img data-th-if="${session.loginUser.photo != null}"
+           data-th-src="${'http://rilqiqaqfxro19010722.cdn.ntruss.com/member/' + session.loginUser.photo + '?type=f&w=30&h=40&faceopt=true&ttype=jpg'}">
+        <span data-th-text="${session.loginUser.name}"></span>
+        <a href='/auth/logout'>로그아웃</a>
+  </div>
+
+    <br>
+
+
+ </div>
+ 
+<br>
+<br>
+	<a href='/board/userlist'>일기</a>
+	<a href='/board/list'>자유게시판</a>
+	<a href='/member/list'>회원</a>
+
+
+
+
+</div>
+
+</body>
+</html>
