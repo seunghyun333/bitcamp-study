@@ -107,6 +107,26 @@ public class BoardController {
       model.addAttribute("list", boardService.list());
   }
 
+<<<<<<< HEAD
+=======
+  @GetMapping("userlist")
+  public String userlist(Model model, HttpSession session) throws Exception {
+    Member loginUser = (Member) session.getAttribute("loginUser");
+
+
+    // 로그인 정보가 없는 경우 로그인 폼으로 이동
+    if (loginUser == null) {
+      return "redirect:/auth/form";
+    }
+
+    // 로그인 정보가 있는 경우 게시글 목록을 표시
+    model.addAttribute("loginUser.no", loginUser.getNo());
+    model.addAttribute("list", boardService.list());
+    return "board/userlist";
+  }
+
+
+>>>>>>> 8d4aec26b256cdc53da40d3b7d957f02eb29c836
 
   @PostMapping("update")
   public String update(Board board, MultipartFile[] files, Model model, HttpSession session)

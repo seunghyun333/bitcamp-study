@@ -1,29 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
 <meta charset="UTF-8">
 <title>My-Diary♥</title>
-<style>
-  h1 {
-    color: pink;
-  }
-  .image-grid img {
-    max-width: 100%;
-    height: auto;
-  }
-</style>
+    <style>
+        /* 가로로 배치하기 위한 스타일 */
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4개의 열로 설정 */
+            gap: 10px; /* 이미지 간격 조절 */
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+
+
 </head>
 <body>
 <div data-th-replace="header :: header"></div>
 <h1 style='text-align:center' >My-Diary♥</h1>
 <div style="text-align:center;">
     <a href='/board/form'>오늘의 기분을 공유하기</a>
+<<<<<<< HEAD
 <div class="image-grid">
+=======
 
 
-        <p>게시판 or 다이어리 or 회원 사진 예정</p>
 
-</div>
+<p>게시판 or 다이어리 or 회원 사진 예정</p>
+
+
+
+    <iframe border="no" marginwidth="0" style="height: 720px; width: 752px; overflow-y: hidden;" src="/member/photolist"></iframe>
+>>>>>>> 8d4aec26b256cdc53da40d3b7d957f02eb29c836
+
+
+
 </div>
 <br>
 <div data-th-replace="footer :: footer"></div>

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -63,6 +64,11 @@ public class BoardController {
   }
 
 
+    @GetMapping("list")
+  public void list(Model model) throws Exception {
+    model.addAttribute("list", boardService.list());
+  }
+
   @GetMapping("delete")
   public String delete(int no, Model model, HttpSession session) throws Exception {
 
@@ -70,6 +76,7 @@ public class BoardController {
     if (loginUser == null) {
       return "redirect:/auth/form";
     }
+
 
       Board b = boardService.get(no);
 
@@ -79,6 +86,16 @@ public class BoardController {
         boardService.delete(b.getNo());
         return "redirect:/board/list";
       }
+
+    Board b = boardService.get(no);
+
+    if (b == null || b.getMno().getNo() != loginUser.getNo()) {
+      throw new Exception("해당 번호의 게시글이 없거나 삭제 권한이 없습니다.");
+    } else {
+      boardService.delete(b.getNo());
+      return "redirect:/board/list";
+    }
+
 
   }
 
@@ -101,11 +118,41 @@ public class BoardController {
 
   }
 
+  @GetMapping("userlist")
+  public String userlist(Model model, HttpSession session) throws Exception {
+    Member loginUser = (Member) session.getAttribute("loginUser");
+
 
   @GetMapping("list")
   public void list(Model model) throws Exception {
       model.addAttribute("list", boardService.list());
+
+
+    // 로그인 정보가 없는 경우 로그인 폼으로 이동
+    if (loginUser == null) {
+      return "redirect:/auth/form";
+    }
+
+    // 로그인 정보가 있는 경우 게시글 목록을 표시
+    model.addAttribute("loginUser.no", loginUser.getNo());
+    model.addAttribute("list", boardService.list());
+    return "board/userlist";
+
   }
+
+  @GetMapping("searchlist")
+  public String searchlist(Model model, HttpSession session, @RequestParam String option, @RequestParam String keyword) throws Exception {
+
+    model.addAttribute("option", option);
+    model.addAttribute("keyword", keyword);
+
+    List<Board> searchResult = boardService.searchlist(option, keyword);
+    model.addAttribute("searchResult", searchResult);
+    System.out.println("Search List: " + searchResult);
+
+    return "board/searchlist";
+  }
+
 
 
   @PostMapping("update")
@@ -117,6 +164,7 @@ public class BoardController {
     if (loginUser == null) {
       return "redirect:/auth/form";
     }
+
 
 
       Board b = boardService.get(board.getNo());

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>회원♥</title>
+    <style>
+        /* 4열로 큼직크게 배치하기 위한 스타일 */
+        .center-table {
+            margin: auto;
+            width: 80%; /* 테이블 너비 조정 */
+            table-layout: fixed; /* 테이블 너비 고정 */
+        }
+        .center-table td {
+            width: 25%; /* 각 셀의 너비 조정 */
+            text-align: center;
+            padding: 10px; /* 셀 간격 조정 */
+        }
+        .center-table img {
+            max-width: 100%;
+            height: auto;
+            width: 100%; /* 이미지 크기 조정 */
+            max-height: 200px; /* 이미지 높이 제한 (원하는 크기로 조정) */
+        }
+        div[data-th-fragment="photolist"] {
+            overflow: hidden; /* 스크롤 숨김 */
+        }
+    </style>
+</head>
+<body>
+<div data-th-fragment="photolist">
+    <table class="center-table">
+        <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="member : ${list}">
+            <td>
+                <img data-th-if="${member.photo}" data-th-src="@{'http://rilqiqaqfxro19010722.cdn.ntruss.com/member/' + ${member.photo}(type=f,w=60,h=80,faceopt=true,ttype=jpg)}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

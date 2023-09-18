@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>게시글♥</title>
+    <style>
+        h1 {
+          color: pink;
+        }
+        .image-grid img {
+          max-width: 100%;
+          height: auto;
+        }
+        .center-table {
+         margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div data-th-replace="header :: header"></div>
+<br>
+
+<h1>게시글</h1>
+<form action='add' method='post' enctype='multipart/form-data'>
+제목 <input type="text" name='title'><br><br>
+내용 <textarea name="content"></textarea><br>
+비밀여부 <label>
+  <input type="radio" name="secret" value="0"> (비밀 아님) 
+  </label>
+  <label>
+  <input type="radio" name="secret" value="1"> (비밀)
+  </label><br><br>
+파일 <input type='file' name='files' multiple><br> <br>
+<button>등록</button> <br><br>
+
+</form>
+
+<div data-th-replace="footer :: footer"></div>
+
+</body>
+</html>
+
+

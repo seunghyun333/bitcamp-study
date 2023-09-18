@@ -15,12 +15,36 @@
          margin: auto;
         }
 	</style>
+<<<<<<< HEAD
+=======
+	<script src="ajax-script.js"></script>
+>>>>>>> 8d4aec26b256cdc53da40d3b7d957f02eb29c836
 </head>
 <body>
 <div data-th-replace="header :: header"></div>
 <br>
 <h1 style='margin:5px; text-align:center'>☆전체 게시글 목록☆</h1>
 <div style='margin: 5px auto; text-align: center; margin-right: -300px;'>
+<<<<<<< HEAD
+=======
+
+	<br>
+	<br>
+	<div class="input-group">
+		<form action="searchlist" name="search-form">
+			<select name="option">
+				<option selected value ="">검색 내용 선택</option>
+				<option value="title">제목</option>
+				<option value="content">내용</option>
+				<option value="name">작성자</option>
+			</select>
+			<input type="text" name="keyword" value="", placeholder="키워드를 입력하세요" ></input>
+
+			<input type="submit" value="검색"></input>
+		</form>
+	</div>
+
+>>>>>>> 8d4aec26b256cdc53da40d3b7d957f02eb29c836
 <br>
 <a data-th-href="@{/board/form}">새 글</a>
 </div>

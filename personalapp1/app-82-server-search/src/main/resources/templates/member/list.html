@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>회원♥</title>
+    <style>
+        h1 {
+          color: pink;
+        }
+        .image-grid img {
+          max-width: 100%;
+          height: auto;
+        }
+        .center-table {
+         margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div data-th-replace="header :: header"></div>
+<br>
+
+
+<h1 style='margin:5px; text-align:center'>회원 목록</h1>
+<div style='margin: 5px auto; text-align: center; margin-right: -250px;'>
+<a href='form'>회원가입</a>
+</div>
+<table class="center-table">
+<thead>
+  <tr><th>회원번호</th> <th>이름</th> <th>이메일</th></tr>
+</thead>
+<tbody>
+
+	<tr data-th-each="member : ${list}">
+	 <td data-th-text="${member.no}">100</td>
+	  <td>
+      <img data-th-unless="${member.photo}" src="/images/avatar.png" style="width:30px;height:40px;">
+	 <img data-th-if="${member.photo}" data-th-src="@{'http://rilqiqaqfxro19010722.cdn.ntruss.com/member/' + ${member.photo}(type=f,w=30,h=40,faceopt=true,ttype=jpg)}">
+       <a data-th-href='${member.no}' data-th-text="${member.name}">홍길동</a></td>
+       <td data-th-text="${member.email}">hong@test.com</td>
+    </tr>
+
+</tbody>
+</table>
+
+<div style='margin: 5px auto; text-align: center; margin-right: -250px;'>
+<a href='/'>메인</a>
+</div>
+<div data-th-replace="footer :: footer"></div>
+</body>
+</html>
+
+
+
+

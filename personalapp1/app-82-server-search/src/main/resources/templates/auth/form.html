@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>My-Diary♥</title>
+    <style>
+        h1 {
+          color: pink;
+        }
+        .image-grid img {
+          max-width: 100%;
+          height: auto;
+        }
+        .center-table {
+         margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div data-th-replace="header :: header"></div>
+
+<h1 style='margin:5px; text-align:center'>로그인</h1>
+    
+<form action='login' method='post'>
+<table border='1' class="center-table">
+<tr>
+ <th>email</th> <td><input type='email' name='email' data-th-value='${email}'></td>
+</tr>
+<tr>
+ <th>pw</th> <td><input type='password' name='pw'></td>
+</tr>
+</table> 
+<div style='margin: 5px auto; text-align: center; '>
+<button>로그인</button>
+  <input type='checkbox' name='saveEmail' data-th-checked="${email}"}> 이메일 저장
+ </div>
+  </form>
+
+
+<div data-th-replace="footer :: footer"></div>
+
+
+</body>
+</html>
+

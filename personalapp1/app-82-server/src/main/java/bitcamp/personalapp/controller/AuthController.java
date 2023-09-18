@@ -52,6 +52,10 @@ public class AuthController {
     }
 
     session.setAttribute("loginUser", loginUser);
+<<<<<<< HEAD
+=======
+    session.setAttribute("loginUser.no", loginUser.getNo());
+>>>>>>> 8d4aec26b256cdc53da40d3b7d957f02eb29c836
     return "redirect:/";
   }
 
