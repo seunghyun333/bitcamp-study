@@ -21,7 +21,7 @@
 <br>
 
 <h1>게시글</h1>
-<form action='add' method='post' enctype='multipart/form-data'>
+<form data-th-action="@{/board/add}" method='post' enctype='multipart/form-data'>
 제목 <input type="text" name='title'><br><br>
 내용 <textarea name="content"></textarea><br>
 비밀여부 <label>
