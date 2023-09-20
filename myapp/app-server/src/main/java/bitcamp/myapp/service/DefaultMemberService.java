@@ -33,12 +33,12 @@ public class DefaultMemberService implements MemberService{
   }
 
   @Override
-  public Member get(int memberNo) throws Exception {
+  public Member get(int memberNo) {
     return memberDao.findBy(memberNo);
   }
 
   @Override
-  public Member get(String email, String password) throws Exception {
+  public Member get(String email, String password)  {
     return memberDao.findByEmailAndPassword(email, password);
   }
 

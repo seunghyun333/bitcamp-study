@@ -77,16 +77,6 @@ public class BoardController {
       return "redirect:/auth/form";
     }
 
-
-      Board b = boardService.get(no);
-
-      if (b == null || b.getMno().getNo() != loginUser.getNo()) {
-        throw new Exception("해당 번호의 게시글이 없거나 삭제 권한이 없습니다.");
-      } else {
-        boardService.delete(b.getNo());
-        return "redirect:/board/list";
-      }
-
     Board b = boardService.get(no);
 
     if (b == null || b.getMno().getNo() != loginUser.getNo()) {
@@ -95,7 +85,6 @@ public class BoardController {
       boardService.delete(b.getNo());
       return "redirect:/board/list";
     }
-
 
   }
 
@@ -123,11 +112,6 @@ public class BoardController {
     Member loginUser = (Member) session.getAttribute("loginUser");
 
 
-  @GetMapping("list")
-  public void list(Model model) throws Exception {
-      model.addAttribute("list", boardService.list());
-
-
     // 로그인 정보가 없는 경우 로그인 폼으로 이동
     if (loginUser == null) {
       return "redirect:/auth/form";
@@ -137,7 +121,6 @@ public class BoardController {
     model.addAttribute("loginUser.no", loginUser.getNo());
     model.addAttribute("list", boardService.list());
     return "board/userlist";
-
   }
 
   @GetMapping("searchlist")
@@ -164,8 +147,6 @@ public class BoardController {
     if (loginUser == null) {
       return "redirect:/auth/form";
     }
-
-
 
       Board b = boardService.get(board.getNo());
       if (b == null || b.getMno().getNo() != loginUser.getNo()) {
